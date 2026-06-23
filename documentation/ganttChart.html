@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Project Gantt Chart</title>
+        <style>
+            :root {
+                --ink: #1c2333;
+                --paper: #f7f5f0;
+                --grid: #e1ddd2;
+                --grid-strong: #c9c2af;
+                --accent: #b5562f;
+                --accent-soft: #e7c9b9;
+                --teal: #2f6f63;
+                --teal-soft: #bfe0d6;
+                --slate: #445069;
+                --slate-soft: #d6dbe6;
+                --gold: #c08a2e;
+                --gold-soft: #ecd9ab;
+                --row-alt: #efece3;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            body {
+                margin: 0;
+                padding: 40px 24px 60px;
+                background: var(--paper);
+                font-family: "Georgia", "Iowan Old Style", serif;
+                color: var(--ink);
+            }
+            .title-wrap {
+                text-align: center;
+                margin-bottom: 6px;
+            }
+            .eyebrow {
+                font-family: "Helvetica Neue", Arial, sans-serif;
+                letter-spacing: 0.22em;
+                text-transform: uppercase;
+                font-size: 11px;
+                color: var(--accent);
+                margin: 0 0 8px;
+            }
+            h1 {
+                margin: 0;
+                font-size: 30px;
+                font-weight: 700;
+                letter-spacing: 0.01em;
+            }
+            .subtitle {
+                font-family: "Helvetica Neue", Arial, sans-serif;
+                font-size: 13px;
+                color: #6b6557;
+                margin: 8px 0 28px;
+            }
+            .chart-shell {
+                max-width: 1047px;
+                margin: 0 auto;
+                background: #fffdf9;
+                border: 1px solid var(--grid-strong);
+                border-radius: 6px;
+                overflow: hidden;
+                box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
+            }
+            .scroll-area {
+                overflow-x: auto;
+            }
+            table.gantt {
+                border-collapse: collapse;
+                width: 100%;
+                min-width: 1280px;
+                table-layout: fixed;
+            }
+            .gantt col.task-col {
+                width: 230px;
+            }
+            .gantt col.week-col {
+                width: 34px;
+            }
+
+            /* Header */
+            thead th {
+                font-family: "Helvetica Neue", Arial, sans-serif;
+                background: var(--ink);
+                color: #f4f1e9;
+                font-weight: 600;
+                border: 1px solid #2c3550;
+            }
+            thead .month-row th {
+                font-size: 11.5px;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                text-align: center;
+                padding: 9px 4px;
+            }
+            thead .month-row th.task-header {
+                text-align: left;
+                padding-left: 16px;
+                background: var(--ink);
+                vertical-align: bottom;
+                font-size: 11.5px;
+            }
+            thead .week-row th {
+                font-size: 9.5px;
+                font-weight: 500;
+                color: #c7cadb;
+                text-align: center;
+                padding: 5px 2px 8px;
+                background: #262e47;
+                border-top: none;
+            }
+            thead .week-row th.task-sub {
+                background: #262e47;
+            }
+
+            /* Body */
+            tbody td {
+                border: 1px solid var(--grid);
+                height: 38px;
+                position: relative;
+                padding: 0;
+            }
+            tbody td.task-name {
+                font-family: "Helvetica Neue", Arial, sans-serif;
+                font-size: 12.5px;
+                text-align: left;
+                padding: 0 14px;
+                color: var(--ink);
+                border-right: 2px solid var(--grid-strong);
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            tbody tr:nth-child(even) td {
+                background: var(--row-alt);
+            }
+            tbody tr:nth-child(even) td.task-name {
+                background: var(--row-alt);
+            }
+            tbody tr:nth-child(odd) td {
+                background: #fffdf9;
+            }
+
+            /* month boundary divider */
+            td.month-start,
+            th.month-start {
+                border-left: 2px solid var(--grid-strong);
+            }
+
+            .bar {
+                position: absolute;
+                top: 7px;
+                bottom: 7px;
+                border-radius: 4px;
+                box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+            }
+            .bar-label {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-family: "Helvetica Neue", Arial, sans-serif;
+                font-size: 10px;
+                font-weight: 600;
+                color: #fffdf9;
+                white-space: nowrap;
+                pointer-events: none;
+                text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+            }
+
+            .legend {
+                max-width: 1500px;
+                margin: 22px auto 0;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 18px 28px;
+                justify-content: center;
+                font-family: "Helvetica Neue", Arial, sans-serif;
+                font-size: 12px;
+                color: #4a4636;
+            }
+            .legend-item {
+                display: flex;
+                align-items: center;
+                gap: 7px;
+            }
+            .swatch {
+                width: 13px;
+                height: 13px;
+                border-radius: 3px;
+                display: inline-block;
+                box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
+            }
+
+            @media print {
+                body {
+                    padding: 0;
+                    background: #fff;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="title-wrap">
+            <p class="eyebrow">Project Timeline</p>
+            <h1>Smart Tourism Navigation and Bus Management System</h1>
+            <p class="subtitle">Gantt Chart &nbsp;·&nbsp; May 2026 &ndash; October 2026</p>
+        </div>
+
+        <div class="chart-shell">
+            <!-- <div class="scroll-area"> -->
+            <table class="gantt" id="ganttTable"></table>
+            <!-- </div> -->
+        </div>
+
+        <!-- <div class="legend" id="legend"></div> -->
+
+        <script>
+            /* ---------- Configuration ---------- */
+            const months = ["May 2026", "Jun 2026", "Jul 2026", "Aug 2026", "Sep 2026", "Oct 2026"];
+            const weeksPerMonth = 4;
+            const totalWeeks = months.length * weeksPerMonth;
+
+            // Each task: start week index (1-based across whole timeline), span in weeks, color
+            const colors = {
+                accent: "#b5562f",
+                teal: "#2f6f63",
+                slate: "#445069",
+                gold: "#c08a2e",
+                plum: "#7a4a6b",
+                blue: "#2f5d8a",
+                rust: "#9c5a2e",
+                green: "#3f7a4e",
+                ink: "#1c2333",
+            };
+
+            const tasks = [
+                { name: "Requirement Collection & Analysis", start: 1, span: 2, color: colors.accent },
+                { name: "System Design (DFD, ERD, UML)", start: 4, span: 4, color: colors.teal },
+                { name: "Authentication Module & Dashboard", start: 9, span: 4, color: colors.slate },
+                { name: "Passenger Module", start: 11, span: 4, color: colors.gold },
+                { name: "Driver's Dashboard", start: 14, span: 4, color: colors.plum },
+                { name: "Admin Module", start: 18, span: 4, color: colors.blue },
+                { name: "Testing & Bug Fixing", start: 9, span: 13, color: colors.rust },
+                { name: "Project Documentation", start: 4, span: 18, color: colors.green },
+                { name: "Final Review and Project Submission", start: 21, span: 1, color: colors.ink },
+            ];
+
+            /* ---------- Build table ---------- */
+            const table = document.getElementById("ganttTable");
+
+            // colgroup
+            let colgroup = "<colgroup><col class='task-col'>";
+            for (let w = 0; w < totalWeeks; w++) colgroup += "<col class='week-col'>";
+            colgroup += "</colgroup>";
+            table.innerHTML += colgroup;
+
+            // thead
+            let thead = "<thead>";
+            thead += "<tr class='month-row'><th class='task-header' rowspan='2'>Task</th>";
+            months.forEach((m) => {
+                thead += `<th class="month-start" colspan="${weeksPerMonth}">${m}</th>`;
+            });
+            thead += "</tr>";
+            thead += "<tr class='week-row'>";
+            months.forEach(() => {
+                for (let w = 1; w <= weeksPerMonth; w++) {
+                    const cls = w === 1 ? "month-start" : "";
+                    thead += `<th class="${cls}">W${w}</th>`;
+                }
+            });
+            thead += "</tr></thead>";
+            table.innerHTML += thead;
+
+            // tbody
+            let tbody = "<tbody>";
+            tasks.forEach((task) => {
+                tbody += `<tr><td class="task-name" title="${task.name}">${task.name}</td>`;
+                for (let w = 1; w <= totalWeeks; w++) {
+                    const isMonthStart = (w - 1) % weeksPerMonth === 0;
+                    tbody += `<td class="${isMonthStart ? "month-start" : ""}" data-week="${w}"></td>`;
+                }
+                tbody += "</tr>";
+            });
+            tbody += "</tbody>";
+            table.innerHTML += tbody;
+
+            /* ---------- Place bars ---------- */
+            // wait a tick so layout/widths are settled
+            requestAnimationFrame(() => {
+                const rows = table.querySelectorAll("tbody tr");
+                tasks.forEach((task, i) => {
+                    const row = rows[i];
+                    const startCell = row.querySelector(`td[data-week="${task.start}"]`);
+                    const endCell = row.querySelector(`td[data-week="${task.start + task.span - 1}"]`);
+                    if (!startCell || !endCell) return;
+
+                    const rowRect = row.getBoundingClientRect();
+                    const startRect = startCell.getBoundingClientRect();
+                    const endRect = endCell.getBoundingClientRect();
+
+                    const left = startRect.left - rowRect.left;
+                    const width = endRect.right - startRect.left;
+
+                    const bar = document.createElement("div");
+                    bar.className = "bar";
+                    bar.style.left = left + "px";
+                    bar.style.width = Math.max(width - 4, 10) + "px";
+                    bar.style.background = task.color;
+                    bar.style.marginLeft = "2px";
+
+                    // place bar relative to row -> attach to first cell (task-name cell's row), positioned absolutely needs row to be relative
+                    row.style.position = "relative";
+                    row.appendChild(bar);
+
+                    if (width > 70) {
+                        const label = document.createElement("span");
+                        label.className = "bar-label";
+                        label.textContent = `${task.span}w`;
+                        bar.appendChild(label);
+                    }
+                });
+            });
+
+            /* ---------- Legend ---------- */
+        </script>
+    </body>
+</html>
