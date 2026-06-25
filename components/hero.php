@@ -20,8 +20,8 @@ function Hero()
 
                 <p class="text-gray-500">NOW LIVE IN 1 CITIES</p>
             </div>
-            <div class="grid grid-cols-2 gap-60 mt-18">
-                <div class="flex flex-col gap-6">
+            <div class="hero-container mt-18">
+                <div class="flex flex-col  gap-6">
 
                     <div class="text-8xl font-bold "> The navigation
                         layer for cities
@@ -39,12 +39,19 @@ function Hero()
                             it on the map </a>
                     </div>
                 </div>
-                <div class="relative bg-black rounded-xl ">
-                    <div class="inset-0 z-1"></div>
-                    <div class="inset-0 z-2"></div>
-                    <div class="inset-0 z-3"></div>
-                    <div class="inset-0 z-4">
-                        <?php Card("absolute left-4 border-solid border-2  bg-border bg-black inline-flex flex-col rounded-xl p-3 text-white", $heroCard1,"top:20px; left:20px") ?>
+                <div class="relative bg-black rounded-3xl h-128 overflow-hidden">
+                    <div class="absolute inset-0 z-1 "> 
+                        <span class="circle" id="bg-circle"
+                            style="top: 60px; left:180px; background-color: var(--color-secondary);"></span>
+                        <span class="circle" id="bg-circle"
+                            style="top: 300px; left:400px; background-color:#489af8;"></span>
+                        <!-- <span class="circle" id="bg-circle"
+                            style="top: 170px; left:180px; background-color: var(--color-secondary);"></span> -->
+                        </div>
+                    <div class="absolute inset-0 z-2 w-full h-full backdrop-blur-60 grid-bg-layout "></div>
+                    <div class="absolute inset-0 z-3 w-full h-full "></div>
+                    <div class="absolute inset-0 z-4   bg-black-75  w-full h-full">
+                        <!-- <?php Card("absolute left-4 border-solid border bg-border inline-flex flex-col rounded-xl p-3 text-white", $heroCard1, "top:20px; left:20px") ?> -->
 
 
                     </div>
