@@ -1,10 +1,5 @@
-const mobNavHam = document.querySelector("#mob-nav-ham")
-const mobNavMenu = document.querySelector("#mob-nav")
+import { LoadIntersectionObserver } from "./intersectionObserver.js";
 
-mobNavHam.addEventListener("click",()=>{
-    console.log("sdfs")
-document.body.style.overflow="hidden"
-mobNavMenu.classList.remove("hidden")
-
-
-})
+document.addEventListener("DOMContentLoaded", () => {
+    LoadIntersectionObserver();
+});

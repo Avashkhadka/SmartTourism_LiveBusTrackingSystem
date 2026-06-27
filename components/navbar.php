@@ -8,7 +8,7 @@ function RenderNavbar($activetab)
 
 
     <nav class="flex justify-between py-4 px-12 justify-center items-center shadow-sm" style="z-index: 9999;">
-        <div class="flex gap-2 justify-center items-center">
+        <div class="flex gap-2 justify-center items-center" id="rootimg">
             <span class="rounded-lg h-8 font-bold w-8 flex justify-center items-center bg-black text-white">K</span>
             <span class="font-bold">Khoja</span>
         </div>
@@ -46,15 +46,20 @@ function RenderNavbar($activetab)
             </a>
         </div>
 
-        <div id="mob-nav-ham"><i class="fa-solid fa-bars text-2xl"></i></div>
+        <button id="mob-nav-ham" class="inset-0 border-none bg-transparent" popovertarget="mob-nav" popovertargetaction="show"><i class="fa-solid fa-bars text-2xl"></i></button>
+        
+        <div class="w-screen h-screen bg-white z-9999 px-12" popover  id="mob-nav"> 
+            
+            <button id="mob-nav-ham" class="inset-0 border-none bg-transparent" popovertarget="mob-nav" popovertargetaction="hide"><i class="fa-solid fa-bars text-2xl"></i></button>
 
-        <div class="absolute w-screen h-screen bg-white z-9999 hidden px-12" id="mob-nav"> sdfsdfdf</div>
+
+        </div>
 
     </nav>
 
 
 
-    <script src="<?php echo BASEURL ?>/js/main.js"></script>
+    <script type="module" src="<?php echo BASEURL ?>/js/main.js"></script>
     <?php
 }
 

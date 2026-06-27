@@ -15,8 +15,12 @@ body {
     --bg-body: #fafaf7;
     --color-secondary: #ff5a1f;
     --border-bg: #28292b;
+    --border-gray: #e1e1e2;
 }
 
+.border-gray {
+    border: 1px solid var(--border-gray);
+}
 .color-ternary {
     color: var(--color-ternary);
 }
@@ -71,11 +75,34 @@ body {
     /* top: 140px;
     left: 170px; */
     border-radius: 50%;
-    width: 130px;
-    height: 130px;
+    width: 110px;
+    height: 110px;
     position: absolute;
     display: block;
     /* background-color: var(--color-secondary); */
+    animation: drag 5s infinite alternate;
+    animation: pulse 5s infinite alternate;
+}
+
+@keyframes pulse {
+    from {
+        width: 110px;
+        height: 110px;
+    }
+    to {
+        width: 80px;
+        height: 80px;
+    }
+}
+@keyframes drag {
+    100% {
+        transform: translateX(20px);
+        transform: translateY(10px);
+    }
+}
+
+.delay-3 {
+    animation-delay: 3s;
 }
 
 .backdrop-blur-60 {
@@ -89,29 +116,138 @@ body {
 
 .hero-container {
     display: grid;
-    gap: 70px;
+    gap: 40px;
     grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 #wide-nav,
 #wide-nav-link {
     display: none;
 }
-#mob-nav{
+#mob-nav {
+    position: absolute;
     inset: 0;
+    transform: translateX(100%);
     padding-top: 64px;
+    transition:
+        0.1s ease-in-out,
+        display 0.3s allow-discrete;
+    border: none;
+}
+
+#mob-nav:popover-open {
+    transform: translateX(0);
+}
+
+@starting-style {
+    #mob-nav:popover-open {
+        transform: translateX(100%);
+    }
 }
 
 #mob-nav-ham {
     display: block;
 }
 
-@media (min-width: 768px) {
-    .hero-container {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+.head-info {
+    font-size: clamp(38px, 6.5vw, 92px);
+}
+
+.head-trackcont {
+    aspect-ratio: 1 / 1.05;
+}
+.hero-leg {
+    font-size: 1.1rem;
+    div {
+        color: #6b6b6b;
+    }
+}
+.hero-count {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    div {
+        border: 1px solid transparent;
     }
 }
 
-@media (min-width: 833px) {
+.px-12 {
+    padding-inline: 2rem;
+}
+.page-head {
+    display: grid;
+    flex-direction: column;
+    justify-content: space-between;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 18px;
+    div {
+        font-size: 32px;
+        font-weight: 700;
+    }
+    span {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        /* py-4 px-8 */
+        a {
+            padding: 10px 16px;
+        }
+    }
+}
+.index-page-grid {
+    display: grid;
+    margin-top: 32px;
+    gap: 16px;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    .card {
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        background: #ffffff;
+        border-radius: 16px;
+        border: 1px solid #e2e2e1;
+        .card-img {
+            
+            display: inline;
+        }
+    }
+}
+
+.fade {
+    opacity: 0;
+    transform: translateY(30px);
+    transition:
+        opacity 0.6s ease,
+        transform 0.6s ease;
+}
+
+.fade.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (min-width: 700px) {
+    .hero-count {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        /* div{
+            border-right: 1px solid #e2e2e1;
+            } */
+    }
+    .page-head {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        span {
+            margin-left: auto;
+        }
+    }
+}
+
+@media (min-width: 983px) {
+    .hero-count {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        div {
+            border-right: 1px solid #e2e2e1;
+        }
+    }
+    .px-12 {
+        padding-inline: 4rem;
+    }
+
     #wide-nav,
     #wide-nav-link {
         display: flex;
@@ -120,4 +256,34 @@ body {
     #mob-nav-ham {
         display: none;
     }
+    .hero-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    /* .head-info {
+        font-size:5rem !important;
+    } */
+
+    .hero-container {
+        gap: 70px;
+    }
+    .index-page-grid {
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        .card {
+            grid-column: span 6;
+        }
+        .card:nth-child(1) {
+            grid-row: span 2;
+        }
+
+        .card:nth-child(4) {
+            grid-column: span 12;
+        }
+    }
+}
+
+@media (min-width: 1280px) {
+    /* .head-info {
+        font-size: 6rem !important;
+    } */
 }
