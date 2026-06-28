@@ -17,7 +17,7 @@
     <div class="max-w-9xl mx-auto">
         <?php RenderNavbar("home") ?>
         <?php Hero() ?>
-        <div id="heroContainer" class="py-12 px-12">
+        <section class="py-12 px-12 reveal">
             <div class="flex flex-col gap-3">
                 <!-- <div class="flex gap-2 items-center text-gray-600 text-xs  font-medium tracking-widest-long "> -->
                 <p class="text-gray-500 text-sm font-medium">WHAT KHOJA DOES</p>
@@ -50,23 +50,74 @@
                         </div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="p-4 border-gray card-img">d</div><div>asdfasd</div>
+                <?php
+
+                for ($i = 0; $i < 5; $i++) {
+                    ?>
+                    <div class="card reveal ">
+                        <div class="card-img">
+                            <div class="p-4  border-gray ">🚗</div>
+                        </div>
+                        <div>Live transit — no more "5 minutes" lies.</div>
+                        <div>Real GPS, live seat counts, honest ETAs. Buses move on the map, not in your imagination.</div>
+                    </div>
+                    <?php
+                }
+                ?>
+            </div>
+        </section>
+        <section class="py-12 px-12 reveal">
+            <div class="flex flex-col gap-3">
+                <p class="text-gray-500 text-sm font-medium">HOW A SATURDAY LOOKS LIKE</p>
+                <div class="page-head">
+                    <div>
+                        <h3>From "I'm bored" to
+                            "I'm there" — in three taps.</h3>
+                            <span class="flex my-4 color-gray fw-normal text-base ">
+                            No tab-switching, no comparing apps. Discovery, transit and booking on a single canvas — the
+                            way mapping should have worked from day one.
+                        </span>
+                    </div>
+                    <aside class="flex flex-col  border-gray rounded-xl overflow-hidden mb-2 reveal">
+                        <div class="flex p-6 justify-between">
+                            <div class="flex justify-center items-center gap-1 ">
+                                <span
+                                    class="rounded-lg h-6 font-bold w-6 flex justify-center items-center  text-sm bg-black text-white">K</span>
+                                <span class="font-bold text-base">Trip: Sat 7:30 AM</span>
+
+                            </div>
+                            <div class="text-green-800 font-medium py-2 px-4 text-sm bg-green-100 rounded-full">Confirmed</div>
+                        </div>
+                        <div></div>
+                        <div class="flex p-6 justify-between bgcolor-ternary border-t-gray ">
+                            <div>
+                                <div class="color-gray text-sm mb-1">Total</div>
+                                <div class="font-bold text-lg">$85.00</div>
+                            </div>
+                            <button
+                                class="px-4 rounded-full border-none gap-2 h-10 bg bgcolor-secondary text-base text-white">Track
+                                ride <i class="fa-solid fa-arrow-right"></i> </button>
+                        </div>
+                    </aside>
                 </div>
-                <div class="card">
-                    <div class="p-4 border-gray card-img">d</div><div>asdfasd</div>
-                </div>
-                <div class="card">
-                    <div class="p-4 border-gray card-img">d</div><div>asdfasd</div>
-                </div>
-                <div class="card">
-                    <div class="p-4 border-gray card-img">d</div><div>asdfasd</div>
-                </div>
-                <div class="card">
-                    <div class="p-4 border-gray card-img">d</div><div>asdfasd</div>
+                <div class="home-sec2-list reveal">
+                    <div>
+                        <div>1</div>
+                        <div>Open the map. See what's interesting around you.</div>
+                    </div>
+                    <div>
+                        <div>2</div>
+                        <div>
+                            Tap a place — get distance, live bus, and a seat price.</div>
+                    </div>
+                    <div>
+                        <div>3</div>
+                        <div>
+                            Book the ride. Watch your bus arrive in real time. </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
         <div class="h-screen w-full"></div>
     </div>
 

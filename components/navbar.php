@@ -7,7 +7,7 @@ function RenderNavbar($activetab)
     ?>
 
 
-    <nav class="flex justify-between py-4 px-12 justify-center items-center shadow-sm" style="z-index: 9999;">
+    <nav class="reveal flex justify-between py-4 px-12 justify-center items-center shadow-sm" style="z-index: 9999;">
         <div class="flex gap-2 justify-center items-center" id="rootimg">
             <span class="rounded-lg h-8 font-bold w-8 flex justify-center items-center bg-black text-white">K</span>
             <span class="font-bold">Khoja</span>

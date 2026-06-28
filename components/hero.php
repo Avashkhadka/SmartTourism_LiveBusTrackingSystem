@@ -3,7 +3,7 @@
 function Hero()
 {
     ?>
-    <div id="heroContainer" class="py-60 px-12">
+    <div class="py-60 px-12 reveal">
         <div class="flex flex-col">
             <div class="flex gap-2 items-center text-gray-600 text-xs  font-medium tracking-widest-long ">
                 <span class="relative justify-center items-center flex w-4 h-4">

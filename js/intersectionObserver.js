@@ -1,5 +1,5 @@
 export const LoadIntersectionObserver = () => {
-    const elements = document.querySelectorAll("[id]");
+    const elements = document.querySelectorAll(".reveal");
 
     elements.forEach((el) => {
         el.classList.add("fade");
