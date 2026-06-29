@@ -1,4 +1,5 @@
 <?php include '../components/navbar.php' ?>
+<?php include '../components/footer.php' ?>
 <?php include '../constants.php' ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,6 +13,7 @@
 <body>
 <div class="max-w-9xl mx-auto">
     <?php RenderNavbar("booking") ?>
+    <?php Footer() ?>
 
 </div>
 
