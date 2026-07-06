@@ -27,7 +27,7 @@
                     <span>
 
                         <a
-                            class=" no-underline text-gray-800 shadow border border-gray-200 border-solid nav-link-item-hover rounded-full hover-bg-ternary bg-white font-medium">Browse
+                            class=" no-underline text-gray-800 border border-gray-200 border-solid nav-link-item-hover rounded-full hover-bg-ternary bg-white font-medium">Browse
                             the product <i class="fa-solid fa-arrow-right text-xs"></i></a>
                     </span>
                 </div>
@@ -67,7 +67,7 @@
                 ?>
             </div>
         </section>
-        <section class="py-12 px-12 reveal mt-8">
+        <section class="py-12 px-12 reveal">
             <div class="flex flex-col gap-3">
                 <p class="text-gray-500 text-sm font-medium">HOW A SATURDAY LOOKS LIKE</p>
                 <div class="page-head">

@@ -71,6 +71,9 @@
 .flex-grow {
     flex-grow: 1;
 }
+.flex-grow-4 {
+    flex-grow: 4;
+}
 .flex-shrink {
     flex-shrink: 1;
 }
@@ -370,13 +373,23 @@
     padding-left: 2.5rem;
     padding-right: 2.5rem;
 }
-/* .px-12 {
+.px-12 {
     padding-left: 3rem;
     padding-right: 3rem;
-} */
+}
 .px-16 {
     padding-left: 4rem;
     padding-right: 4rem;
+}
+
+.px-32 {
+    padding-left: 8rem;
+    padding-right: 8rem;
+}
+
+.px-48 {
+    padding-left: 10rem;
+    padding-right: 10rem;
 }
 
 .py-0 {
@@ -424,6 +437,15 @@
     padding-bottom: 4rem;
 }
 
+.py-24 {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+}
+
+.py-32 {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+}
 .py-60 {
     padding-top: 60px;
 }
@@ -763,6 +785,15 @@
 }
 .w-96 {
     width: 24rem;
+}
+.w-112 {
+    width: 28rem;
+}
+.w-128 {
+    width: 32rem;
+}
+.w-144 {
+    width: 36rem;
 }
 .w-1-2 {
     width: 50%;
