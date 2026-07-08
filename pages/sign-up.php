@@ -53,7 +53,7 @@ include "../components/input.php"
                             'id' => 'phone',
                             'label' => 'Phone',
                             'placeholder' => '+977 9800000002',
-                            'type' => 'tel'
+                            'type' => 'number'
                         ]);
 
                         Input([
@@ -73,6 +73,7 @@ include "../components/input.php"
                     </div>
                     <div class="flex flex-col gap-2">
                         <?php Input(['id' => "password", "label" => "Password", "placeholder" => "Minimum 8 characters"]) ?>
+                        <?php Input(['id' => "cpassword", "label" => "Confirm Password", "placeholder" => "Minimum 8 characters"]) ?>
                     </div>
 
                     <div class="flex items-center gap-2">

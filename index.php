@@ -163,7 +163,11 @@
         <?php Footer() ?>
     </div>
 
-    <?php include 'pages/footerlinks.php' ?>
+    <?php
+  
+    include 'pages/footerlinks.php'
+        ?>
+
 </body>
 
 </html>
