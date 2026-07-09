@@ -1,5 +1,5 @@
 import { Toast } from "../utils/toast.js";
-const {BASEURL} = window.CONFIG;
+const { BASEURL } = window.CONFIG;
 
 export const LoadAuthHandler = () => {
     const signInForm = document.getElementById("sign-in-form");
@@ -17,19 +17,63 @@ export const LoadAuthHandler = () => {
     drSignInForm?.addEventListener("submit", (e) => {
         e.preventDefault();
         const drSignInFormData = new FormData(drSignInForm);
-        handleDrSignIn(drSignInForm);
+        handleDrSignUp(drSignInForm);
     });
 };
 
-const handleSignIn = (signInForm) => {
+const handleSignIn = async (signInForm) => {
     const signInFormData = new FormData(signInForm);
     let email = signInFormData.get("email");
     let password = signInFormData.get("password");
+
+    let isLoading = false;
+
+    let error = false;
+    if ([email, password].some((value) => !value?.trim())) {
+        Toast("Don't leave any fields empty.", "Error");
+        error = true;
+    }
+    if (password.length < 8) {
+        Toast("Password must be at least 8 Characters", "Error");
+        error = true;
+    }
+
+    if (error) return;
+    Toast("Please wait...", "Success");
+    isLoading = true;
+    try {
+        let res = await fetch(`${BASEURL}api/auth.php`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                action: "login",
+                user_info: { email, password },
+            }),
+        });
+        let data = await res.json();
+        if (data.status == 200) {
+            console.log(data);
+            Toast(`${data.message}`, "Success");
+            Toast("Redirecting...", "Success");
+            setTimeout(() => {
+                window.location.href = `${BASEURL}pages/sign-in.php`;
+            }, 1000);
+            signInForm.reset();
+        } else if (data.status == 409) {
+            Toast(`${data.message}`, "Error");
+        }
+    } catch (err) {
+        Toast("Something went wrong", "Error");
+        console.log(err);
+    }
+    isLoading = false;
 };
-const handleDrSignIn = (signInForm) => {
-    const signInFormData = new FormData(signInForm);
-    let email = signInFormData.get("email");
-    let password = signInFormData.get("password");
+const handleDrSignUp = (drSignInForm) => {
+    const drSignInFormData = new FormData(drSignInForm);
+    let email = drSignInFormData.get("email");
+    let password = drSignInFormData.get("password");
 };
 
 const handleSignUp = async (signUpForm) => {
@@ -43,6 +87,8 @@ const handleSignUp = async (signUpForm) => {
     let rememberMe = signUpFormData.get("rememberMe");
     let password = signUpFormData.get("password");
     let cpassword = signUpFormData.get("cpassword");
+
+    let isLoading = false;
 
     let error = false;
     if ([fname, handle, email, phone, country, city, password, cpassword].some((value) => !value?.trim())) {
@@ -75,21 +121,35 @@ const handleSignUp = async (signUpForm) => {
         error = true;
     }
 
-    if(error) return;
-
-    let res = await fetch(`${BASEURL}/api/auth.php`,{
-        method:"POST",
-        headers:{
-            "Content-Type":"application/json"
-        },
-        body:JSON.stringify({
-            action:"login",
-            user_info:{fname,handle,email,phone,country,city,password}
-        })
-    })
-    console.log(BASEURL)
-    Toast("Please wait. Creating your account", "Success");
-    Toast("Redirecting...", "Success");
-    signUpForm.reset();
+    if (error) return;
+    Toast("Please wait...", "Success");
+    isLoading = true;
+    try {
+        let res = await fetch(`${BASEURL}api/auth.php`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                action: "signup",
+                user_info: { fname, handle, email, phone, country, city, password },
+            }),
+        });
+        let data = await res.json();
+        if (data.status == 200) {
+            console.log(data);
+            Toast(`${data.message}`, "Success");
+            Toast("Redirecting...", "Success");
+            setTimeout(() => {
+                window.location.href = `${BASEURL}pages/sign-in.php`;
+            }, 1000);
+            signUpForm.reset();
+        } else if (data.status == 409) {
+            Toast(`${data.message}`, "Error");
+        }
+    } catch (err) {
+        Toast("Something went wrong", "Error");
+        console.log(err);
+    }
+    isLoading = false;
 };
-

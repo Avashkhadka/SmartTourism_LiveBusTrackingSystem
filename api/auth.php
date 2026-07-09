@@ -8,9 +8,8 @@ $action = $data['action'];
 
 if ($_SERVER['REQUEST_METHOD'] == "POST" && $action == "signup") {
     handleSignup($data, $conn);
-}else if ($_SERVER['REQUEST_METHOD']=="POST" && $action == "login")
-
-
-
+} else if ($_SERVER['REQUEST_METHOD'] == "POST" && $action == "login") {
+    handleSignIn($data,$conn);
+}
 
 ?>

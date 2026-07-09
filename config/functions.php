@@ -56,3 +56,20 @@ function handleSignup($data, $conn)
     }
 
 }
+
+function handleSignIn($data, $conn)
+{
+    $user = $data['user_info'];
+    $email = $user['email'];
+    $password = $user['password'];
+    $info = getUser($email, $conn);
+    if (count($info) == 1) {
+        if (password_verify($password, $info[0]['password'])) {
+            echo json_encode(["success" => true, "message" => "Login Successful", "status" => 200,]);
+        } else {
+            echo json_encode(["error" => true, "message" => "Incorrect Password", "status" => 400,]);
+        }
+    } else {
+        echo json_encode(["error" => true, "message" => "No user found. Please try again", "status" => 400,]);
+    }
+}
