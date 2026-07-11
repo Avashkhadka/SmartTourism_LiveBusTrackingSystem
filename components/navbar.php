@@ -1,5 +1,5 @@
 <?php
-function RenderNavbar($activetab)
+function RenderNavbar($activetab = "")
 {
     ?>
 
@@ -27,21 +27,47 @@ function RenderNavbar($activetab)
             <a class="no-underline nav-link <?php echo $activetab == "booking" ? "active-link shadow" : "color-ternary" ?>"
                 href='<?php echo BASEURL ?>pages/booking.php'>Booking</a>
         </div>
-        <div class="flex gap-2" id="wide-nav-link"> <a href='<?php echo BASEURL ?>pages/sign-up.php'
-                class="no-underline text-gray-800 border border-gray-200  py-2 px-4  border-solid rounded-full nav-link-item-hover hover-bg-ternary">
-                <span class="text-sm font-medium  ">
-                    Sign up
-                </span>
-            </a>
-            <a href='<?php echo BASEURL ?>pages/sign-in.php'
-                class="no-underline text-gray-800 bg-black border border-gray-200  py-2 px-4  border-solid rounded-full nav-link-item-hover ">
-                <span class="text-sm font-medium text-white">
-                    Sign in
+        <?php
+        if (isset($_SESSION['isLogged_in']) && $_SESSION['isLogged_in']) {
+            ?>
+            <div class="flex gap-2" id="wide-nav-link"> <a href='<?php echo BASEURL ?>pages/profile.php'
+                    class="no-underline text-gray-800 border border-gray-200  py-2 px-4  border-solid rounded-full nav-link-item-hover hover-bg-ternary">
+                    <span class="text-sm font-medium  ">
+                        Welcome!!
+                        <?php echo $_SESSION['user_name'] ?>
+                    </span>
+                </a>
+                <a href='<?php echo BASEURL ?>pages/logout.php'
+                    class="no-underline text-gray-800 bg-black border border-gray-200  py-2 px-4  border-solid rounded-full nav-link-item-hover ">
+                    <span class="text-sm font-medium text-white">
+                        Logout
 
-                </span>
-            </a>
+                    </span>
+                </a>
 
-        </div>
+            </div>
+            <?php
+        } else {
+            ?>
+            <div class="flex gap-2" id="wide-nav-link"> <a href='<?php echo BASEURL ?>pages/sign-up.php'
+                    class="no-underline text-gray-800 border border-gray-200  py-2 px-4  border-solid rounded-full nav-link-item-hover hover-bg-ternary">
+                    <span class="text-sm font-medium  ">
+                        Sign up
+                    </span>
+                </a>
+                <a href='<?php echo BASEURL ?>pages/sign-in.php'
+                    class="no-underline text-gray-800 bg-black border border-gray-200  py-2 px-4  border-solid rounded-full nav-link-item-hover ">
+                    <span class="text-sm font-medium text-white">
+                        Sign in
+
+                    </span>
+                </a>
+
+            </div>
+
+            <?php
+        }
+        ?>
 
         <button id="mob-nav-ham" class="inset-0 border-none bg-transparent" popovertarget="mob-nav"
             popovertargetaction="show"><i class="fa-solid fa-bars text-2xl"></i></button>

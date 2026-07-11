@@ -1,7 +1,8 @@
 <?php
-function getUser($Email, $conn)
+session_start();
+function getUser($field, $val, $conn)
 {
-    $sql = "SELECT * FROM user where email = '$Email'";
+    $sql = "SELECT * FROM user where $field = '$val'";
     $res = mysqli_query($conn, $sql);
     $data = [];
     if ($res) {
@@ -18,6 +19,7 @@ function handleSignup($data, $conn)
 {
     $user = $data['user_info'];
     $name = $user['fname'];
+    $nationality = $user['nationality'];
     $email = $user['email'];
     $phone = $user['phone'];
     $country = $user['country'];
@@ -25,16 +27,24 @@ function handleSignup($data, $conn)
     $password = password_hash($user['password'], PASSWORD_DEFAULT);
 
 
-    if (count(getUser($email, $conn)) > 0) {
+    if (count(getUser("email", $email, $conn)) > 0) {
         echo json_encode([
             "error" => true,
             "message" => "Account already exists",
             "status" => 409,
+            "data" => $data,
+        ]);
+    } else if (count(getUser("phone", $phone, $conn)) > 0) {
+        echo json_encode([
+            "error" => true,
+            "message" => "No Duplicate Phone Number Allowed",
+            "status" => 409,
         ]);
     } else {
-        $sql = "INSERT INTO user (name,email,country,city,phone,password,profile_image,role) values(
+        $sql = "INSERT INTO user (name,email,nationality,country,city,phone,password,profile_image,role) values(
     '$name',
     '$email',
+    '$nationality',
     '$country',
     '$city',
     '$phone',
@@ -51,6 +61,12 @@ function handleSignup($data, $conn)
                 "status" => 200,
             ]);
 
+        } else {
+            echo json_encode([
+                "error" => true,
+                "message" => "Failed To Create An Account",
+                "status" => 400,
+            ]);
         }
 
     }
@@ -62,10 +78,15 @@ function handleSignIn($data, $conn)
     $user = $data['user_info'];
     $email = $user['email'];
     $password = $user['password'];
-    $info = getUser($email, $conn);
+    $info = getUser("email",$email, $conn);
     if (count($info) == 1) {
         if (password_verify($password, $info[0]['password'])) {
             echo json_encode(["success" => true, "message" => "Login Successful", "status" => 200,]);
+            $_SESSION['isLogged_in'] = true;
+            $_SESSION['user_id'] = $info[0]['user_id'];
+            $_SESSION['user_name'] = $info[0]['name'];
+            $_SESSION['role'] = $info[0]['role'];
+            $_SESSION['profile_image'] = $info[0]['profile_image'];
         } else {
             echo json_encode(["error" => true, "message" => "Incorrect Password", "status" => 400,]);
         }

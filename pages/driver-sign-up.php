@@ -9,27 +9,26 @@ include "../includes/authGuard.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create your account - Khoja</title>
+    <title>Register as a driver - Khoja</title>
     <?php include '../includes/headerLinks.php' ?>
 </head>
 
 <body>
     <section class=" w-full reveal">
         <div class="reg-log">
-            <div class="flex w-1-2 reveal">
-                <div class="py-8 px-16 w-144 mx-auto ">
+            <div class="flex  reveal">
+                <div class="py-8 px-16 w-144 mx-auto reveal">
                     <a href="<?php echo BASEURL ?>" class="no-underline flex justify-start items-center gap-2 mb-24 ">
                         <span
                             class="rounded-lg h-6 font-bold w-6 flex justify-center items-center  text-sm bg-black text-white">K</span>
                         <span class="font-bold text-base text-black">Khoja</span>
                     </a>
                     <div class=" py-8 border-b-gray flex flex-col gap-2">
-                        <p class="text-gray-500 text-sm font-medium">TRAVELER ACCOUNT</p>
-                        <p class="text-5xl font-bold text-black">Create your <br> Client ID.</p>
-                        <p class="text-base color-ternary">Save places, book rides, earn points. Takes under a minute.
-                        </p>
+                        <p class="text-gray-500 text-sm font-medium">RIDERS ACCOUNT</p>
+                        <p class="text-5xl font-bold text-black">Create your <br> Driver ID.</p>
+                        <p class="text-base color-ternary">Drive safely, stay connected, build your reputation. Sign in and get back on the road in under a minute.</p>
                     </div>
-                    <form class="py-6 gap-3 flex flex-col reveal" id="sign-up-form">
+                    <form class="py-6 gap-3 flex flex-col reveal" id="drsign-in-form">
                         <div class="signup-form-control">
                             <?php
 
@@ -40,24 +39,23 @@ include "../includes/authGuard.php";
                             ]);
 
                             Input([
-                                'id' => 'phone',
-                                'label' => 'Phone',
-                                'placeholder' => '+977 9800000002',
-                                'type' => 'number'
+                                'id' => 'nationality',
+                                'label' => 'Nationality',
+                                'placeholder' => 'Nepali'
                             ]);
 
-                            ?>
-                            <?php Input([
+                            Input([
                                 'id' => 'email',
                                 'label' => 'Email',
                                 'placeholder' => 'your@email.com',
                                 'type' => 'email'
-                            ]); ?>
-                            <?php Input([
-                                'id' => 'nationality',
-                                'label' => 'Nationality',
-                                'placeholder' => 'Nepali',
-                                'type' => 'text'
+                            ]);
+
+                            Input([
+                                'id' => 'phone',
+                                'label' => 'Phone',
+                                'placeholder' => '+977 9800000002',
+                                'type' => 'tel'
                             ]);
 
                             Input([
@@ -76,8 +74,7 @@ include "../includes/authGuard.php";
 
                         </div>
                         <div class="flex flex-col gap-2">
-                            <?php Input(['id' => "password", "label" => "Password", "placeholder" => "Minimum 8 characters", "type" => "password"]) ?>
-                            <?php Input(['id' => "cpassword", "label" => "Confirm Password", "placeholder" => "Minimum 8 characters", "type" => "password"]) ?>
+                            <?php Input(['id' => "password", "label" => "Password", "placeholder" => "Minimum 8 characters"]) ?>
                         </div>
 
                         <div class="flex items-center gap-2">
@@ -96,7 +93,7 @@ include "../includes/authGuard.php";
                             Create
                             an account </button>
                     </form>
-                    <div class="text-center text-sm flex  justify-center gap-2 pb-8 btn-switch-account">
+                    <div class="text-center text-sm  justify-center gap-2 btn-switch-account">
                         <span>
                             <span class="color-ternary text-left"> Have an account? </span>
                             <a href="<?php echo BASEURL ?>pages/sign-in.php"
@@ -105,25 +102,24 @@ include "../includes/authGuard.php";
                                 in</a>
                         </span>
                         <span>
-                            <span class="color-ternary text-left"> Driving a bus? </span>
-                            <a href="<?php echo BASEURL ?>pages/driver-sign-up.php"
-                                class=" no-underline font-medium color-secondary"> Register as Driver </a>
+                            <span class="color-ternary text-left"> You are a client? </span>
+                            <a href="<?php echo BASEURL ?>pages/sign-up.php"
+                                class=" no-underline font-medium color-secondary"> Register as Client </a>
                         </span>
 
                     </div>
                 </div>
             </div>
-            <div class="relative">
+            <div class="relative" >
                 <div class="absolute inset-0 bg-black-75"></div> <img class=" inset-0 object-cover h-full w-full"
                     src="<?php echo BASEURL ?>assets/images/signup-bg.jpg" alt="">
                 <!-- <div class="absolute">asdfas</div> -->
 
             </div>
-
         </div>
     </section>
 
-    <?php include '../includes/footerlinks.php' ?>
+    <script type="module" src="<?php echo BASEURL ?>/js/main.js"></script>
 </body>
 
 </html>

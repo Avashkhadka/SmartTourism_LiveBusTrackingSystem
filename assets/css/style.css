@@ -343,6 +343,7 @@ footer {
 .reg-log {
     display: flex;
     flex-direction: column-reverse;
+    height: 100%;
     input {
         transition: 0.2s ease-in-out;
         outline: none;
@@ -360,6 +361,16 @@ footer {
         display: grid;
         gap: 10px;
         grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+    > div {
+        width: 100%;
+    }
+    >div:nth-child(2){
+        height:20rem;
+    }
+    .btn-switch-account{
+        display: flex;
+        flex-direction: column;
     }
 }
 
@@ -379,6 +390,16 @@ footer {
         .signup-form-control {
             grid-template-columns: repeat(2, minmax(0, 1fr));
         }
+        > div {
+            width: 50%;
+        }
+        >div:nth-child(2){
+            height:55rem;
+
+        }
+         .btn-switch-account{
+            flex-direction: row;
+         }
     }
 }
 

@@ -1,6 +1,7 @@
 <?php include '../components/navbar.php' ?>
 <?php include '../components/footer.php' ?>
-<?php include '../constants.php' ?>
+<?php include '../config/constants.php' ?>
+<?php include "../includes/authGuard.php";?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Khoja - Avash khadka</title>
-    <?php include 'headerLinks.php' ?>
+    <?php include '../includes/headerLinks.php' ?>
 </head>
 
 <body>
@@ -19,7 +20,7 @@
     </div>
 
 
-    <?php include 'footerlinks.php' ?>
+    <?php include '../includes/footerlinks.php' ?>
 </body>
 
 </html>

@@ -30,6 +30,7 @@ function TableUser($conn)
             user_id int PRIMARY KEY AUTO_INCREMENT,
             name varchar(255) not null,
             email varchar(255) not null unique,
+            nationality varchar(255) not null,
             country varchar(255) not null,
             city varchar(255) not null,
             phone bigint unique not null,
@@ -48,7 +49,7 @@ function createAdmin($conn)
 {
     $pwh = password_hash("@Admin123",PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO user (name,email,country,city,phone,password,profile_image,role) values('Admin','admin@gmail.com','Nepal','Kathmandu','9841286400','$pwh','assets/profiles/admin.png','admin')";
+    $sql = "INSERT INTO user (name,email,nationality,country,city,phone,password,profile_image,role) values('Admin','admin@gmail.com','Nepali','Nepal','Kathmandu','9841286400','$pwh','assets/profiles/admin.png','admin')";
     $res = mysqli_query($conn, $sql);
     if ($res) {
         echo "<br> Admin Created Successfully!!! ";

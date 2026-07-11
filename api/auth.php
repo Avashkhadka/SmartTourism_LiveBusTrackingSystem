@@ -1,6 +1,6 @@
 <?php
 include '../config/conn.php';
-include "../config/functions.php";
+include "../services/authFunctions.php";
 
 $data = json_decode(file_get_contents("php://input"), true);
 
