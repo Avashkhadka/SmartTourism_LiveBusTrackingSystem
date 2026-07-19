@@ -1,30 +1,31 @@
 <?php
 session_start();
-function getUser($field, $val, $conn)
+function getUser($field, $value, $conn)
 {
-    $sql = "SELECT * FROM user where $field = '$val'";
-    $res = mysqli_query($conn, $sql);
-    $data = [];
-    if ($res) {
-
-        while ($row = mysqli_fetch_assoc($res)) {
-            $data[] = $row;
-        }
-        return $data;
+    $allowed = ['email', 'phone'];
+    if (!in_array($field, $allowed)) {
+        return [];
     }
-}
 
+    $stmt = $conn->prepare(
+        "SELECT * FROM users WHERE $field=?"
+    );
+    
+    $stmt->bind_param("s", $value);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    return $res->fetch_all(MYSQLI_ASSOC);
+}
 
 function handleSignup($data, $conn)
 {
-    $user = $data['user_info'];
-    $name = $user['fname'];
-    $nationality = $user['nationality'];
-    $email = $user['email'];
-    $phone = $user['phone'];
-    $country = $user['country'];
-    $city = $user['city'];
-    $password = password_hash($user['password'], PASSWORD_DEFAULT);
+    $name = $data['full_name'];
+    $nationality = $data['nationality'];
+    $email = $data['email'];
+    $phone = $data['phone'];
+    $country = $data['country'];
+    $city = $data['city'];
+    $password = password_hash($data['password'], PASSWORD_DEFAULT);
 
 
     if (count(getUser("email", $email, $conn)) > 0) {
@@ -41,7 +42,7 @@ function handleSignup($data, $conn)
             "status" => 409,
         ]);
     } else {
-        $sql = "INSERT INTO user (name,email,nationality,country,city,phone,password,profile_image,role) values(
+        $sql = "INSERT INTO users (name,email,nationality,country,city,phone,password,profile_image,role) values(
     '$name',
     '$email',
     '$nationality',
@@ -72,13 +73,11 @@ function handleSignup($data, $conn)
     }
 
 }
-
 function handleSignIn($data, $conn)
 {
-    $user = $data['user_info'];
-    $email = $user['email'];
-    $password = $user['password'];
-    $info = getUser("email",$email, $conn);
+    $email = $data['email'];
+    $password = $data['password'];
+    $info = getUser("email", $email, $conn);
     if (count($info) == 1) {
         if (password_verify($password, $info[0]['password'])) {
             echo json_encode(["success" => true, "message" => "Login Successful", "status" => 200,]);

@@ -1,15 +1,31 @@
 <?php
 include '../config/conn.php';
+include '../services/driver.php';
+include '../services/user.php';
+include '../services/admin.php';
 include "../services/authFunctions.php";
 
-$data = json_decode(file_get_contents("php://input"), true);
+$action = $_POST['action'] ?? '';
+if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
-$action = $data['action'];
+    switch ($action) {
+        case "signup":
+            handleSignup($_POST, $conn);
+            break;
 
-if ($_SERVER['REQUEST_METHOD'] == "POST" && $action == "signup") {
-    handleSignup($data, $conn);
-} else if ($_SERVER['REQUEST_METHOD'] == "POST" && $action == "login") {
-    handleSignIn($data,$conn);
+        case "login":
+            handleSignIn($_POST, $conn);
+            break;
+
+        case "driverSignup":
+            handleDrSignIn($_POST, $_FILES, $conn);
+            break;
+
+        default:
+            echo json_encode([
+                "status" => 400,
+                "message" => "Invalid action."
+            ]);
+            break;
+    }
 }
-
-?>

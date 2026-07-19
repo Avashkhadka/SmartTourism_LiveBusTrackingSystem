@@ -67,7 +67,7 @@ function Hero()
                     </div>
                 </div>
             </div>
-            <div class="flex flex-wrap justify-center gap-16 mx-auto mt-10 hero-leg">
+            <div class="flex flex-wrap justify-center gap-12 mx-auto mt-10 hero-leg">
                 <div class="font-bold  ">Kathmandu</div>
                 <div class="font-bold  ">Bhaktapur</div>
                 <div class="font-bold  ">Lalitpur</div>

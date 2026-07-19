@@ -50,6 +50,9 @@ button {
 .bgcolor-secondary {
     background-color: var(--color-secondary);
 }
+.bg-disabled {
+    background-color: var(--color-ternary);
+}
 
 .nav-link-item-hover {
     transition: 0.1s all ease-in-out;
@@ -353,9 +356,44 @@ footer {
         border: 1px solid var(--border-gray);
         border-radius: 0.5rem;
     }
+    /* option {
+        font-size: 16px;
+        border-radius: 10px;
+        padding: 8px 16px;
+        :picker{
+            background-color: var(--color-secondary);
+        }
+    } */
 
-    input:focus {
-        border: 1px solid var(--color-secondary);
+    select {
+        line-height: 40px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+
+    select,
+    ::picker(select) {
+        appearance: base-select;
+    }
+
+    ::picker(select) {
+        border: none;
+        border-radius: 10px;
+        background: white;
+    }
+
+    option {
+        padding:0 12px;
+    }
+
+    option:checked {
+        background: var(--color-secondary);
+        color: white;
+    }
+
+    input:focus,
+    select:focus {
+        border: 1px solid rgb(94, 210, 243);
     }
     .signup-form-control {
         display: grid;
@@ -365,13 +403,46 @@ footer {
     > div {
         width: 100%;
     }
-    >div:nth-child(2){
-        height:20rem;
+    > div:nth-child(2) {
+        height: 20rem;
     }
-    .btn-switch-account{
+    .btn-switch-account {
         display: flex;
         flex-direction: column;
     }
+}
+
+.driver-sign-line,
+.driver-sign-line-bg {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 5px;
+    background-color: var(--color-secondary);
+}
+#dsign-in-form {
+    input[type="file"]::file-selector-button {
+        border: 0;
+        padding: 10px;
+        background-color: var(--bg-body);
+        border-radius: 10px;
+    }
+}
+
+.driver-sign-line-bg {
+    width: 100%;
+    background-color: rgba(180, 180, 180, 0.238);
+}
+
+.driver-sign-line {
+    width: 0%;
+    background-color: var(--color-secondary);
+    transition: width 0.3s ease;
+}
+
+.driver-driver-btn-container{
+    display: flex;
+    flex-direction: column-reverse;
 }
 
 @media (min-width: 700px) {
@@ -393,14 +464,14 @@ footer {
         > div {
             width: 50%;
         }
-        >div:nth-child(2){
-            height:55rem;
-
+        > div:nth-child(2) {
+            height: 55rem;
         }
-         .btn-switch-account{
+        .btn-switch-account {
             flex-direction: row;
-         }
+        }
     }
+
 }
 
 @media (min-width: 983px) {
@@ -465,6 +536,10 @@ footer {
             grid-column: span 12;
         }
     }
+        .driver-driver-btn-container{
+    display: flex;
+    flex-direction: row;
+}
 }
 
 @media (min-width: 1280px) {

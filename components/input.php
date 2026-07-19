@@ -17,7 +17,7 @@ function Input($props = [])
         </label>
 
         <input type="<?php echo $type; ?>" name="<?php echo $id?>" id="<?php echo $id; ?>" class="<?php echo $iclass; ?>"
-            placeholder="<?php echo $placeholder; ?>">
+            placeholder="<?php echo $placeholder; ?>" <?php echo $type == "file"? "accept='.jpg,.jpeg,.png'":""?> >
     </div>
     <?php
 }

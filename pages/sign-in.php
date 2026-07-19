@@ -17,7 +17,7 @@ include "../includes/authGuard.php";
     <section class=" w-full reveal h-screen overflow-hidden ">
         <div class="reg-log ">
             <div class="flex w-1-2 reveal">
-                <div class="p-16 w-144 mx-auto">
+                <div class="px-12 py-8 w-144 mx-auto">
                     <a href="<?php echo BASEURL ?>" class="no-underline flex justify-start items-center gap-2 mb-24 ">
                         <span
                             class="rounded-lg h-6 font-bold w-6 flex justify-center items-center  text-sm bg-black text-white">K</span>
