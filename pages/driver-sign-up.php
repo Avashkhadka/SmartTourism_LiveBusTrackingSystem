@@ -34,7 +34,7 @@ include "../includes/authGuard.php";
                             <span class="driver-sign-line-bg"></span>
                         </div>
                     </div>
-                    <form class="flex flex-col reveal " id="dsign-in-form" enctype="multipart/form-data">
+                    <form class="flex flex-col reveal" id="dsign-in-form" enctype="multipart/form-data">
                         <div class="py-6 gap-3 flex flex-col dr-sign-form-content" id="dr-sign-personalIDentity">
                             <p class="text-2xl font-bold text-black">1. Personal Identity</p>
 
@@ -64,7 +64,7 @@ include "../includes/authGuard.php";
                                     'id' => 'phone',
                                     'label' => 'Phone',
                                     'placeholder' => '+977 9800000002',
-                                    'type' => 'tel'
+                                    'type' => 'number'
                                 ]);
                                 ?>
                                 <div class="w-full">
@@ -120,7 +120,7 @@ include "../includes/authGuard.php";
                                 ]);
 
                                 Input([
-                                    'id' => 'lisence_type',
+                                    'id' => 'license_type',
                                     'label' => 'License Type',
                                     'placeholder' => 'A,B,C'
                                 ]);
@@ -186,10 +186,9 @@ include "../includes/authGuard.php";
                                     "dclass" => "flex-row-rev"
                                 ]) ?>
 
-
                             </div>
                         </div>
-                      
+
                         <div class="flex w-full  gap-4 driver-driver-btn-container">
 
                             <button id="prevPage" type="button" disabled="true"

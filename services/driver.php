@@ -8,7 +8,7 @@ function handleDrSignIn($data, $files, $conn)
     $password = password_hash($data['password'], PASSWORD_DEFAULT);
 
     $license_number = $data['license_number'];
-    $license_type = $data['lisence_type'];
+    $license_type = $data['license_type'];
     $license_issue_date = $data['license_issue_date'];
     $license_expiry_date = $data['license_expiry_date'];
     $issuing_office = $data['issuing_office'];
@@ -114,62 +114,60 @@ function handleDrSignIn($data, $files, $conn)
 
             echo json_encode([
                 "error" => true,
-                "message" => "Failed to create user."
-            ]);
-            exit;
-        }
-
-        $user_id = mysqli_insert_id($conn);
-        $sql = "INSERT INTO driver_documents(
-            user_id,
-            license_number,
-            license_type,
-            license_issue_date,
-            license_expiry_date,
-            issuing_office,
-            year_of_experience,
-            id_front_photo,
-            id_back_photo,
-            license_front_photo,
-            license_back_photo
-        ) VALUES(
-
-            '$user_id',
-            '$license_number',
-            '$license_type',
-            '$license_issue_date',
-            '$license_expiry_date',
-            '$issuing_office',
-            '$year_of_experience',
-            '$idFront',
-            '$idBack',
-            '$licenseFront',
-            '$licenseBack'
-  
-        )";
-
-        $res = mysqli_query($conn, $sql);
-
-        if (!$res) {
-            http_response_code(500);
-
-            echo json_encode([
-                "error" => true,
-                "message" => "Driver details could not be saved."
+                "message" => "Failed to create user.",
+                "ermsg" => $res,
             ]);
         } else {
-            http_response_code(200);
 
-            echo json_encode([
-                "success" => true,
-                "message" => "Driver registration completed successfully."
-            ]);
+            $user_id = mysqli_insert_id($conn);
+            $sql = "INSERT INTO driver_documents(user_id,license_number,license_type,license_issue_date,license_expiry_date, issuing_office,year_of_experience,id_front_photo,id_back_photo,license_front_photo,license_back_photo) VALUES($user_id,'$license_number','$license_type','$license_issue_date','$license_expiry_date','$issuing_office','$year_of_experience','$idFront','$idBack','$licenseFront','$licenseBack')";
 
-      
 
+            $res = mysqli_query($conn, $sql);
+            if (!$res) {
+                http_response_code(500);
+
+                echo json_encode([
+                    "error" => true,
+                    "message" => "Failed to create user.",
+                    "ermsg" => mysqli_error($conn),
+                ]);
+                exit;
+            }
+            if($res){
+
+                http_response_code(200);
+                echo json_encode([
+                    "success" => true,
+                "message" => "Created",
+                "ermsg" => $res,
+                "sql" => $sql,
+                ]);
+                }else{
+                    http_response_code(400);
+                    echo json_encode([
+                    "success" => true,
+                    "message" => "Created",
+                    "ermsg" =>  mysqli_error($conn),
+                    "sql" => $sql,
+                    ]);
+                    
+                }
+            // if (!$res) {
+            //     http_response_code(500);
+
+            //     echo json_encode([
+            //         "error" => true,
+            //         "message" => "Driver details could not be saved.",
+            //     ]);
+            // } else {
+            //     http_response_code(200);
+
+            //     echo json_encode([
+            //         "success" => true,
+            //         "message" => "Driver registration completed successfully.",
+            //     ]);
+            // }
         }
     }
-
-
-
 }

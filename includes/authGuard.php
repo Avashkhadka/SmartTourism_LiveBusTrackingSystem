@@ -18,4 +18,4 @@ if (isset($_SESSION['isLogged_in']) and $_SESSION['isLogged_in'] == true) {
 
 }
 
-?>
+?>`

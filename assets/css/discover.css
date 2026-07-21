@@ -1,0 +1,38 @@
+#discover-container {
+    .discover-title-sub {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    .search-container {
+        background-color: white;
+        padding: 1rem;
+        border-radius: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        div{
+            flex-grow: 1;
+        }
+        .search-category{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12.5px;
+        }
+    }
+
+    input:focus {
+        outline: none;
+    }
+    @media (min-width: 700px) {
+        .discover-title-sub {
+            flex-direction: row;
+        }
+        .search-container {
+            flex-direction: row;
+        }
+    }
+    @media (min-width: 983px) {
+    }
+}

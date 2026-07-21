@@ -1,9 +1,11 @@
 <?php
+header("Content-Type: application/json");
 include '../config/conn.php';
 include '../services/driver.php';
 include '../services/user.php';
 include '../services/admin.php';
 include "../services/authFunctions.php";
+
 
 $action = $_POST['action'] ?? '';
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
