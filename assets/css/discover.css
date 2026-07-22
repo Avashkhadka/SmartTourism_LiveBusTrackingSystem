@@ -10,29 +10,52 @@
         border-radius: 1rem;
         display: flex;
         flex-direction: column;
-        gap: 10px;
-        div{
+        width: 100%;
+        gap: 20px;
+        div {
             flex-grow: 1;
         }
-        .search-category{
+        .search-category {
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 6px;
             font-size: 12.5px;
+        }
+        > div:last-child {
+            display: flex;
         }
     }
 
+    .discover_card_container{
+        display: grid;
+        grid-template-columns: repeat(1,minmax(0,1fr));
+        gap: 20px;
+    }
+    
     input:focus {
         outline: none;
     }
     @media (min-width: 700px) {
-        .discover-title-sub {
-            flex-direction: row;
-        }
-        .search-container {
-            flex-direction: row;
+        .discover_card_container{
+        grid-template-columns: repeat(2,minmax(0,1fr));
+        
+    }
+}
+@media (min-width: 983px) {
+    .discover-title-sub {
+        flex-direction: row;
+    }
+    .search-container {
+        flex-direction: row;
+        > div:last-child {
+            display: flex;
+            flex-direction: column;
         }
     }
-    @media (min-width: 983px) {
+    .discover_card_container{
+            grid-template-columns: repeat(3,minmax(0,1fr));
+
+        }
     }
 }

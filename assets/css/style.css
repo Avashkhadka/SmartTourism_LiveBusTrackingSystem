@@ -72,9 +72,9 @@ button {
     /* background-color: #489af8; */
 }
 
-.active-category{
+.active-category {
     background-color: black;
-    border:transparent;
+    border: transparent;
     color: white;
 }
 
@@ -163,6 +163,12 @@ button {
         0.1s ease-in-out,
         display 0.3s allow-discrete;
     border: none;
+}
+
+.card {
+    border: 1px solid var(--border-gray);
+    border-radius: 0.5rem;
+    background-color: white;
 }
 
 #mob-nav:popover-open {
@@ -389,7 +395,7 @@ footer {
     }
 
     option {
-        padding:0 12px;
+        padding: 0 12px;
     }
 
     option:checked {
@@ -446,7 +452,7 @@ footer {
     transition: width 0.3s ease;
 }
 
-.driver-driver-btn-container{
+.driver-driver-btn-container {
     display: flex;
     flex-direction: column-reverse;
 }
@@ -477,7 +483,6 @@ footer {
             flex-direction: row;
         }
     }
-
 }
 
 @media (min-width: 983px) {
@@ -542,10 +547,10 @@ footer {
             grid-column: span 12;
         }
     }
-        .driver-driver-btn-container{
-    display: flex;
-    flex-direction: row;
-}
+    .driver-driver-btn-container {
+        display: flex;
+        flex-direction: row;
+    }
 }
 
 @media (min-width: 1280px) {
