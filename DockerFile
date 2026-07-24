@@ -1,0 +1,13 @@
+FROM php:8.2-apache
+
+RUN docker-php-ect-install mysqli pdo pdo_mysql
+
+RUN a2enmod rewrite
+
+COPY apache/000-default.conf /etc/apache2/sites-available/000-default.conf
+
+COPY php/ /var/www/html/
+
+RUN chown -r www-dada:www-data /var/www/html/
+
+EXPOSE 80

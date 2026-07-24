@@ -51,7 +51,7 @@
                     <div class="border-gray search-category rounded-full h-10 curser-pointer">Lakes</div>
                 </div>
                 <select name="search-select" id="search-select"
-                    class="overflow-hidden py-4 h-full w-auto border-gray px-2 rounded-lg ">
+                    class="overflow-hidden py-3 h-full w-auto border-gray px-2 rounded-lg ">
                     <option value="" selected>Sort: Popular</option>
                     <option value="Nearest First">Nearest First</option>
                     <option value="Highest Rated">Highest Rated</option>
@@ -69,7 +69,7 @@
                     <?php
                     for ($i = 0; $i < 10; $i++) {
                         ?>
-                        <article class="w-full card rounded-2xl overflow-hidden shadow-lg">
+                        <article class="w-full card rounded-2xl overflow-hidden shadow-lg reveal">
                             <div class="relative">
                                 <img src="../assets/images/signin-bg.jpg" alt="" class="w-full">
                                 <div class="absolute inset-0 h-full w-full p-4">
