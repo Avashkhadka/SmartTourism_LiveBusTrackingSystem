@@ -28,7 +28,7 @@
     }
 
     .discover_card_container {
-        display: grid;
+        display: flex;
         grid-template-columns: repeat(1, minmax(0, 1fr));
         gap: 20px;
     }

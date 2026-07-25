@@ -1,10 +1,11 @@
 <?php
 session_start();
 require_once __DIR__ . '/../vendor/autoload.php';
-
+require_once __DIR__ . '/../config/constants.php';
 use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
-$key = "SmToBuNaSy";
+use Firebase\JWT\KEY;
+
+
 function getUser($field, $value, $conn)
 {
     $allowed = ['email', 'phone'];
@@ -15,19 +16,29 @@ function getUser($field, $value, $conn)
     $stmt = $conn->prepare(
         "SELECT * FROM users WHERE $field=?"
     );
-    
+
     $stmt->bind_param("s", $value);
     $stmt->execute();
     $res = $stmt->get_result();
     return $res->fetch_all(MYSQLI_ASSOC);
 }
 
-function checkLogin(){
-    if(isset($_SESSION['isLogged_in']) && $_SESSION['isLogged_in']){
-        return true;
-    }else{
-        return false;
+function checkLogin($jwt)
+{
+    try {
+
+        $key = JWTSECRETKEY;
+        $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
+        return $decoded;
+    } catch (Exception $e) {
+        json_encode(['error' => $e->getMessage()]);
     }
+
+    // if (isset($_SESSION['isLogged_in']) && $_SESSION['isLogged_in']) {
+    //     return true;
+    // } else {
+    //     return false;
+    // }
 }
 
 
@@ -94,12 +105,25 @@ function handleSignIn($data, $conn)
     $info = getUser("email", $email, $conn);
     if (count($info) == 1) {
         if (password_verify($password, $info[0]['password'])) {
-            echo json_encode(["success" => true, "message" => "Login Successful", "status" => 200,]);
             $_SESSION['isLogged_in'] = true;
             $_SESSION['user_id'] = $info[0]['user_id'];
             $_SESSION['user_name'] = $info[0]['name'];
             $_SESSION['role'] = $info[0]['role'];
             $_SESSION['profile_image'] = $info[0]['profile_image'];
+
+
+
+            $key = JWTSECRETKEY;
+            $payload = [
+                "user_id" => $info[0]['user_id'],
+                "email" => $info[0]['email'],
+                "iat" => time(),              // Issued at
+                "exp" => time() + 3600 * 12        // Expires in 12 hour
+            ];
+            $jwt = JWT::encode($payload, $key, 'HS256');
+
+            echo json_encode(["success" => true, "message" => "Login Successful", "status" => 200, "jwt_code" => $jwt]);
+
         } else {
             echo json_encode(["error" => true, "message" => "Incorrect Password", "status" => 400,]);
         }

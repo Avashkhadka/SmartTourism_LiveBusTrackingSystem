@@ -50,8 +50,10 @@ const handleSignIn = async (signInForm) => {
             body: signInFormData,
         });
         let data = await res.json();
+
         if (data.status == 200) {
             console.log(data);
+            localStorage.setItem("jwtToken", data.jwt_code);
             Toast(`${data.message}`, "Success");
             Toast("Redirecting...", "Success");
             setTimeout(() => {
