@@ -1,0 +1,502 @@
+[
+    {
+        "name": "Pashupatinath Temple",
+        "description": "One of the holiest Hindu temples in the world, dedicated to Lord Shiva, located on the banks of the Bagmati River. It is a UNESCO World Heritage Site and a major pilgrimage destination.",
+        "latitude": 27.7106,
+        "longitude": 85.3485,
+        "category": "Temple",
+        "famous_for": "Sacred Shiva temple, cremation ghats, UNESCO World Heritage Site",
+        "image": "pashupatinath.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Swayambhunath Stupa",
+        "description": "An ancient self-arisen Buddhist stupa perched atop a hill, popularly known as the Monkey Temple due to the holy monkeys living there. Offers panoramic views of the Kathmandu Valley.",
+        "latitude": 27.7149,
+        "longitude": 85.2903,
+        "category": "Stupa",
+        "famous_for": "Ancient Buddhist stupa, monkeys, panoramic valley views",
+        "image": "swayambhunath.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Boudhanath Stupa",
+        "description": "One of the largest spherical stupas in the world, a major center of Tibetan Buddhism surrounded by monasteries and prayer flags.",
+        "latitude": 27.7215,
+        "longitude": 85.362,
+        "category": "Stupa",
+        "famous_for": "Largest stupa in Nepal, Tibetan Buddhist culture",
+        "image": "boudhanath.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Kathmandu Durbar Square",
+        "description": "The historic royal palace complex of the old Kathmandu Kingdom, featuring intricately carved temples, courtyards and the residence of the Kumari (Living Goddess).",
+        "latitude": 27.704,
+        "longitude": 85.307,
+        "category": "Historical Site",
+        "famous_for": "Royal palace complex, Kumari Ghar, ancient Newari architecture",
+        "image": "ktm_durbar_square.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Patan Durbar Square",
+        "description": "The old royal palace of the Malla kings of Lalitpur, renowned for its exquisite stone and wood carvings and Newari craftsmanship.",
+        "latitude": 27.6727,
+        "longitude": 85.3245,
+        "category": "Historical Site",
+        "famous_for": "Malla-era palace, Krishna Mandir, Patan Museum",
+        "image": "patan_durbar_square.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Bhaktapur Durbar Square",
+        "description": "A UNESCO World Heritage Site showcasing the finest medieval art and architecture of the Malla dynasty in the ancient city of Bhaktapur.",
+        "latitude": 27.671,
+        "longitude": 85.4298,
+        "category": "Historical Site",
+        "famous_for": "55 Window Palace, Golden Gate, medieval Newari art",
+        "image": "bhaktapur_durbar_square.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Changu Narayan Temple",
+        "description": "Believed to be the oldest surviving Hindu temple in the Kathmandu Valley, dedicated to Lord Vishnu, adorned with stone, wood and metal artwork.",
+        "latitude": 27.7136,
+        "longitude": 85.4283,
+        "category": "Temple",
+        "famous_for": "Oldest Hindu temple in Nepal, ancient stone inscriptions",
+        "image": "changu_narayan.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Nyatapola Temple",
+        "description": "A five-story pagoda temple in Bhaktapur, the tallest in Nepal, dedicated to the goddess Siddhi Lakshmi and famed for its earthquake-resistant design.",
+        "latitude": 27.6716,
+        "longitude": 85.4285,
+        "category": "Temple",
+        "famous_for": "Tallest pagoda temple in Nepal",
+        "image": "nyatapola.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Dattatreya Temple",
+        "description": "A 15th-century temple in Bhaktapur dedicated to Dattatreya, said to be built from the wood of a single tree, showcasing exceptional wood carving.",
+        "latitude": 27.6725,
+        "longitude": 85.431,
+        "category": "Temple",
+        "famous_for": "Single-tree wood carving legend, ancient architecture",
+        "image": "dattatreya.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Kumari Ghar",
+        "description": "The palace residence of the Kumari, Nepal's Living Goddess, located near Kathmandu Durbar Square, featuring beautifully carved windows.",
+        "latitude": 27.704,
+        "longitude": 85.3075,
+        "category": "Historical Site",
+        "famous_for": "Home of the Living Goddess Kumari",
+        "image": "kumari_ghar.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Garden of Dreams",
+        "description": "A neo-classical historic garden in the heart of Kathmandu, offering a peaceful retreat with fountains, pavilions and manicured lawns.",
+        "latitude": 27.7139,
+        "longitude": 85.3145,
+        "category": "Garden",
+        "famous_for": "Neo-classical architecture, urban oasis",
+        "image": "garden_of_dreams.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Thamel",
+        "description": "Kathmandu's vibrant tourist hub packed with hotels, restaurants, souvenir shops, trekking gear stores and nightlife.",
+        "latitude": 27.715,
+        "longitude": 85.31,
+        "category": "Market/Tourist Hub",
+        "famous_for": "Nightlife, shopping, trekking gear, restaurants",
+        "image": "thamel.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Narayanhiti Palace Museum",
+        "description": "The former royal palace of the Shah dynasty, now converted into a museum displaying royal artifacts, thrones and photographs.",
+        "latitude": 27.7172,
+        "longitude": 85.32,
+        "category": "Museum",
+        "famous_for": "Former royal palace, Shah dynasty history",
+        "image": "narayanhiti.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Asan Bazaar",
+        "description": "A centuries-old bustling market square in Kathmandu, famous for spices, textiles and local street food surrounded by ancient temples.",
+        "latitude": 27.7062,
+        "longitude": 85.3105,
+        "category": "Market",
+        "famous_for": "Historic bazaar, spices and local goods",
+        "image": "asan.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Freak Street",
+        "description": "A historic alley near Basantapur that was a famous hippie hangout in the 1960s and 70s, still retaining its bohemian charm.",
+        "latitude": 27.7025,
+        "longitude": 85.3075,
+        "category": "Historical Site",
+        "famous_for": "1960s hippie trail, bohemian culture",
+        "image": "freak_street.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Chandragiri Hills",
+        "description": "A scenic hill accessible by cable car offering panoramic views of the Kathmandu Valley and the Himalayan range including Mount Everest on clear days.",
+        "latitude": 27.6547,
+        "longitude": 85.2308,
+        "category": "Viewpoint",
+        "famous_for": "Cable car, Himalayan panorama",
+        "image": "chandragiri.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Shivapuri National Park",
+        "description": "A protected forested national park north of Kathmandu, popular for hiking, birdwatching and as the watershed for the valley's rivers.",
+        "latitude": 27.8167,
+        "longitude": 85.3833,
+        "category": "National Park",
+        "famous_for": "Hiking trails, biodiversity, river source",
+        "image": "shivapuri.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Nagarkot",
+        "description": "A hill station east of Bhaktapur renowned for spectacular sunrise and sunset views over the Himalayan range.",
+        "latitude": 27.7172,
+        "longitude": 85.5203,
+        "category": "Viewpoint",
+        "famous_for": "Sunrise views, Himalayan panorama",
+        "image": "nagarkot.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Dakshinkali Temple",
+        "description": "A significant Hindu temple dedicated to the fierce goddess Kali, known for its traditional animal sacrifice rituals performed on Tuesdays and Saturdays.",
+        "latitude": 27.5833,
+        "longitude": 85.3417,
+        "category": "Temple",
+        "famous_for": "Goddess Kali shrine, ritual sacrifices",
+        "image": "dakshinkali.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Budhanilkantha Temple",
+        "description": "An open-air shrine featuring a massive stone statue of Lord Vishnu reclining on a bed of serpents in a water pond.",
+        "latitude": 27.7825,
+        "longitude": 85.3617,
+        "category": "Temple",
+        "famous_for": "Colossal reclining Vishnu statue",
+        "image": "budhanilkantha.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Chabahil Stupa",
+        "description": "An ancient Buddhist stupa believed to predate Boudhanath, located at a busy junction in eastern Kathmandu.",
+        "latitude": 27.7181,
+        "longitude": 85.3467,
+        "category": "Stupa",
+        "famous_for": "Ancient Buddhist heritage site",
+        "image": "chabahil.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Ichangu Narayan Temple",
+        "description": "One of the four Narayan temples surrounding the Kathmandu Valley, set in a quiet forested hillside dedicated to Lord Vishnu.",
+        "latitude": 27.7314,
+        "longitude": 85.2739,
+        "category": "Temple",
+        "famous_for": "One of the four valley Narayan temples",
+        "image": "ichangu_narayan.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Ranipokhari",
+        "description": "A historic artificial pond in the center of Kathmandu built by King Pratap Malla, with a temple at its center.",
+        "latitude": 27.7086,
+        "longitude": 85.3145,
+        "category": "Historical Site",
+        "famous_for": "Royal pond, Pratap Malla era",
+        "image": "ranipokhari.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Kirtipur",
+        "description": "A hilltop Newari town near Kathmandu known for its well-preserved medieval architecture, weaving industry and panoramic views.",
+        "latitude": 27.6775,
+        "longitude": 85.2778,
+        "category": "Historical Town",
+        "famous_for": "Newari heritage town, weaving culture",
+        "image": "kirtipur.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Bagh Bhairab Temple",
+        "description": "A striking temple in Kirtipur dedicated to Bhairab in the form of a tiger, decorated with swords and shields from historic battles.",
+        "latitude": 27.6769,
+        "longitude": 85.2789,
+        "category": "Temple",
+        "famous_for": "Weapons-adorned Bhairab shrine",
+        "image": "bagh_bhairab.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Taudaha Lake",
+        "description": "A semi-natural lake south of Kathmandu believed in legend to be the former abode of serpent deities, popular for birdwatching.",
+        "latitude": 27.6572,
+        "longitude": 85.2914,
+        "category": "Lake",
+        "famous_for": "Migratory bird sanctuary, mythological lake",
+        "image": "taudaha.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Godavari Botanical Garden",
+        "description": "A large botanical garden at the base of Phulchowki hill housing diverse plant species, greenhouses and a peaceful arboretum.",
+        "latitude": 27.5967,
+        "longitude": 85.3931,
+        "category": "Garden",
+        "famous_for": "Botanical diversity, arboretum",
+        "image": "godavari.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Phulchowki Hill",
+        "description": "The highest hill rim of the Kathmandu Valley, renowned among birdwatchers and hikers for its rich biodiversity and mountain views.",
+        "latitude": 27.5883,
+        "longitude": 85.3667,
+        "category": "Hill/Viewpoint",
+        "famous_for": "Birdwatching, highest valley rim point",
+        "image": "phulchowki.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Bungamati",
+        "description": "A traditional Newari village south of Patan known as the birthplace of Rato Machindranath and its wood-carving heritage.",
+        "latitude": 27.6478,
+        "longitude": 85.3122,
+        "category": "Historical Town",
+        "famous_for": "Traditional Newari village, wood carving",
+        "image": "bungamati.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Khokana",
+        "description": "A well-preserved traditional Newari village famous for its mustard oil production and vernacular architecture.",
+        "latitude": 27.6417,
+        "longitude": 85.3103,
+        "category": "Historical Town",
+        "famous_for": "Traditional mustard oil village",
+        "image": "khokana.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Rato Machindranath Temple",
+        "description": "A revered pagoda temple in Bungamati/Patan dedicated to Rato Machindranath, celebrated with one of Nepal's longest chariot festivals.",
+        "latitude": 27.6483,
+        "longitude": 85.3125,
+        "category": "Temple",
+        "famous_for": "Rato Machindranath chariot festival",
+        "image": "rato_machindranath.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Kumbheshwar Temple",
+        "description": "A five-tiered pagoda temple in Patan dedicated to Lord Shiva, one of the oldest temples in the city with a sacred pond.",
+        "latitude": 27.6739,
+        "longitude": 85.3239,
+        "category": "Temple",
+        "famous_for": "Five-story Shiva pagoda, sacred pond",
+        "image": "kumbheshwar.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Mahaboudha Temple",
+        "description": "A unique terracotta temple in Patan built entirely of carved clay bricks depicting images of the Buddha, styled after Bodh Gaya.",
+        "latitude": 27.6733,
+        "longitude": 85.3253,
+        "category": "Temple",
+        "famous_for": "Terracotta Buddha-brick architecture",
+        "image": "mahaboudha.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Golden Temple",
+        "description": "Hiranya Varna Mahavihar, a 12th-century Buddhist monastery in Patan famed for its gilded facade and intricate metalwork.",
+        "latitude": 27.6742,
+        "longitude": 85.3253,
+        "category": "Monastery",
+        "famous_for": "Gilded Buddhist monastery",
+        "image": "golden_temple.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Patan Museum",
+        "description": "A museum housed within the Patan Durbar complex displaying an extensive collection of traditional bronze and metal religious artifacts.",
+        "latitude": 27.6727,
+        "longitude": 85.3247,
+        "category": "Museum",
+        "famous_for": "Bronze and metal artifact collection",
+        "image": "patan_museum.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Central Zoo Jawalakhel",
+        "description": "Nepal's only zoo, home to a variety of native and exotic wildlife including Bengal tigers, rhinos and rare bird species.",
+        "latitude": 27.6742,
+        "longitude": 85.3122,
+        "category": "Zoo",
+        "famous_for": "Nepal's only zoo, wildlife conservation",
+        "image": "central_zoo.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Krishna Mandir",
+        "description": "A stone temple in Patan Durbar Square built entirely of carved stone in Shikhara style, dedicated to Lord Krishna.",
+        "latitude": 27.6728,
+        "longitude": 85.3244,
+        "category": "Temple",
+        "famous_for": "Stone Shikhara-style Krishna temple",
+        "image": "krishna_mandir.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Vatsala Devi Temple",
+        "description": "A stone temple in Bhaktapur Durbar Square known for its bronze bell used historically to sound curfew and emergencies.",
+        "latitude": 27.6712,
+        "longitude": 85.4292,
+        "category": "Temple",
+        "famous_for": "Historic bronze bell, stone architecture",
+        "image": "vatsala_devi.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "55 Window Palace",
+        "description": "A magnificent brick palace in Bhaktapur Durbar Square famed for its fifty-five intricately carved wooden windows.",
+        "latitude": 27.6716,
+        "longitude": 85.4293,
+        "category": "Historical Site",
+        "famous_for": "Fifty-five carved wooden windows",
+        "image": "55_window_palace.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Pottery Square",
+        "description": "A lively square in Bhaktapur where local artisans shape and dry traditional clay pottery using centuries-old techniques.",
+        "latitude": 27.6706,
+        "longitude": 85.4278,
+        "category": "Cultural Site",
+        "famous_for": "Traditional pottery making",
+        "image": "pottery_square.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Taumadhi Square",
+        "description": "A historic square in Bhaktapur adjoining Nyatapola Temple, lined with traditional restaurants and temples.",
+        "latitude": 27.6716,
+        "longitude": 85.4287,
+        "category": "Historical Site",
+        "famous_for": "Nyatapola Temple surroundings, local eateries",
+        "image": "taumadhi_square.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Namobuddha",
+        "description": "A significant Buddhist pilgrimage site where, according to legend, the Buddha offered his body to a starving tigress in a past life.",
+        "latitude": 27.5561,
+        "longitude": 85.5539,
+        "category": "Monastery",
+        "famous_for": "Buddhist pilgrimage, jataka tale legend",
+        "image": "namobuddha.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Sundarijal",
+        "description": "A scenic waterfall and starting point for the Shivapuri and Helambu trekking routes, popular for day hikes and picnics.",
+        "latitude": 27.7822,
+        "longitude": 85.4147,
+        "category": "Waterfall/Nature",
+        "famous_for": "Waterfall, trekking gateway",
+        "image": "sundarijal.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Vajrayogini Temple, Sankhu",
+        "description": "An ancient temple in the historic town of Sankhu dedicated to the tantric goddess Vajrayogini, set amid forested hills.",
+        "latitude": 27.7386,
+        "longitude": 85.4494,
+        "category": "Temple",
+        "famous_for": "Tantric goddess shrine, historic Sankhu town",
+        "image": "vajrayogini.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Gokarna Forest",
+        "description": "A protected forest reserve on the outskirts of Kathmandu, home to spotted deer and known for its nature trails and golf resort.",
+        "latitude": 27.7375,
+        "longitude": 85.3811,
+        "category": "Forest Reserve",
+        "famous_for": "Deer sanctuary, nature trails",
+        "image": "gokarna_forest.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Gokarneshwor Mahadev Temple",
+        "description": "A sacred Shiva temple on the banks of the Bagmati River, an important site for ancestral rites and Gokarna Aunsi festival.",
+        "latitude": 27.7367,
+        "longitude": 85.3822,
+        "category": "Temple",
+        "famous_for": "Ancestral rites, Gokarna Aunsi festival",
+        "image": "gokarneshwor.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Balaju Garden",
+        "description": "A historic garden known as Balaju Baisdhara, featuring twenty-two stone waterspouts and a swimming pool amid landscaped grounds.",
+        "latitude": 27.7275,
+        "longitude": 85.3025,
+        "category": "Garden",
+        "famous_for": "Twenty-two stone waterspouts",
+        "image": "balaju_garden.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Chobhar Gorge",
+        "description": "A dramatic gorge where the Bagmati River cuts through the valley rim, tied to the legend of Manjushree draining the ancient lake.",
+        "latitude": 27.6608,
+        "longitude": 85.2947,
+        "category": "Natural Landmark",
+        "famous_for": "Manjushree legend, river gorge",
+        "image": "chobhar_gorge.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Jal Binayak Temple",
+        "description": "A revered Ganesh shrine near Chobhar Gorge, worshipped as a natural rock formation representing the elephant-headed god.",
+        "latitude": 27.6608,
+        "longitude": 85.295,
+        "category": "Temple",
+        "famous_for": "Natural rock Ganesh shrine",
+        "image": "jal_binayak.jpg",
+        "status": "approved"
+    },
+    {
+        "name": "Champadevi Hill",
+        "description": "A popular hiking hill on the southern rim of the Kathmandu Valley offering rewarding views and a small shrine at its summit.",
+        "latitude": 27.6389,
+        "longitude": 85.2686,
+        "category": "Hill/Viewpoint",
+        "famous_for": "Hiking trail, valley rim views",
+        "image": "champadevi.jpg",
+        "status": "approved"
+    }
+]

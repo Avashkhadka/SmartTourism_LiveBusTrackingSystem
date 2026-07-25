@@ -10,6 +10,8 @@ if (!$conn) {
     createAdmin($conn);
     createDriverDocuments($conn);
     createBusTable($conn);
+    createLocationTable($conn);
+    populateInitialLocationData($conn);
 }
 
 
@@ -57,6 +59,8 @@ function createAdmin($conn)
         echo "<br> Admin Created Successfully!!! ";
     }
 }
+
+
 
 
 function createDriverDocuments($conn)
@@ -128,10 +132,84 @@ function createBusTable($conn)
 
     $res = mysqli_query($conn, $sql);
 
-    if($res){
+    if ($res) {
         echo "<br>Bus Table Created Successfully!!!";
-    }else{
-        echo "<br>Error: ".mysqli_error($conn);
+    } else {
+        echo "<br>Error: " . mysqli_error($conn);
     }
 }
+
+function createLocationTable($conn)
+{
+
+    $sql = "CREATE TABLE if not exists location (
+            location_id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(100) NOT NULL,
+            description TEXT,
+            latitude DECIMAL(10,8) NOT NULL,
+            longitude DECIMAL(11,8) NOT NULL,
+            category VARCHAR(50) NOT NULL,
+            famous_for VARCHAR(255),
+            image VARCHAR(255),
+            status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
+            created_by INT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (created_by) REFERENCES users(user_id)
+    )";
+
+    $res = mysqli_query($conn, $sql);
+
+    if ($res) {
+        echo "<br>Location Table Created Successfully!!!";
+    } else {
+        echo "<br>Error: " . mysqli_error($conn);
+    }
+}
+function populateInitialLocationData($conn)
+{
+
+    $jsonPath = __DIR__ . "/../assets/data/InitialLocationData.json";
+    if (!file_exists($jsonPath)) {
+        die("locations.json not found.");
+    }
+
+    $locations = json_decode(file_get_contents($jsonPath), true);
+
+    $count = 0;
+
+    foreach ($locations as $loc) {
+
+        $name = $conn->real_escape_string($loc['name']);
+        $description = $conn->real_escape_string($loc['description']);
+        $latitude = $loc['latitude'];
+        $longitude = $loc['longitude'];
+        $category = $conn->real_escape_string($loc['category']);
+        $famous_for = $conn->real_escape_string($loc['famous_for']);
+        $image = $conn->real_escape_string($loc['image']);
+        $status = $conn->real_escape_string($loc['status']);
+
+        $sql = "INSERT INTO location
+                (name, description, latitude, longitude, category, famous_for, image, status, created_by)
+                VALUES (
+                    '$name',
+                    '$description',
+                     $latitude,
+                     $longitude,
+                    '$category',
+                    '$famous_for',
+                    '$image',
+                    '$status',
+                    '1'
+                )";
+
+        if (mysqli_query($conn,$sql)) {
+            $count++;
+        } else {
+            echo "Error: " . $conn->error . "<br>";
+        }
+    }
+    // if()
+}
+
+
 ?>
