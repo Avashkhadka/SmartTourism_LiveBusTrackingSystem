@@ -1,4 +1,5 @@
 import { calculateDistance } from "./calculateDistance.js";
+import { LoadIntersectionObserver } from "./intersectionObserver.js";
 
 const { BASEURL } = window.CONFIG;
 
@@ -34,7 +35,6 @@ export const loadDiscoverpage = () => {
 
 const fetchLocationData = async () => {
     discoverCardContainer.style.display = "flex";
-
     try {
 
         let res = await fetch(`${BASEURL}api/location.php/getlocation`, {
@@ -65,7 +65,6 @@ const fetchLocationData = async () => {
                         )
                     }))
                     .sort((a, b) => a.distance - b.distance);
-                console.log(locationArr)
 
                 if (discoverCardContainer) {
                     let html = "";
@@ -76,7 +75,7 @@ const fetchLocationData = async () => {
                             <article class="w-full reveal card rounded-2xl overflow-hidden shadow-lg"
                             data-location-id="<?php echo $i ?>">
                                 <div class="relative">
-                                    <img src="../assets/images/signin-bg.jpg" alt="" class="w-full">
+                                    <img src="../assets/images/signin-bg.jpg" loading="lazy" alt="" class="w-full">
                                     <div class="absolute inset-0 h-full w-full p-4">
                                         <div class="flex justify-between items-center">
                                             <div class="bg-white py-2 px-4 block text-xs font-bold rounded-full">${i.category}</div>
@@ -123,6 +122,7 @@ const fetchLocationData = async () => {
 
                     discoverCardContainer.style.display = "grid";
                     discoverCardContainer.innerHTML = html
+                      LoadIntersectionObserver();
                 }
             }
         }, (e) => {

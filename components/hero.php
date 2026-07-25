@@ -26,9 +26,8 @@ function Hero()
                         connect them.</p>
                     <div class="flex gap-3 flex-wrap ">
 
-                        <a href=""
-                            class="py-4 px-8  text-white bg-black font-medium shadow rounded-full no-underline nav-link-item-hover">Open
-                            the app</a>
+                        <a href="<?php echo BASEURL."pages/discover.php"?>"
+                            class="py-4 px-8  text-white bg-black font-medium shadow rounded-full no-underline nav-link-item-hover">Explore Now</a>
                         <a href=""
                             class="py-4 px-8 no-underline text-gray-800 shadow border border-gray-200 border-solid nav-link-item-hover rounded-full hover-bg-ternary bg-white font-medium">See
                             it on the map <i class="fa-solid fa-arrow-right text-xs"></i> </a>

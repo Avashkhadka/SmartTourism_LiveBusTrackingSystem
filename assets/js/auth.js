@@ -2,7 +2,6 @@ import { Toast } from "../../utils/toast.js";
 const { BASEURL } = window.CONFIG;
 
 export const LoadAuthHandler = () => {
-    console.log("LoadAuthHandler initialized");
     const signInForm = document.getElementById("sign-in-form");
     const signUpForm = document.getElementById("sign-up-form");
     const drSignInForm = document.getElementById("dsign-in-form");

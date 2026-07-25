@@ -2,7 +2,7 @@
 include '../config/constants.php';
 include "../components/input.php";
 include "../includes/authGuard.php";
-    ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -65,6 +65,9 @@ include "../includes/authGuard.php";
         </div>
     </section>
     <?php include '../includes/footerlinks.php' ?>
+    <script>
+        localStorage.removeItem("jwtToken");
+    </script>
 </body>
 
 </html>
