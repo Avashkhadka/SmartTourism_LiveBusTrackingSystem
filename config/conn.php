@@ -3,10 +3,14 @@ $host = "localhost";
 $user = "root";
 $pass = "";
 $db = "stabns";
-$conn = mysqli_connect($host,$user,$pass,$db);
+$conn = mysqli_connect($host, $user, $pass, $db);
 
-if (!$conn){
-    die("Database connection error ...".mysqli_connect_error());
+if (!$conn) {
+    http_response_code(500);
+    echo json_encode(["error" => "Database Connection Failed"]);
+    die("Database connection error ..." . mysqli_connect_error());
+
+
 }
 
 

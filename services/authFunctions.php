@@ -1,5 +1,10 @@
 <?php
 session_start();
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+$key = "SmToBuNaSy";
 function getUser($field, $value, $conn)
 {
     $allowed = ['email', 'phone'];
@@ -16,6 +21,15 @@ function getUser($field, $value, $conn)
     $res = $stmt->get_result();
     return $res->fetch_all(MYSQLI_ASSOC);
 }
+
+function checkLogin(){
+    if(isset($_SESSION['isLogged_in']) && $_SESSION['isLogged_in']){
+        return true;
+    }else{
+        return false;
+    }
+}
+
 
 function handleSignup($data, $conn)
 {

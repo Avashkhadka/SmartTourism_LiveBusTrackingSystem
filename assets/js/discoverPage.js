@@ -1,5 +1,8 @@
+const { BASEURL } = window.CONFIG;
+
 export const loadDiscoverpage = () => {
     const favBtn = document.querySelectorAll(".fav-svg-container");
+    const discoverContainer = document.getElementById("discover-container");
     const favLocation = []
     favBtn.forEach((e) => {
         e.addEventListener("click", (el) => {
@@ -17,4 +20,15 @@ export const loadDiscoverpage = () => {
             }
         })
     })
+    if (discoverContainer) {
+        fetchLocationData();
+    }
+
+}
+
+
+const fetchLocationData = async () => {
+    let res = await fetch(`${BASEURL}api/location.php/getLocation`, {
+        method: "GET",
+    });
 }

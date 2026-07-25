@@ -77,13 +77,13 @@ function createDriverDocuments($conn)
         issuing_office VARCHAR(255) NOT NULL,
         year_of_experience INT NOT NULL,
 
-        status VARCHAR(255) DEFAULT 'pending',
         id_front_photo VARCHAR(255) NOT NULL,
         id_back_photo VARCHAR(255) NOT NULL,
+        id_status VARCHAR(255) DEFAULT 'pending', 
 
         license_front_photo VARCHAR(255) NOT NULL,
         license_back_photo VARCHAR(255) NOT NULL,
-
+        license_status VARCHAR(255) DEFAULT 'pending', 
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
         FOREIGN KEY (user_id) REFERENCES users(user_id)
@@ -150,7 +150,7 @@ function createLocationTable($conn)
             longitude DECIMAL(11,8) NOT NULL,
             category VARCHAR(50) NOT NULL,
             famous_for VARCHAR(255),
-            image VARCHAR(255),
+            image json,
             status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
             created_by INT NOT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -185,7 +185,7 @@ function populateInitialLocationData($conn)
         $longitude = $loc['longitude'];
         $category = $conn->real_escape_string($loc['category']);
         $famous_for = $conn->real_escape_string($loc['famous_for']);
-        $image = $conn->real_escape_string($loc['image']);
+        $image = $conn->real_escape_string(json_encode($loc['image']));
         $status = $conn->real_escape_string($loc['status']);
 
         $sql = "INSERT INTO location
@@ -202,13 +202,12 @@ function populateInitialLocationData($conn)
                     '1'
                 )";
 
-        if (mysqli_query($conn,$sql)) {
+        if (mysqli_query($conn, $sql)) {
             $count++;
         } else {
             echo "Error: " . $conn->error . "<br>";
         }
     }
-    // if()
 }
 
 
