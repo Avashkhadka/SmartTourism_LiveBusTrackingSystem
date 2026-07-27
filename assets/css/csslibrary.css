@@ -933,8 +933,23 @@
 .h-48 {
     height: 12rem;
 }
+.h-56 {
+    height: 14rem;
+}
+.h-60 {
+    height: 15rem;
+}
 .h-64 {
     height: 16rem;
+}
+.h-68 {
+    height: 17rem;
+}
+.h-72 {
+    height: 18rem;
+}
+.h-76 {
+    height: 19rem;
 }
 .h-80 {
     height: 20rem;

@@ -9,27 +9,9 @@ const discoverCardContainer = document.querySelector(".discover_card_container")
 
 
 export const loadDiscoverpage = () => {
-    const favLocation = []
-    favBtn.forEach((e) => {
-        e.addEventListener("click", (el) => {
-            const article = el.currentTarget.closest("article");
-            const location_id = article.dataset.locationId
-            const index = favLocation.indexOf(location_id)
-
-            if (index == -1) {
-                favLocation.push(location_id)
-                e.classList.add("active")
-            } else {
-                favLocation.splice(index, 1);
-                e.classList.remove("active")
-
-            }
-        })
-    })
     if (discoverContainer) {
         fetchLocationData();
     }
-
 }
 
 
@@ -68,12 +50,12 @@ const fetchLocationData = async () => {
 
                 if (discoverCardContainer) {
                     let html = "";
-                    locationArr.forEach((i) => {
+                    locationArr.forEach((i, index) => {
                         if (i.distance < 30) {
 
                             html +=/*html*/`
                             <article class="w-full reveal card rounded-2xl overflow-hidden shadow-lg"
-                            data-location-id="<?php echo $i ?>">
+                            data-location-id="${index}">
                                 <div class="relative">
                                     <img src="../assets/images/signin-bg.jpg" loading="lazy" alt="" class="w-full">
                                     <div class="absolute inset-0 h-full w-full p-4">
@@ -108,7 +90,7 @@ const fetchLocationData = async () => {
                                         <a class="border-gray flex items-center bg-white py-1 h-8 px-3 text-xs rounded-full curser-pointer no-underline text-black font-medium"
                                             href="live-map.php">Moderate. Rs1000</a> <a
                                             class="border-gray text-white px-4  py-1 h-10 flex items-center text-sm rounded-full curser-pointer no-underline text-black font-medium active-category"
-                                            href="live-map.php">Details</a>
+                                            href="view-location.php?room_id=${i.location_id}">Details</a>
 
                                     </div>
                                 </div>
@@ -121,20 +103,35 @@ const fetchLocationData = async () => {
                     })
 
                     discoverCardContainer.style.display = "grid";
-                    discoverCardContainer.innerHTML = html
-                      LoadIntersectionObserver();
+                    discoverCardContainer.innerHTML = html;
+
+                    const favBtn = document.querySelectorAll(".fav-svg-container");
+                    const favLocation = []
+                    favBtn.forEach((e) => {
+                        e.addEventListener("click", (el) => {
+                            const article = el.currentTarget.closest("article");
+                            const location_id = article.dataset.locationId
+                            const index = favLocation.indexOf(location_id)
+                            if (index == -1) {
+                                favLocation.push(location_id)
+                                e.classList.add("active")
+                            } else {
+                                favLocation.splice(index, 1);
+                                e.classList.remove("active")
+
+                            }
+                        })
+                    })
+                    LoadIntersectionObserver();
                 }
+            }else{
+                throw new error(data.message)
             }
         }, (e) => {
             discoverCardContainer.style.display = "flex"
             discoverCardContainer.innerHTML = "<div class='w-full p-16 text-black rounded-lg text-lg text-center border-gray'>Please Allow Permission to access your location...</div>"
             console.log("error:", e)
         })
-
-        // } else {
-        //     throw new Error(data.error)
-        // }
-
 
     }
     catch (err) {

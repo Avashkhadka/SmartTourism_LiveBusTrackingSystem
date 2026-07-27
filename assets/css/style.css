@@ -98,6 +98,9 @@ button {
 .bg-secondary {
     background-color: var(--color-secondary);
 }
+.bg-secondary-25 {
+    background-color: #ff5b1f40;
+}
 .bg-border {
     border-color: var(--border-bg);
 }
