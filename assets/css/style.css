@@ -105,6 +105,13 @@ button {
     border-color: var(--border-bg);
 }
 
+.color-success {
+    color: #198754;
+}
+.border-success {
+    border-color: #a3cfbb;
+}
+
 .circle {
     /* top: 140px;
     left: 170px; */

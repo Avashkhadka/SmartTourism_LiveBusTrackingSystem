@@ -2221,6 +2221,9 @@ custon utilities can be added here
 .bg-success {
     background-color: #47c75a;
 }
+.bg-success-light{
+    background-color: #E6F5EC;
+}
 .bg-disabled {
     background-color: #cccccc;
 }

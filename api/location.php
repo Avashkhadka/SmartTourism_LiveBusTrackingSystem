@@ -32,7 +32,7 @@ function handleGetLocation($conn)
 {
     $verifyUser = checkLogin($GLOBALS['headers']['Authorization']);
     if ($verifyUser) {
-        $lim = 10;
+        $lim = 30;
         $offset = (int) isset($_GET['offset']) ? $_GET['offset'] - 1 : 0;
         $sql = "SELECT * from location limit $lim offset $offset";
         $res = $conn->query($sql);

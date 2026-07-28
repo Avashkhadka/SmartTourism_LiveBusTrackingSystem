@@ -17,12 +17,15 @@
     <div class="max-w-9xl  mx-auto" id="view_page_container">
         <?php RenderNavbar("") ?>
         <section class=" reveal flex flex-col gap-2 place-container">
-            <div class="place-header"><div>Discover</div> / <div>Temples</div> / <span>Mahabodhi Temple</span></div>
+            <div class="place-header">
+                <div>Discover</div> / <div class="category-head head ">Temples</div> / <span
+                    id="placeName-head-title">Mahabodhi Temple</span>
+            </div>
             <div class="view-location-image-container mt-2">
                 <div class="mainImage-container">
                     <img src="../assets/images/signup-bg.jpg" class=" h-64 w-full object-cover " alt="">
                     <div class="location-image-overlay">
-                        <div class="location-category-head"> LIVE . TEMPLES</div>
+                        <div class="location-category-head"> LIVE . <span class="category-head">TEMPLES</span></div>
                         <div class="location-image-footer">
                             <div><span>01</span> / <span>06</span></div>
                             <div>
@@ -41,21 +44,23 @@
                     <img src="../assets/images/signup-bg.jpg" alt="">
                 </div>
             </div>
-            <main>
-                <div>
-                    <div class="color-secondary text-xs rounded-full font-bold py-2 px-4 w-24 text-center bg-secondary-25">Temple</div>
-                    <div class="location-heading-titile">
-                        Mahabodi Temple
+            <main class="mt-8">
+                <div >
+                    <div
+                        class="color-secondary text-xs rounded-full font-bold mb-2 py-2 px-4 w-fit text-center bg-secondary-25 category-head">
                     </div>
-                    <div class="location-heading-sub mt-2">
-                        <span>rating</span><span>km away</span><span>time</span><span>crowd</span>
+                    <div class="location-heading-title">
+
+                    </div>
+                    <div class="location-heading-sub text-sm mt-2 color-gray">
+                        <span> <i class="fa-solid fa-star"></i> rating</span><span class="totalDistance"> km
+                            away</span><span><i class="fa-regular fa-alarm-clock"></i> time</span><span><i
+                                class="fa-solid fa-user-group" style="color:#5B3A8E;"></i> crowd</span>
                     </div>
                     <div class="mt-6 text-lg font-bold mb-2">About this place</div>
-                    <p class=" text-base">Description Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates dolorem corporis
-                        quae error! Quas quidem magnam incidunt nihil libero minima blanditiis! Sit voluptates dolorum
-                        incidunt vel repellendus doloribus perferendis natus!</p>
-                    <div class="mt-6 text-lg font-bold mb-2">
-                        what Special
+                    <p class=" text-sm color-gray" id="location-description"></p>
+                    <div class="mt-6 text-lg font-bold mb-4">
+                        What's special
                     </div>
                     <div class="">
                         <div>Best at sunrise</div>
@@ -66,24 +71,36 @@
                     <div class="mt-6 text-lg font-bold mb-2 ">How to get there</div>
                     <div class="w-full h-80 bg-body"></div>
                 </div>
-                <div>
-                    <div>ENTRY FORM</div>
-                    <div>
-                        <div>100 Rs</div>
-                        <div>Open now</div>
+                <div class="rounded-2xl border-gray p-6">
+                    <div class="color-gray text-xs font-base">ENTRY FORM</div>
+                    <div class="mt-2 flex justify-between">
+                        <div class="text-black font-bold text-2xl">100 Rs</div>
+                        <div
+                            class=" flex justify-center items-center py-2 px-4 rounded-full bg-success-light text-success font-semibold text-xs">
+                            Open now</div>
                     </div>
+                    <div class="border-gray w-full my-4 rounded-full"></div>
                     <div>
-                        <div>
-                            <div>ETA</div>
-                            <div>40min</div>
+                        <div class="flex justify-between my-4">
+                            <div class="color-gray text-xs font-medium">ETA</div>
+                            <div class="font-bold text-sm" id="busETA">40 min</div>
                         </div>
-                        <div>
-                            <div>Fare</div>
-                            <div>Rs 40</div>
+                        <div class="flex justify-between my-4">
+                            <div class="color-gray text-xs font-medium">Fare</div>
+                            <div class="font-bold text-sm" id="busEstfair">Rs 40</div>
                         </div>
                     </div>
-                    <button>Book seat now</button>
-                    <button>Save Place</button>
+                    <div class="flex flex-col gap-4 mt-6">
+
+                        <a href="<?php echo BASEURL . "pages/discover.php" ?>"
+                            class="py-3 flex justify-center items-center  text-white bg-secondary gap-2 font-medium shadow rounded-full no-underline nav-link-item-hover">Book
+                            seat now <i class="fa-solid fa-arrow-right"></i></a>
+                        <a href=""
+                            class="py-3 flex justify-center items-center no-underline text-gray-800 shadow border border-gray-200 border-solid nav-link-item-hover rounded-full hover-bg-ternary gap-2 bg-white font-medium"><i class="fa-regular fa-heart" ></i> Save
+                            Place  </a>
+
+
+                    </div>
                 </div>
             </main>
         </section>

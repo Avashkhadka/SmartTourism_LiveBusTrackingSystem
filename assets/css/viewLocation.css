@@ -41,9 +41,9 @@
                 justify-content: space-between;
                 font-weight: 700;
                 .location-category-head {
+                    width: fit-content;
                     box-shadow: rgba(100, 100, 111, 0.404) 0px 7px 29px 0px;
-                    padding: 8px 12px;
-                    width: 9rem;
+                    padding: 6px 20px;
                     font-size: 13px;
                     text-align: center;
                     border-radius: 50px;
@@ -106,7 +106,7 @@
         display: grid;
         grid-template-columns: repeat(1, minmax(0, 1fr));
         gap: 20px;
-        .location-heading-titile {
+        .location-heading-title {
             font-weight: bolder;
             font-size: 42px;
         }
@@ -120,7 +120,7 @@
 
     @media (min-width: 700px) {
         .place-container {
-            padding:2rem 3rem;
+            padding: 2rem 3rem;
         }
         .view-location-image-container {
             flex-direction: row;
@@ -144,7 +144,8 @@
         }
 
         main {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-columns: 2fr 1fr;
+            align-items: start;
             .location-heading-sub {
                 flex-direction: row;
             }
