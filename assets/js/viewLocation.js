@@ -32,7 +32,6 @@ export const HandleViewLocation = async () => {
         let location_id = parseInt(params.get("location_id"));
         let thisLocation = locations.find((el) => el.location_id == location_id)
         if (!thisLocation) {
-            
             window.location.href = `${BASEURL}pages/discover.php`
             return;
         }
