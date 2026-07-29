@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <div class="max-w-9xl  mx-auto" id="view_page_container">
+    <div class="max-w-9xl  mx-auto reveal" id="view_page_container">
         <?php RenderNavbar("") ?>
         <section class=" reveal flex flex-col gap-2 place-container">
             <div class="place-header">
@@ -44,8 +44,8 @@
                     <img src="../assets/images/signup-bg.jpg" alt="">
                 </div>
             </div>
-            <main class="mt-8">
-                <div >
+            <main class="mt-8 reveal">
+                <div>
                     <div
                         class="color-secondary text-xs rounded-full font-bold mb-2 py-2 px-4 w-fit text-center bg-secondary-25 category-head">
                     </div>
@@ -57,9 +57,9 @@
                             away</span><span><i class="fa-regular fa-alarm-clock"></i> time</span><span><i
                                 class="fa-solid fa-user-group" style="color:#5B3A8E;"></i> crowd</span>
                     </div>
-                    <div class="mt-6 text-lg font-bold mb-2">About this place</div>
+                    <div class="mt-6 text-lg font-semibold mb-2">About this place</div>
                     <p class=" text-sm color-gray" id="location-description"></p>
-                    <div class="mt-6 text-lg font-bold mb-4">
+                    <div class="mt-6 text-lg font-semibold mb-4">
                         What's special
                     </div>
                     <div class="">
@@ -68,10 +68,12 @@
                         <div>Easy access</div>
                         <div>Local Tip</div>
                     </div>
-                    <div class="mt-6 text-lg font-bold mb-2 ">How to get there</div>
-                    <div class="w-full h-80 bg-body"></div>
+                    <div class="mt-6 text-lg font-semibold mb-4 ">How to get there</div>
+
+                    <div id="map" class="h-80 w-full rounded-2xl border-gray"></div>
+
                 </div>
-                <div class="rounded-2xl border-gray p-6">
+                <div class="reveal rounded-2xl border-gray p-6 side-form">
                     <div class="color-gray text-xs font-base">ENTRY FORM</div>
                     <div class="mt-2 flex justify-between">
                         <div class="text-black font-bold text-2xl">100 Rs</div>
@@ -96,13 +98,18 @@
                             class="py-3 flex justify-center items-center  text-white bg-secondary gap-2 font-medium shadow rounded-full no-underline nav-link-item-hover">Book
                             seat now <i class="fa-solid fa-arrow-right"></i></a>
                         <a href=""
-                            class="py-3 flex justify-center items-center no-underline text-gray-800 shadow border border-gray-200 border-solid nav-link-item-hover rounded-full hover-bg-ternary gap-2 bg-white font-medium"><i class="fa-regular fa-heart" ></i> Save
-                            Place  </a>
+                            class="py-3 flex justify-center items-center no-underline text-gray-800 shadow border border-gray-200 border-solid nav-link-item-hover rounded-full hover-bg-ternary gap-2 bg-white font-medium"><i
+                                class="fa-regular fa-heart"></i> Save
+                            Place </a>
 
 
                     </div>
                 </div>
             </main>
+            <section class="mt-8">
+                <div class="font-semibold text-3xl">You might also like</div>
+                <div id="near_this_place" class="discover_card_container mt-4 reveal"></div>
+            </section>
         </section>
         <?php Footer() ?>
     </div>
