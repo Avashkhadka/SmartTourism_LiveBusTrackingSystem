@@ -1,7 +1,8 @@
 import { Card } from "../../components/card.js";
 import { Toast } from "../../utils/toast.js";
-import { calculateDistance } from "./calculateDistance.js";
+import { calculateDistance } from "../../utils/calculateDistance.js";
 import { LoadIntersectionObserver } from "./intersectionObserver.js";
+import { getUserLocation } from "../../utils/getUserLocation.js";
 
 const { BASEURL } = window.CONFIG;
 
@@ -81,79 +82,75 @@ const fetchLocationData = async () => {
             return;
         }
 
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const userLat = position.coords.latitude;
-                const userLong = position.coords.longitude;
-                if (isNewLocation) {
-                    const locationArr = locations
-                        .map((location) => ({
-                            ...location,
-                            distance: calculateDistance(
-                                userLat,
-                                userLong,
-                                Number(location.latitude),
-                                Number(location.longitude)
-                            ),
-                        }))
-                        .sort((a, b) => a.distance - b.distance);
+        try {
+            const { latitude, longitude } = await getUserLocation();
+            if (isNewLocation) {
+                const locationArr = locations
+                    .map((location) => ({
+                        ...location,
+                        distance: calculateDistance(
+                            latitude,
+                            longitude,
+                            Number(location.latitude),
+                            Number(location.longitude)
+                        ),
+                    }))
+                    .sort((a, b) => a.distance - b.distance);
 
 
 
-                    localStorage.setItem(
-                        "locationData",
-                        JSON.stringify(locationArr)
-                    );
-                }
-                const locationArr = JSON.parse(localStorage.getItem("locationData"))
-                let html = "";
-
-                locationArr.forEach((location) => {
-                    if (location.distance >= 30) return;
-
-                    html += Card(location)
-                });
-
-                discoverCardContainer.style.display = "grid";
-                discoverCardContainer.innerHTML = html;
-
-                // Add favorite listeners AFTER DOM is created
-                const favButtons = document.querySelectorAll(
-                    ".fav-svg-container"
+                localStorage.setItem(
+                    "locationData",
+                    JSON.stringify(locationArr)
                 );
+            }
+            const locationArr = JSON.parse(localStorage.getItem("locationData"))
+            let html = "";
+            
+            locationArr.forEach((location) => {
+                if (location.distance >= 30) return;
 
-                favButtons.forEach((button) => {
-                    button.addEventListener("click", (event) => {
-                        const article =
-                            event.currentTarget.closest("article");
+                html += Card(location)
+            });
 
-                        if (!article) return;
+            discoverCardContainer.style.display = "grid";
+            discoverCardContainer.innerHTML = html;
 
-                        const locationId =
-                            article.dataset.locationId;
+            // Add favorite listeners AFTER DOM is created
+            const favButtons = document.querySelectorAll(
+                ".fav-svg-container"
+            );
 
-                        event.currentTarget.classList.toggle("active");
+            favButtons.forEach((button) => {
+                button.addEventListener("click", (event) => {
+                    const article =
+                        event.currentTarget.closest("article");
 
-                        console.log("Favorite:", locationId);
-                    });
+                    if (!article) return;
+
+                    const locationId =
+                        article.dataset.locationId;
+
+                    event.currentTarget.classList.toggle("active");
+
+                    console.log("Favorite:", locationId);
                 });
+            });
 
-                // Run AFTER cards are inserted
-                LoadIntersectionObserver();
-            },
+            // Run AFTER cards are inserted
+            LoadIntersectionObserver();
+        } catch (error) {
+            discoverCardContainer.style.display = "flex";
 
-            (error) => {
-                discoverCardContainer.style.display = "flex";
-
-                discoverCardContainer.innerHTML = `
+            discoverCardContainer.innerHTML = `
                     <div class="w-full p-16 text-black rounded-lg text-lg text-center border-gray">
                         Please allow permission to access your location...
                     </div>
                 `;
 
-                console.error("Geolocation error:", error);
-            }
-        );
+            console.error("Geolocation error:", error);
+        }
+
     } catch (err) {
         discoverCardContainer.style.display = "flex";
 

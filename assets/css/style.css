@@ -451,6 +451,10 @@ footer {
     }
 }
 
+.bg-body{
+    background-color: var(--bg-body);
+}
+
 .driver-sign-line-bg {
     width: 100%;
     background-color: rgba(180, 180, 180, 0.238);
@@ -466,6 +470,11 @@ footer {
     display: flex;
     flex-direction: column-reverse;
 }
+
+
+
+
+
 
 @media (min-width: 700px) {
     .hero-count {

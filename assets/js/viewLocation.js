@@ -1,7 +1,7 @@
 // import * as maplibregl from "https://unpkg.com/maplibre-gl@6.0.0/dist/maplibre-gl.mjs";
 import { Card } from "../../components/card.js";
 import { Toast } from "../../utils/toast.js";
-import { calculateDistance } from "./calculateDistance.js";
+import { calculateDistance } from "../../utils/calculateDistance.js";
 
 const { BASEURL } = window.CONFIG;
 export const HandleViewLocation = async () => {
