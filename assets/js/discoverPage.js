@@ -84,61 +84,81 @@ const fetchLocationData = async () => {
 
         try {
             const { latitude, longitude } = await getUserLocation();
-            if (isNewLocation) {
-                const locationArr = locations
-                    .map((location) => ({
-                        ...location,
-                        distance: calculateDistance(
-                            latitude,
-                            longitude,
-                            Number(location.latitude),
-                            Number(location.longitude)
-                        ),
-                    }))
-                    .sort((a, b) => a.distance - b.distance);
+            try {
+
+                if (isNewLocation) {
+                    const locationArr = locations
+                        .map((location) => ({
+                            ...location,
+                            distance: calculateDistance(
+                                latitude,
+                                longitude,
+                                Number(location.latitude),
+                                Number(location.longitude)
+                            ),
+                        }))
+                        .sort((a, b) => a.distance - b.distance);
 
 
 
-                localStorage.setItem(
-                    "locationData",
-                    JSON.stringify(locationArr)
-                );
-            }
-            const locationArr = JSON.parse(localStorage.getItem("locationData"))
-            let html = "";
-            
-            locationArr.forEach((location) => {
-                if (location.distance >= 30) return;
+                    localStorage.setItem(
+                        "locationData",
+                        JSON.stringify(locationArr)
+                    );
+                }
 
-                html += Card(location)
-            });
+                const locationData = JSON.parse(localStorage.getItem("locationData"))
+                const locationArr = Array.isArray(locationData)
+                    ? locationData
+                    : locationData.location || [];
+                let html = "";
 
-            discoverCardContainer.style.display = "grid";
-            discoverCardContainer.innerHTML = html;
+                locationArr.forEach((location) => {
+                    if (location.distance >= 30) return;
 
-            // Add favorite listeners AFTER DOM is created
-            const favButtons = document.querySelectorAll(
-                ".fav-svg-container"
-            );
-
-            favButtons.forEach((button) => {
-                button.addEventListener("click", (event) => {
-                    const article =
-                        event.currentTarget.closest("article");
-
-                    if (!article) return;
-
-                    const locationId =
-                        article.dataset.locationId;
-
-                    event.currentTarget.classList.toggle("active");
-
-                    console.log("Favorite:", locationId);
+                    html += Card(location)
                 });
-            });
 
-            // Run AFTER cards are inserted
-            LoadIntersectionObserver();
+
+                discoverCardContainer.style.display = "grid";
+                discoverCardContainer.innerHTML = html;
+
+
+                // Add favorite listeners AFTER DOM is created
+                const favButtons = document.querySelectorAll(
+                    ".fav-svg-container"
+                );
+
+                favButtons.forEach((button) => {
+                    button.addEventListener("click", (event) => {
+                        const article =
+                            event.currentTarget.closest("article");
+
+                        if (!article) return;
+
+                        const locationId =
+                            article.dataset.locationId;
+
+                        event.currentTarget.classList.toggle("active");
+
+                        console.log("Favorite:", locationId);
+                    });
+                });
+
+                // Run AFTER cards are inserted
+                LoadIntersectionObserver();
+            } catch (error) {
+                discoverCardContainer.style.display = "flex";
+
+                discoverCardContainer.innerHTML = `
+                    <div class="w-full p-16 text-black rounded-lg text-lg text-center border-gray">
+                        Something went wrong
+                    </div>
+                `;
+
+                console.error("Geolocation error:", error);
+            }
+
         } catch (error) {
             discoverCardContainer.style.display = "flex";
 

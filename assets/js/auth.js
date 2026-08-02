@@ -69,31 +69,26 @@ const handleSignIn = async (signInForm) => {
     isLoading = false;
 };
 const handleDrSignUp = async (drSignInForm, e) => {
-    console.log("handleDrSignUp called");
     e.preventDefault();
     const drSignInFormData = new FormData(drSignInForm);
     drSignInFormData.append("action", "driverSignup");
-    let full_name = drSignInFormData.get("full_name") || "asdf";
-    let date_of_birth = drSignInFormData.get("date_of_birth") || "asdf";
-    let email = drSignInFormData.get("email") || "asdf";
-    let phone = drSignInFormData.get("phone") || "asdf";
-    let id_front_photo = drSignInFormData.get("id_front_photo") || "asdf";
-    let id_back_photo = drSignInFormData.get("id_back_photo") || "asdf";
-    let password = drSignInFormData.get("password") || "asdf";
-    let cPassword = drSignInFormData.get("cPassword") || "asdf";
+    let full_name = drSignInFormData.get("full_name");
+    let date_of_birth = drSignInFormData.get("date_of_birth");
+    let email = drSignInFormData.get("email");
+    let phone = drSignInFormData.get("phone");
 
-    let license_number = drSignInFormData.get("license_number") || "asdf";
-    let lisence_type = drSignInFormData.get("lisence_type") || "asdf";
-    let license_issue_date = drSignInFormData.get("license_issue_date") || "asdf";
-    let license_expiry_date = drSignInFormData.get("license_expiry_date") || "asdf";
-    let issuing_office = drSignInFormData.get("issuing_office") || "asdf";
-    let year_of_experience = drSignInFormData.get("year_of_experience") || "asdf";
-    let license_front_photo = drSignInFormData.get("license_front_photo") || "asdf";
-    let license_back_photo = drSignInFormData.get("license_back_photo") || "asdf";
-    let rememberMe = drSignInFormData.get("rememberMe") || "asdf";
+    let password = drSignInFormData.get("password");
+    let cPassword = drSignInFormData.get("cPassword");
+
+    let license_number = drSignInFormData.get("license_number");
+    let lisence_type = drSignInFormData.get("license_type");
+    let license_issue_date = drSignInFormData.get("license_issue_date");
+    let license_expiry_date = drSignInFormData.get("license_expiry_date");
+    let issuing_office = drSignInFormData.get("issuing_office");
+    let year_of_experience = drSignInFormData.get("year_of_experience");
+    let rememberMe = drSignInFormData.get("rememberMe");
     console.log(full_name);
     let error = false;
-    let isLoading = false;
 
     if (
         [full_name, date_of_birth, email, phone, password, cPassword, license_number, lisence_type, license_issue_date, license_expiry_date, issuing_office, year_of_experience].some(
@@ -104,10 +99,10 @@ const handleDrSignUp = async (drSignInForm, e) => {
         error = true;
     }
 
-    if ([id_front_photo, id_back_photo, license_front_photo, license_back_photo].some((file) => !file || file.size === 0)) {
-        Toast("Please upload all required documents.", "Error");
-        error = true;
-    }
+    // if ([id_front_photo, id_back_photo, license_front_photo, license_back_photo].some((file) => !file || file.size === 0)) {
+    //     Toast("Please upload all required documents.", "Error");
+    //     error = true;
+    // }
 
     if (!rememberMe) {
         Toast("Please accept the Terms and Privacy Policy.", "Error");
@@ -120,7 +115,6 @@ const handleDrSignUp = async (drSignInForm, e) => {
     }
     if (error) return;
     Toast("Please wait...", "Success");
-    isLoading = true;
     try {
         console.log("Before fetch");
 
@@ -133,14 +127,11 @@ const handleDrSignUp = async (drSignInForm, e) => {
         let data = await res.json();
         console.log(data);
         if (res.status == 200) {
-            // let data1 = await res.json();
-            console.log(data);
-            // console.log(data1)
             Toast(`${data.message}`, "Success");
             Toast("Redirecting...", "Success");
-            // setTimeout(() => {
-            //     window.location.href = `${BASEURL}pages/sign-in.php`;
-            // }, 5000);
+            setTimeout(() => {
+                window.location.href = `${BASEURL}pages/sign-in.php`;
+            }, 5000);
             drSignInForm.reset();
         } else if (res.status == 409) {
             Toast(`${data.message}`, "Error");
@@ -151,8 +142,6 @@ const handleDrSignUp = async (drSignInForm, e) => {
         Toast("Something went wrong", "Error");
         console.log(err);
     }
-    isLoading = false;
-    console.log("endss");
 };
 
 const handleSignUp = async (signUpForm) => {

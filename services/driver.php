@@ -19,42 +19,42 @@ function handleDrSignIn($data, $files, $conn)
     // $seat_capacity = $data['seat_capacity'];
     // $operating_city = $data['operating_city'];
 
-    $id_front_photo = $files['id_front_photo'];
-    $id_back_photo = $files['id_back_photo'];
+    // $id_front_photo = $files['id_front_photo'];
+    // $id_back_photo = $files['id_back_photo'];
 
-    $license_front_photo = $files['license_front_photo'];
-    $license_back_photo = $files['license_back_photo'];
+    // $license_front_photo = $files['license_front_photo'];
+    // $license_back_photo = $files['license_back_photo'];
 
     // $billbook_front_photo = $files['billbook_front_photo'];
     // $billbook_back_photo = $files['billbook_back_photo'];
 
-    $idFront = uploadImage(
-        $id_front_photo,
-        "uploads/userData",
-        $full_name,
-        "id_front"
-    );
+    // $idFront = uploadImage(
+    //     $id_front_photo,
+    //     "uploads/userData",
+    //     $full_name,
+    //     "id_front"
+    // );
 
-    $idBack = uploadImage(
-        $id_back_photo,
-        "uploads/userData",
-        $full_name,
-        "id_back"
-    );
+    // $idBack = uploadImage(
+    //     $id_back_photo,
+    //     "uploads/userData",
+    //     $full_name,
+    //     "id_back"
+    // );
 
-    $licenseFront = uploadImage(
-        $license_front_photo,
-        "uploads/userData",
-        $full_name,
-        "license_front"
-    );
+    // $licenseFront = uploadImage(
+    //     $license_front_photo,
+    //     "uploads/userData",
+    //     $full_name,
+    //     "license_front"
+    // );
 
-    $licenseBack = uploadImage(
-        $license_back_photo,
-        "uploads/userData",
-        $full_name,
-        "license_back"
-    );
+    // $licenseBack = uploadImage(
+    //     $license_back_photo,
+    //     "uploads/userData",
+    //     $full_name,
+    //     "license_back"
+    // );
 
     // $billFront = uploadImage(
     //     $billbook_front_photo,
@@ -120,7 +120,7 @@ function handleDrSignIn($data, $files, $conn)
         } else {
 
             $user_id = mysqli_insert_id($conn);
-            $sql = "INSERT INTO driver_documents(user_id,license_number,license_type,license_issue_date,license_expiry_date, issuing_office,year_of_experience,id_front_photo,id_back_photo,license_front_photo,license_back_photo) VALUES($user_id,'$license_number','$license_type','$license_issue_date','$license_expiry_date','$issuing_office','$year_of_experience','$idFront','$idBack','$licenseFront','$licenseBack')";
+            $sql = "INSERT INTO driver_documents(user_id,license_number,license_type,license_issue_date,license_expiry_date, issuing_office,year_of_experience) VALUES($user_id,'$license_number','$license_type','$license_issue_date','$license_expiry_date','$issuing_office','$year_of_experience')";
 
 
             $res = mysqli_query($conn, $sql);
@@ -140,16 +140,12 @@ function handleDrSignIn($data, $files, $conn)
                 echo json_encode([
                     "success" => true,
                 "message" => "Created",
-                "ermsg" => $res,
-                "sql" => $sql,
                 ]);
                 }else{
                     http_response_code(400);
                     echo json_encode([
                     "success" => true,
                     "message" => "Created",
-                    "ermsg" =>  mysqli_error($conn),
-                    "sql" => $sql,
                     ]);
                     
                 }

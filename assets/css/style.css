@@ -78,6 +78,15 @@ button {
     color: white;
 }
 
+.active-primary {
+    background-color: #000;
+    color: white;
+}
+.active-secondary {
+    background-color: var(--color-secondary);
+    color: white;
+}
+
 .active-link {
     /* color:rgb(182, 5, 5) */
     border-radius: 9999px;
@@ -364,20 +373,50 @@ button {
 footer {
     padding: 32px;
 }
+input {
+    transition: 0.2s ease-in-out;
+    outline: none;
+    padding: 8px 16px;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    border: 1px solid var(--border-gray);
+    border-radius: 0.5rem;
+}
+input:focus,
+select:focus {
+    border: 1px solid rgb(94, 210, 243);
+}
+select {
+    line-height: 40px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+select,
+::picker(select) {
+    appearance: base-select;
+}
+
+::picker(select) {
+    border: none;
+    border-radius: 10px;
+    background: white;
+}
+
+option {
+    padding: 0 12px;
+}
+
+option:checked {
+    background: var(--color-secondary);
+    color: white;
+}
 
 .reg-log {
     display: flex;
     flex-direction: column-reverse;
     height: 100%;
-    input {
-        transition: 0.2s ease-in-out;
-        outline: none;
-        padding: 8px 16px;
-        font-size: 1rem;
-        line-height: 1.5rem;
-        border: 1px solid var(--border-gray);
-        border-radius: 0.5rem;
-    }
+
     /* option {
         font-size: 16px;
         border-radius: 10px;
@@ -387,36 +426,6 @@ footer {
         }
     } */
 
-    select {
-        line-height: 40px;
-        font-size: 16px;
-        box-sizing: border-box;
-    }
-
-    select,
-    ::picker(select) {
-        appearance: base-select;
-    }
-
-    ::picker(select) {
-        border: none;
-        border-radius: 10px;
-        background: white;
-    }
-
-    option {
-        padding: 0 12px;
-    }
-
-    option:checked {
-        background: var(--color-secondary);
-        color: white;
-    }
-
-    input:focus,
-    select:focus {
-        border: 1px solid rgb(94, 210, 243);
-    }
     .signup-form-control {
         display: grid;
         gap: 10px;
@@ -451,7 +460,7 @@ footer {
     }
 }
 
-.bg-body{
+.bg-body {
     background-color: var(--bg-body);
 }
 
@@ -471,10 +480,10 @@ footer {
     flex-direction: column-reverse;
 }
 
-
-
-
-
+.text-head {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+}
 
 @media (min-width: 700px) {
     .hero-count {
@@ -482,6 +491,10 @@ footer {
         /* div{
             border-right: 1px solid #e2e2e1;
             } */
+    }
+    .text-head {
+        font-size: 3.75rem;
+        line-height: 1;
     }
     .footer-container {
         grid-template-columns: repeat(2, minmax(0, 1fr));

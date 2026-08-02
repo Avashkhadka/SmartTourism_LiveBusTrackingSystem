@@ -48,14 +48,14 @@
 input:focus {
     outline: none;
 }
-.discover-container {
+.discover-container,.page-container {
     padding: 3rem;
 }
 @media (min-width: 700px) {
     .discover_card_container {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-    .discover-container {
+    .discover-container,.page-container {
         padding: 3rem;
     }
 }

@@ -77,12 +77,12 @@ function createDriverDocuments($conn)
         issuing_office VARCHAR(255) NOT NULL,
         year_of_experience INT NOT NULL,
 
-        id_front_photo VARCHAR(255) NOT NULL,
-        id_back_photo VARCHAR(255) NOT NULL,
+        id_front_photo VARCHAR(255)  default Null,
+        id_back_photo VARCHAR(255) default Null,
         id_status VARCHAR(255) DEFAULT 'pending', 
 
-        license_front_photo VARCHAR(255) NOT NULL,
-        license_back_photo VARCHAR(255) NOT NULL,
+        license_front_photo VARCHAR(255) default Null,
+        license_back_photo VARCHAR(255)  default Null,
         license_status VARCHAR(255) DEFAULT 'pending', 
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 

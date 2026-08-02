@@ -102,7 +102,7 @@
 }
 
 .items-start {
-    align-items: flex-start;
+    align-items: start;
 }
 .items-end {
     align-items: flex-end;

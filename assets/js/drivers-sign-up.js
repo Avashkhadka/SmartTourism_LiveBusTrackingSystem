@@ -24,20 +24,20 @@ export const LoadDriversSignUp = () => {
         // if (current == drSignInFormContent.length - 1) {
         //     // nextBtn.type = "submit";
         // } else {
-            if (current == drSignInFormContent.length - 2) {
-                submitBtn.classList.remove("hidden");
-                nextBtn.classList.add("hidden");
+        if (current == drSignInFormContent.length - 2) {
+            submitBtn.classList.remove("hidden");
+            nextBtn.classList.add("hidden");
             //     nextBtn.innerText = "Create a account";
-            }
-            prevBtn.disabled = false;
-            prevBtn.classList.add("bgcolor-secondary", "text-white");
-            prevBtn.classList.remove("bg-disabled", "text-black");
-            drSignInFormContent[current].classList.remove("flex", "flex-col");
-            drSignInFormContent[current].classList.add("hidden");
-            drSignInFormContent[current + 1].classList.remove("hidden");
-            drSignInFormContent[current + 1].classList.add("flex", "flex-col");
-            current += 1;
-            driverSignLine.style.width = `${(100 / (drSignInFormContent.length - 1)) * current}%`;
+        }
+        prevBtn.disabled = false;
+        prevBtn.classList.add("bgcolor-secondary", "text-white");
+        prevBtn.classList.remove("bg-disabled", "text-black");
+        drSignInFormContent[current].classList.remove("flex", "flex-col");
+        drSignInFormContent[current].classList.add("hidden");
+        drSignInFormContent[current + 1].classList.remove("hidden");
+        drSignInFormContent[current + 1].classList.add("flex", "flex-col");
+        current += 1;
+        driverSignLine.style.width = `${(100 / (drSignInFormContent.length - 1)) * current}%`;
         // }
     });
 

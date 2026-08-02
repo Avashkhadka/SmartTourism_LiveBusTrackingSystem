@@ -14,7 +14,7 @@ function Select($props = [])
         <label for="<?php echo $id; ?>" class="text-sm color-ternary <?php echo $lclass; ?>">
             <?php echo $label ?>
         </label>
-        <select name="<?php echo $id?>" id="<?php echo $id; ?>" class="h-full border-gray px-2 rounded-lg <?php echo $sclass; ?>">
+        <select name="<?php echo $id?>" id="<?php echo $id; ?>" class="h-full w-full border-gray px-2 rounded-lg <?php echo $sclass; ?>">
             <?php 
             foreach($options as $o){
                 

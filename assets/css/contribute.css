@@ -1,0 +1,12 @@
+.contirbute-form {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+@media (min-width: 700px) {
+    .contirbute-form {
+        grid-template-columns: 0.7fr 2fr;
+        gap: 2rem;
+    }
+}
+@media (min-width: 983px) {
+}
