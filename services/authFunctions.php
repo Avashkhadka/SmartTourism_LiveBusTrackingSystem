@@ -112,6 +112,7 @@ function handleSignIn($data, $conn)
             $_SESSION['isLogged_in'] = true;
             $_SESSION['user_id'] = $info[0]['user_id'];
             $_SESSION['user_name'] = $info[0]['name'];
+            $_SESSION['user_email'] = $info[0]['email'];
             $_SESSION['role'] = $info[0]['role'];
             $_SESSION['profile_image'] = $info[0]['profile_image'];
 
