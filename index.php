@@ -18,7 +18,7 @@
     <div class="max-w-9xl mx-auto">
         <?php RenderNavbar("home") ?>
         <?php Hero() ?>
-        <section class="py-12 px-12 reveal mt-8">
+        <section class="py-12 page-container reveal mt-8">
             <div class="flex flex-col gap-3">
                 <!-- <div class="flex gap-2 items-center text-gray-600 text-xs  font-medium tracking-widest-long "> -->
                 <p class="text-gray-500 text-sm font-medium">WHAT KHOJA DOES</p>

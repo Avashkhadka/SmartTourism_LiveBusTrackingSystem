@@ -16,7 +16,7 @@
 <body>
     <div class="max-w-9xl mx-auto" id="discover-container">
         <?php RenderNavbar("discover") ?>
-        <section class=" reveal flex flex-col gap-4 discover-container">
+        <section class=" reveal flex flex-col gap-4  py-12 page-container">
             <div class="flex flex-col ">
 
                 <div class="flex gap-2 items-center text-gray-600 text-xs font-medium tracking-widest-long ">

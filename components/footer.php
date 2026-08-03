@@ -3,7 +3,7 @@ function Footer()
 {
 
     ?>
-    <footer class="w-full bg-white border-t-gray p-12 reveal">
+    <footer class="w-full bg-white border-t-gray  py-12 page-container reveal">
         <div class="footer-container">
             <div>
                 <div class="flex justify-start items-center gap-2 ">

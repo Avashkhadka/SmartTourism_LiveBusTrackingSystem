@@ -17,12 +17,17 @@ button {
     --bg-ternary: #f7f6f1;
     --bg-body: #fafaf7;
     --color-secondary: #ff5a1f;
+    --color-secondary-light: #faf8f3;
+    --color-secondary-hover: #fff1ea;
     --border-bg: #28292b;
     --border-gray: #e1e1e2;
 }
 
 .border-gray {
     border: 1px solid var(--border-gray);
+}
+.border-gray-dashed {
+    border: 1px dashed var(--border-gray);
 }
 .border-t-gray {
     border-top: 1px solid var(--border-gray);
@@ -47,9 +52,7 @@ button {
 .bgcolor-ternary {
     background-color: var(--bg-ternary);
 }
-.bgcolor-secondary {
-    background-color: var(--color-secondary);
-}
+
 .bg-disabled {
     background-color: var(--color-ternary);
 }
@@ -107,6 +110,21 @@ button {
 .bg-secondary {
     background-color: var(--color-secondary);
 }
+.bg-secondary-light {
+    background-color: var(--color-secondary-light);
+}
+
+.bg-secondary-hover:hover {
+    background-color: var(--color-secondary-hover);
+}
+
+.border-secondary-hover:hover {
+    border: 1px solid var(--color-secondary);
+}
+.border-secondary-hover-dotted:hover {
+    border: 2px dotted var(--color-secondary);
+}
+
 .bg-secondary-25 {
     background-color: #ff5b1f40;
 }
@@ -484,8 +502,27 @@ option:checked {
     font-size: 2.25rem;
     line-height: 2.5rem;
 }
+.page-container {
+    padding: 2rem;
+}
+.page-container-x {
+    padding: 0 2rem;
+}
+.form-control {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+}
 
 @media (min-width: 700px) {
+    .form-control {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .page-container {
+        padding: 3rem;
+    }
+    .page-container {
+        padding: 0 3rem;
+    }
     .hero-count {
         grid-template-columns: repeat(4, minmax(0, 1fr));
         /* div{
