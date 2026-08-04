@@ -75,7 +75,7 @@ $amenities = ["Parking", "Restrooms", "Food nearby", "Wifi", "WheelChair access"
 
             <div class="contirbute-form">
                 <div class="flex flex-col gap-8 mb-6">
-                    <div class="w-full h-1 bg-secondary mt-2"></div>
+                    <div class="w-4 h-1 bg-secondary mt-2 transition-all duration-300" id="pin-progress-bar"></div>
                     <div class="flex flex-col gap-6">
                         <?php
                         foreach ($fields as $el) {

@@ -27,6 +27,7 @@ export class ContributePage {
         this.pinNextBtn = document.querySelector("#pin-next");
         this.pinFormContainer = document.querySelector("#pin-place-menu-container");
         this.pinSubmit = document.querySelector("#pin-submit");
+        this.pinProgressBar = document.querySelector("#pin-progress-bar");
 
 
         await this.loadMap();
@@ -67,7 +68,7 @@ export class ContributePage {
                 this.pinSubmit.classList.remove("hidden")
                 this.pinNextBtn.classList.add("hidden")
             }
-
+            this.pinProgressBar.style.width = `${(100 / (this.pinContainers.length - 1)) * this.current}%`;
             this.updateSideButtons();
         } else if (action === "prev") {
             if (this.current >= 0 && this.current < this.pinContainers.length) {
@@ -80,6 +81,11 @@ export class ContributePage {
                     this.pinContainers[this.current + 1].classList.add("hidden");
                     this.pinContainers[this.current + 1].classList.remove("flex", "flex-col");
                 }
+                let wid = (100 / (this.pinContainers.length - 1)) * this.current
+                if (!wid) {
+                    wid = 10
+                }
+                this.pinProgressBar.style.width = `${wid}%`;
             }
 
             this.updateSideButtons();
