@@ -43,9 +43,7 @@ button {
 .color-ternary {
     color: var(--color-ternary);
 }
-.bg-color-ternary{
-    background-color: var(--color-ternary);
-}
+
 
 .color-secondary {
     color: var(--color-secondary);

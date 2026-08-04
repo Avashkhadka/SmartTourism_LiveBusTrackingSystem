@@ -7,6 +7,8 @@
 <?php include "../components/photo.php" ?>
 <?php
 
+
+
 $fields = [
     [
         "id" => 1,
@@ -49,8 +51,8 @@ $amenities = ["Parking", "Restrooms", "Food nearby", "Wifi", "WheelChair access"
 <body>
     <div class="max-w-9xl mx-auto" id="contribute-page-container">
         <?php RenderNavbar("contribute") ?>
-        <section class=" reveal flex flex-col gap-4 py-12 page-container">
-            <div class="flex flex-col ">
+        <section class="flex flex-col gap-4 py-12 page-container">
+            <div class="reveal   flex flex-col ">
 
                 <div class="flex gap-2 items-center text-gray-600 text-xs font-medium tracking-widest-long ">
                     <span class="relative justify-center items-center flex w-4 h-4">
@@ -79,9 +81,9 @@ $amenities = ["Parking", "Restrooms", "Food nearby", "Wifi", "WheelChair access"
                         foreach ($fields as $el) {
 
                             ?>
-                            <div id="pin-a-place-options" class="flex gap-4 items-start curser-pointer">
-                                <div class="px-2 py-1 <?php if ($el['id'] == 1)
-                                    echo "active-primary" ?> font-bold text-base text-center w-8 rounded-xl">
+                            <div  class="flex gap-4 items-start cursor-pointer pin-a-place-options">
+                                <div class="px-2 py-1 <?php echo ($el['id'] == 1) ?  "active-primary":  "bg-white"
+                                   ?>  border-gray num-pin font-bold text-base  text-center w-8 rounded-xl">
                                     <?php echo $el['id'] ?>
                                 </div>
                                 <div class="flex flex-col gap-1">
@@ -94,7 +96,7 @@ $amenities = ["Parking", "Restrooms", "Food nearby", "Wifi", "WheelChair access"
                     </div>
                 </div>
                 <form id="pin-place-menu-container" class="p-8 bg-white border-gray rounded-3xl  flex flex-col gap-8">
-                    <div class="flex flex-col gap-4 w-full hidden" id="pin-a-place-menu-1">
+                    <div class="flex flex-col gap-4 w-full pin-place-menu">
                         <div>
                             <div class="text-lg text-black font-semibold">Tell us about the place</div>
                             <div class="text-sm color-gray mt-1 ">Start with the essentials. You can edit anything
@@ -155,7 +157,7 @@ $amenities = ["Parking", "Restrooms", "Food nearby", "Wifi", "WheelChair access"
 
 
                     </div>
-                    <div class="flex flex-col gap-4 w-full hidden" id="pin-a-place-menu-2">
+                    <div class=" gap-4 w-full hidden pin-place-menu">
                         <div>
                             <div class="text-lg text-black font-semibold">Pin it on the map</div>
                             <div class="text-sm color-gray mt-1 ">Drag the pin or enter coordinate manually.</div>
@@ -196,7 +198,7 @@ $amenities = ["Parking", "Restrooms", "Food nearby", "Wifi", "WheelChair access"
                             ?>
                         </div>
                     </div>
-                    <div class="flex flex-col gap-4 w-full hidden" id="pin-a-place-menu-3">
+                    <div class=" gap-4 w-full hidden pin-place-menu">
                         <div>
                             <div class="text-lg text-black font-semibold">Add photos</div>
                             <div class="text-sm color-gray mt-1 ">First photo becomes the cover. Original shots only -
@@ -234,7 +236,7 @@ $amenities = ["Parking", "Restrooms", "Food nearby", "Wifi", "WheelChair access"
                         </div>
 
                     </div>
-                    <div class="flex flex-col gap-4 w-full hidden" id="pin-a-place-menu-1">
+                    <div class=" gap-4 w-full hidden pin-place-menu">
                         <div>
                             <div class="text-lg text-black font-semibold">Visitors Details</div>
                             <div class="text-sm color-gray mt-1 ">Help fellow travelers plan their trip.</div>
@@ -334,18 +336,25 @@ $amenities = ["Parking", "Restrooms", "Food nearby", "Wifi", "WheelChair access"
                     <div class="w-full bgcolor-ternary " style="height: 2px;"></div>
                     <div class="flex justify-between">
                         <div
-                            class="no-underline text-gray-800 border border-gray-200  py-2 px-4  border-solid rounded-full nav-link-item-hover hover-bg-ternary">
+                            class="no-underline text-gray-800 border border-gray-200  py-2 px-4  border-solid rounded-full nav-link-item-hover hover-bg-ternary" id="pin-back">
                             <span class="text-sm font-medium  ">
                                 <i class="fa-solid fa-arrow-left"></i> Back
                             </span>
                         </div>
-                        <div
-                            class="no-underline text-gray-800 bg-secondary border border-gray-200  py-2 px-4  border-solid rounded-full nav-link-item-hover ">
+                        <div 
+                            class="no-underline text-gray-800 bg-secondary border border-gray-200  py-2 px-4  border-solid rounded-full nav-link-item-hover " id="pin-next">
                             <span class="text-sm font-medium text-white">
                                 Continue <i class="fa-solid fa-arrow-right"></i>
 
                             </span>
                         </div>
+                        <button
+                            class=" hidden no-underline text-gray-800 bg-secondary border border-gray-200  py-2 px-4  border-solid rounded-full nav-link-item-hover " id="pin-submit">
+                            <span class="text-sm font-medium text-white">
+                                Sumbit <i class="fa-solid fa-arrow-right"></i>
+
+                            </span>
+                        </button>
                     </div>
                 </form>
             </div>
