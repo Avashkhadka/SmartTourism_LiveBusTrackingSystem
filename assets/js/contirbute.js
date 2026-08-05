@@ -6,12 +6,14 @@ export class ContributePage {
     constructor() {
         this.current = 0;
         this.map = null;
+        this.marker = null;
 
         this.container = null;
         this.pinContainers = null;
         this.pinSideBtns = null;
         this.pinBackBtn = null;
         this.pinNextBtn = null;
+        this.mapClickData = null;
         this.pinFormContainer = null;
     }
 
@@ -28,6 +30,8 @@ export class ContributePage {
         this.pinFormContainer = document.querySelector("#pin-place-menu-container");
         this.pinSubmit = document.querySelector("#pin-submit");
         this.pinProgressBar = document.querySelector("#pin-progress-bar");
+        this.latElement = document.querySelector("#pin-place-menu-container #latitude")
+        this.lngElement = document.querySelector("#pin-place-menu-container #longitude")
 
 
         await this.loadMap();
@@ -53,7 +57,12 @@ export class ContributePage {
         if (!this.pinContainers || this.pinContainers.length === 0) {
             return;
         }
+        if (this.map) {
 
+            setTimeout(() => {
+                this.map.invalidateSize();
+            }, 100);
+        }
         if (action === "next") {
             if (this.current > 0 && this.current < this.pinContainers.length) {
                 this.pinContainers[this.current].classList.remove("hidden");
@@ -130,41 +139,98 @@ export class ContributePage {
                 maxZoom: 19,
                 attribution: "&copy; OpenStreetMap contributors",
             }).addTo(this.map);
+
+            this.map.on("click", (e) => {
+                this.mapClickData = e;
+                this.handleMapClick();
+            })
+
         } catch (err) {
             console.error("Failed to load map:", err);
         }
     }
 
-    async handleSubmitForm() {
+    handleMapClick() {
+
+        const { lat, lng } = this.mapClickData.latlng;
+        if (this.marker) {
+            this.map.removeLayer(this.marker)
+        }
+        this.marker = L.marker([lat, lng]).addTo(this.map);
+        this.latElement.value = lat;
+        this.lngElement.value = lng;
+
+    }
+
+    handleSubmitForm() {
         const pinFormData = new FormData(this.pinFormContainer);
         const data = Object.fromEntries(pinFormData.entries());
+        data.vibe = pinFormData.getAll("vibe[]")
+        data.amenities = pinFormData.getAll("amenities[]")
         console.log(data)
         let error = false;
 
+        for (const [key, value] of pinFormData.entries()) {
 
 
+            if (key === "amenities[]" || key === "vibe[]") continue;
+
+
+            if (value instanceof File) continue;
+
+            if (!value?.toString().trim()) {
+                Toast(`${key} cannot be empty.`, "Error");
+                error = true;
+
+            }
+        }
+
+        if (data.amenities.length === 0 || data.vibe.length === 0) {
+            Toast("Don't leave any fields empty.", "Error");
+            error = true;
+        }
+
+        if (data['short_pitch'].length < 30) {
+            Toast("Short pitch must be at least 30 characters.", "Error")
+            error = true
+        }
 
         console.log(data)
         if (error) return;
-        try {
-            const res = await fetch(`${BASEURL}/api/contribute.php`, {
-                method: "POST",
-                body: pinFormData
-            })
-            if (res.status == 200) {
-                const data = await res.json();
-                console.log(data)
-                Toast("Added a contribution request", "Success");
+
+
+        const xhr = new XMLHttpRequest();
+
+        xhr.open("POST", `${BASEURL}/api/contriapi.php`, true);
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                try {
+
+                    const data = JSON.parse(xhr.responseText);
+                    console.log(data)
+                    Toast("Added a contribution request", "Success");
+                } catch (err) {
+                    console.log(xhr.responseText)
+                    Toast("Invalid server response", "Error")
+                }
             } else {
                 Toast("Something went while insertind data", "Error")
             }
-
-
-        } catch (err) {
-            console.log(err)
         }
-        // Form submission logic here
+
+        xhr.onerror = function () {
+            Toast("Something went while insertind data", "Error")
+
+        }
+        xhr.send(pinFormData)
+
+
+
+
     }
+    // Form submission logic here
+
 }
 
 // Create page

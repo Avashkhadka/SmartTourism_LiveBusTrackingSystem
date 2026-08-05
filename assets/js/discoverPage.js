@@ -56,7 +56,7 @@ const fetchLocationData = async () => {
             }
 
             locationData = await res.json();
-
+            
             localStorage.setItem(
                 "locationData",
                 JSON.stringify(locationData)
@@ -115,7 +115,7 @@ const fetchLocationData = async () => {
 
                 locationArr.forEach((location) => {
                     if (location.distance >= 30) return;
-
+                    console.log(location)
                     html += Card(location)
                 });
 

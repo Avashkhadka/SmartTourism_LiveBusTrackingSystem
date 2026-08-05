@@ -38,7 +38,7 @@
             <div class="border-gray search-container">
                 <div class="flex border-gray rounded-full p-2 gap-4 flex items-center space-between">
                     <i class="fa-solid fa-magnifying-glass text-lg"></i>
-                    <input type="text" id="search_box" class="  bg-white text-sm border-none w-full "
+                    <input type="text" id="search_box" class=" stop_hover bg-white text-sm border-none w-full "
                         placeholder=" Search places, categories or moods...">
                 </div>
                 <div class="flex flex-wrap gap-2 justify-center items-center ">
@@ -51,7 +51,7 @@
                     <div class="border-gray search-category rounded-full h-10 curser-pointer">Lakes</div>
                 </div>
                 <select name="search-select" id="search-select"
-                    class="overflow-hidden py-4 h-full w-auto border-gray px-2 rounded-lg ">
+                    class="overflow-hidden py-4 text-sm h-full stop_hover border-gray px-2 rounded-lg ">
                     <option value="" selected>Sort: Popular</option>
                     <option value="Nearest First">Nearest First</option>
                     <option value="Highest Rated">Highest Rated</option>

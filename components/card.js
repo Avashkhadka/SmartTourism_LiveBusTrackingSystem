@@ -1,13 +1,13 @@
 export function Card(location) {
     return /*html*/ `<article class="w-full reveal card rounded-2xl overflow-hidden shadow-lg" data-location-id="${location.location_id}">
         <div class="relative">
-            <img src="../assets/images/signin-bg.jpg" loading="lazy" alt="${location.name}" class="w-full">
+            <img src="../assets/images/signin-bg.jpg" loading="lazy" alt="${location.place_name}" class="w-full">
 
                 <div class="absolute inset-0 h-full w-full p-4">
                     <div class="flex justify-between items-center">
 
                         <div class="bg-white py-2 px-4 block text-xs font-bold rounded-full">
-                            ${location.category}
+                            ${location.place_category}
                         </div>
 
                         <div
@@ -30,7 +30,7 @@ export function Card(location) {
 
             <div class="flex justify-between items-center">
                 <h3 class="font-semibold text-md color-black">
-                    ${location.name}
+                    ${location.place_name}
                 </h3>
 
                 <h3 class="font-medium text-xs color-gray">
@@ -39,7 +39,7 @@ export function Card(location) {
             </div>
 
             <p class="text-xs color-gray font-medium my-4">
-                ${location.description}
+                ${location.short_pitch}
             </p>
 
             <div class="w-full mb-4" style="border: 1px solid var(--border-gray);"></div>

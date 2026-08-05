@@ -34,7 +34,7 @@ function handleGetLocation($conn)
     if ($verifyUser) {
         $lim = 30;
         $offset = (int) isset($_GET['offset']) ? $_GET['offset'] - 1 : 0;
-        $sql = "SELECT * from location limit $lim offset $offset";
+        $sql = "SELECT * from location where status != 'approved' limit $lim offset $offset ";
         $res = $conn->query($sql);
         $data = $res->fetch_all(MYSQLI_ASSOC);
         if ($res) {
@@ -49,7 +49,7 @@ function handleGetLocation($conn)
         // $sql = 
     } else {
         http_response_code(401);
-        echo json_encode(["error" => "U dont have access to use the resource"]);
+        echo json_encode(["error" => "U dont have access to use the resource","b"=>$verifyUser]);
         return;
     }
 }

@@ -21,9 +21,7 @@ export const LoadDriversSignUp = () => {
     }
 
     nextBtn?.addEventListener("click", (e) => {
-        // if (current == drSignInFormContent.length - 1) {
-        //     // nextBtn.type = "submit";
-        // } else {
+
         if (current == drSignInFormContent.length - 2) {
             submitBtn.classList.remove("hidden");
             nextBtn.classList.add("hidden");

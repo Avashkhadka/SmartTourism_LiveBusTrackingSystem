@@ -11,7 +11,8 @@ if (!$conn) {
     createDriverDocuments($conn);
     createBusTable($conn);
     createLocationTable($conn);
-    populateInitialLocationData($conn);
+    // populateInitialLocationData($conn);
+    addLocationInformation($conn);
 }
 
 
@@ -141,26 +142,54 @@ function createBusTable($conn)
 
 function createLocationTable($conn)
 {
+    $sql = " CREATE TABLE IF NOT EXISTS location (
+        location_id INT AUTO_INCREMENT PRIMARY KEY,
 
-    $sql = "CREATE TABLE if not exists location (
-            location_id INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(100) NOT NULL,
-            description TEXT,
-            latitude DECIMAL(10,8) NOT NULL,
-            longitude DECIMAL(11,8) NOT NULL,
-            category VARCHAR(50) NOT NULL,
-            famous_for VARCHAR(255),
-            image json,
-            status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
-            created_by INT NOT NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (created_by) REFERENCES users(user_id)
-    )";
+        place_name VARCHAR(100) NOT NULL,
+        short_pitch TEXT NOT NULL,
+        place_category VARCHAR(50) NOT NULL,
 
-    $res = mysqli_query($conn, $sql);
+        latitude DECIMAL(10,8) NOT NULL,
+        longitude DECIMAL(11,8) NOT NULL,
+        city_region VARCHAR(100) NOT NULL,
+        nearest_landmark VARCHAR(255),
+
+        opening_hours TIME,
+        closing_hours TIME,
+        best_time_to_visit VARCHAR(100),
+        entry_fee DECIMAL(10,2) DEFAULT 0.00,
+        how_to_reach TEXT,
+
+        amenities JSON,
+        vibe JSON,
+
+        contribute_aggrement BOOLEAN NOT NULL DEFAULT FALSE,
+
+        status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
+
+        created_by INT NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+        FOREIGN KEY (created_by)
+            REFERENCES users(user_id)
+    );
+
+    CREATE TABLE IF NOT EXISTS location_images (
+        image_id INT AUTO_INCREMENT PRIMARY KEY,
+
+        location_id INT NOT NULL,
+        image_path VARCHAR(255) NOT NULL,
+
+        FOREIGN KEY (location_id)
+            REFERENCES location(location_id)
+            ON DELETE CASCADE
+    );
+    ";
+
+    $res = mysqli_multi_query($conn, $sql);
 
     if ($res) {
-        echo "<br>Location Table Created Successfully!!!";
+        echo "<br>Location and its Image Table Created Successfully!!!";
     } else {
         echo "<br>Error: " . mysqli_error($conn);
     }
@@ -209,6 +238,7 @@ function populateInitialLocationData($conn)
         }
     }
 }
+
 
 
 ?>

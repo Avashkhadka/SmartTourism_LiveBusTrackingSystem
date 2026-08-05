@@ -35,18 +35,18 @@ export const HandleViewLocation = async () => {
             window.location.href = `${BASEURL}pages/discover.php`
             return;
         }
-        locationTitle.innerText = thisLocation.name
-        locationHeadingTitle.innerText = thisLocation.name
+        locationTitle.innerText = thisLocation.place_name
+        locationHeadingTitle.innerText = thisLocation.place_name
         categoryHead.forEach(element => {
             if (element.classList.contains("head")) {
-                element.innerText = thisLocation.category
+                element.innerText = thisLocation.place_category
             } else {
-                element.innerText = thisLocation.category.toUpperCase()
+                element.innerText = thisLocation.place_category.toUpperCase()
 
             }
         });
         totalDistance.innerHTML = `<i class="fa-solid fa-map-pin" style="color: rgb(255, 0, 0);"></i> ${parseFloat(thisLocation.distance).toFixed(2)} Km away`
-        locationDescription.textContent = thisLocation.description
+        locationDescription.textContent = thisLocation.short_pitch
 
         busEstfair.innerText = `Rs ${parseInt((thisLocation.distance < 5) ? "25" : 5 * thisLocation.distance)}`
         busETA.innerText = `${Math.round((thisLocation.distance / 20) * 60)} min`

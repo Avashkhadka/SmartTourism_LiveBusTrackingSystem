@@ -5,6 +5,7 @@
 <?php include '../components/input.php'; ?>
 <?php include '../components/select.php'; ?>
 <?php include "../components/photo.php" ?>
+<?php include "../components/checkbox.php" ?>
 <?php
 
 
@@ -81,9 +82,9 @@ $amenities = ["Parking", "Restrooms", "Food nearby", "Wifi", "WheelChair access"
                         foreach ($fields as $el) {
 
                             ?>
-                            <div  class="flex gap-4 items-start cursor-pointer pin-a-place-options">
-                                <div class="px-2 py-1 <?php echo ($el['id'] == 1) ?  "active-primary":  "bg-white"
-                                   ?>  border-gray num-pin font-bold text-base  text-center w-8 rounded-xl">
+                            <div class="flex gap-4 items-start cursor-pointer pin-a-place-options">
+                                <div class="px-2 py-1 <?php echo ($el['id'] == 1) ? "active-primary" : "bg-white"
+                                    ?>  border-gray num-pin font-bold text-base  text-center w-8 rounded-xl">
                                     <?php echo $el['id'] ?>
                                 </div>
                                 <div class="flex flex-col gap-1">
@@ -144,14 +145,12 @@ $amenities = ["Parking", "Restrooms", "Food nearby", "Wifi", "WheelChair access"
                         <div class="flex gap-4 flex-wrap">
                             <?php
                             foreach ($vibe as $v) {
-                                ?>
-                                <div
-                                    class="vibe-tags flex justify-center cursor-pointer items-center color-gray rounded-full py-2 px-4 font-medium text-sm">
-                                    <?php echo $v ?>
-                                </div>
-                                <?php
+                                CheckBox(["id" => "vibe", "value" => $v]);
                             }
                             ?>
+                            <!-- <div
+                                class="vibe-tags flex justify-center cursor-pointer items-center color-gray rounded-full py-2 px-4 font-medium text-sm">
+                            </div> -->
                         </div>
 
 
@@ -185,14 +184,14 @@ $amenities = ["Parking", "Restrooms", "Food nearby", "Wifi", "WheelChair access"
 
                             Input([
                                 'id' => 'nearest_landmark',
-                                'label' => 'Nearest Langmark',
+                                'label' => 'Nearest Landmark',
                                 'placeholder' => 'Taudha Lake',
                                 "dclass" => "flex-col w-full"
                             ]);
                             Select([
                                 "label" => "How to reach",
                                 "id" => "how-to-reach",
-                                "option" => ["Walking", "Bus  + Walk", "Trek"],
+                                "option" => ["Walking", "Bus  + Walk", "Trek","Bus"],
                                 "dclass" => "flex-col w-full color-gray",
                             ]);
                             ?>
@@ -255,9 +254,9 @@ $amenities = ["Parking", "Restrooms", "Food nearby", "Wifi", "WheelChair access"
                             //     'placeholder' => '< 30 min'
                             // ]);
                             Select([
-                                "id" => "opening_hours",
-                                "label" => "Opening Hours",
-                                "option" => ["Nature", "Food", "Temple", "Viewpoint", "Lakes", "Markets"],
+                                "id" => "ideal_duration",
+                                "label" => "Ideal Duration",
+                                "option" => ["<30min", "30-60min", "1-2 hours", "Half day", "Full day"],
                                 "dclass" => "flex-col w-full color-gray"
                             ]);
                             ?>
@@ -294,14 +293,10 @@ $amenities = ["Parking", "Restrooms", "Food nearby", "Wifi", "WheelChair access"
                         <div class="flex gap-4 flex-wrap">
                             <?php
                             foreach ($amenities as $a) {
-                                ?>
-                                <div
-                                    class="amenities-tags flex justify-center border-gray items-center color-gray cursor-pointer rounded-full py-2 px-4 font-medium text-sm">
-                                    <?php echo $a ?>
-                                </div>
-                                <?php
+                                CheckBox(["id" => "amenities", "value" => $a]);
                             }
                             ?>
+
                         </div>
                         <div class="gap-4 form-control mt-4">
                             <?php
@@ -328,28 +323,30 @@ $amenities = ["Parking", "Restrooms", "Food nearby", "Wifi", "WheelChair access"
                             "id" => "contribute_aggrement",
                             "label" => "I have visited this place and own the rights to the photos",
                             "dclass" => "flex flex-row-rev w-full justify-end",
-                            "type" => "checkbox"
+                            "type" => "checkbox",
+                            "value" => "1"
                         ]);
                         ?></div>
 
                     </div>
                     <div class="w-full bgcolor-ternary " style="height: 2px;"></div>
                     <div class="flex justify-between">
-                        <div
-                            class="no-underline text-gray-800 border border-gray-200  py-2 px-4  border-solid rounded-full nav-link-item-hover hover-bg-ternary" id="pin-back">
+                        <div class="no-underline text-gray-800 border border-gray-200  py-2 px-4  border-solid rounded-full nav-link-item-hover hover-bg-ternary"
+                            id="pin-back">
                             <span class="text-sm font-medium  ">
                                 <i class="fa-solid fa-arrow-left"></i> Back
                             </span>
                         </div>
-                        <div 
-                            class="no-underline text-gray-800 bg-secondary border border-gray-200  py-2 px-4  border-solid rounded-full nav-link-item-hover " id="pin-next">
+                        <div class="no-underline text-gray-800 bg-secondary border border-gray-200  py-2 px-4  border-solid rounded-full nav-link-item-hover "
+                            id="pin-next">
                             <span class="text-sm font-medium text-white">
                                 Continue <i class="fa-solid fa-arrow-right"></i>
 
                             </span>
                         </div>
                         <button
-                            class=" hidden no-underline text-gray-800 bg-secondary border border-gray-200  py-2 px-4  border-solid rounded-full nav-link-item-hover " id="pin-submit">
+                            class=" hidden no-underline text-gray-800 bg-secondary border border-gray-200  py-2 px-4  border-solid rounded-full nav-link-item-hover "
+                            id="pin-submit">
                             <span class="text-sm font-medium text-white">
                                 Sumbit <i class="fa-solid fa-arrow-right"></i>
 

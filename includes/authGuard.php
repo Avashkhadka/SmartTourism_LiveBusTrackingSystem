@@ -20,6 +20,7 @@ $customerPages = [
     "contribute.php",
     "booking.php",
     "profile.php",
+    "view-location.php",
 
 ];
 $adminPages = [
