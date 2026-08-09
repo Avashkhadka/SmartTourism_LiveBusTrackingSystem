@@ -121,6 +121,7 @@ function handleSignIn($data, $conn)
             $key = JWTSECRETKEY;
             $payload = [
                 "user_id" => $info[0]['user_id'],
+                "role"=>$info[0]['role'],
                 "email" => $info[0]['email'],
                 "iat" => time(),              // Issued at
                 "exp" => time() + 3600 * 12        // Expires in 12 hour

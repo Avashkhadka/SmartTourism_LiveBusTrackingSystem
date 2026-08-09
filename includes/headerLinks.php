@@ -1,3 +1,15 @@
+<?php include __DIR__ . '/../config/constants.php';?>
+<?php include __DIR__.'/../components/navbar.php' ?>
+<?php include __DIR__.'/../components/footer.php' ?>
+<?php include __DIR__."/../includes/authGuard.php"; ?>
+<?php include __DIR__.'/../components/input.php'; ?>
+<?php include __DIR__.'/../components/select.php'; ?>
+<?php include __DIR__."/../components/photo.php" ?>
+<?php include __DIR__."/../components/checkbox.php" ?>
+<?php include __DIR__."/../components/card.php" ?>
+<?php include __DIR__."/../components/hero.php" ?>
+
+
 <link rel="stylesheet" href="<?php echo BASEURL ?>assets/css/style.css">
 <link rel="stylesheet" href=" <?php echo BASEURL ?>assets/css/csslibrary.css">
 <link rel="stylesheet" href=" <?php echo BASEURL ?>assets/css/viewLocation.css">

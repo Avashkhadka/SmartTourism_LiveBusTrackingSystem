@@ -1,8 +1,3 @@
-<?php include '../components/navbar.php' ?>
-<?php include '../components/footer.php' ?>
-<?php include '../config/constants.php' ?>
-<?php include "../includes/authGuard.php"; ?>
-<?php include '../components/input.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 

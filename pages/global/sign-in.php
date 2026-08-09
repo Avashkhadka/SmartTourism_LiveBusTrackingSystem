@@ -1,8 +1,3 @@
-<?php
-include '../config/constants.php';
-include "../components/input.php";
-include "../includes/authGuard.php";
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +5,7 @@ include "../includes/authGuard.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign in - Khoja</title>
-    <?php include '../includes/headerLinks.php' ?>
+    <?php include '../../includes/headerLinks.php' ?>
 </head>
 
 <body>
@@ -64,7 +59,7 @@ include "../includes/authGuard.php";
             </div>
         </div>
     </section>
-    <?php include '../includes/footerlinks.php' ?>
+    <?php include '../../includes/footerlinks.php' ?>
     <script>
         localStorage.removeItem("jwtToken");
     </script>

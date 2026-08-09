@@ -5,12 +5,14 @@ $publicPages = [
     "index.php",
     "sign-in.php",
     "sign-up.php",
-    "driver-sign-up.php"
+    "driver-sign-up.php",
+
 ];
 
 $driverPages = [
     "logout.php",
     "profile.php",
+    "dashboard.php",
 ];
 $customerPages = [
     "index.php",
@@ -26,12 +28,13 @@ $customerPages = [
 $adminPages = [
     "logout.php",
     "profile.php",
+    "dashboard.php",
 ];
 
 if (isset($_SESSION['isLogged_in']) and $_SESSION['isLogged_in'] == true) {
     if ($_SESSION['role'] == "driver") {
         if (!in_array($currentPage, $driverPages)) {
-            header("location: " . BASEURL . "/driverDashboard");
+            header("location: " . BASEURL . "pages/driver/dashboard.php");
             exit;
         }
     } else if ($_SESSION['role'] == "user") {
@@ -41,19 +44,19 @@ if (isset($_SESSION['isLogged_in']) and $_SESSION['isLogged_in'] == true) {
         }
     } else if ($_SESSION['role'] == "admin") {
         if (!in_array($currentPage, $adminPages)) {
-            header("location: " . BASEURL . "/dashboard");
+            header("location: " . BASEURL . "pages/admin/dashboard.php");
             exit;
         }
     } else {
         session_destroy();
 
-        header("Location: " . BASEURL . "/pages/sign-in.php");
+        header("Location: " . BASEURL . "pages/global/sign-in.php");
         exit;
     }
 
 } else {
     if (!in_array($currentPage, $publicPages)) {
-        header("location: " . BASEURL . "pages/sign-in.php");
+        header("location: " . BASEURL . "pages/global/sign-in.php");
     }
 
 }

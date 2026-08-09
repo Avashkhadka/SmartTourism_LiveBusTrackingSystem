@@ -1,8 +1,4 @@
-<?php
-include '../config/constants.php';
-include "../components/input.php";
-include "../includes/authGuard.php";
-    ?>
+
 <!DOCTYPE html>
 <html lang="en">
 

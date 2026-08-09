@@ -130,7 +130,7 @@ const handleDrSignUp = async (drSignInForm, e) => {
             Toast(`${data.message}`, "Success");
             Toast("Redirecting...", "Success");
             setTimeout(() => {
-                window.location.href = `${BASEURL}pages/sign-in.php`;
+                window.location.href = `${BASEURL}pages/global/sign-in.php`;
             }, 5000);
             drSignInForm.reset();
         } else if (res.status == 409) {
@@ -205,7 +205,7 @@ const handleSignUp = async (signUpForm) => {
             Toast(`${data.message}`, "Success");
             Toast("Redirecting...", "Success");
             setTimeout(() => {
-                window.location.href = `${BASEURL}pages/sign-in.php`;
+                window.location.href = `${BASEURL}pages/global/sign-in.php`;
             }, 1000);
             signUpForm.reset();
         } else if (data.status == 409) {

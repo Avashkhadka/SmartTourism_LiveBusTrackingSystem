@@ -1,9 +1,4 @@
-<?php
-include '../config/constants.php';
-include "../components/input.php";
-include "../components/select.php";
-include "../includes/authGuard.php";
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +6,7 @@ include "../includes/authGuard.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register as a driver - Khoja</title>
-    <?php include '../includes/headerLinks.php' ?>
+    <?php include '../../includes/headerLinks.php' ?>
 </head>
 
 <body>
@@ -180,7 +175,7 @@ include "../includes/authGuard.php";
 
     <?php
 
-    include '../includes/footerlinks.php'
+    include '../../includes/footerlinks.php'
         ?>
 </body>
 

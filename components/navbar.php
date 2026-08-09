@@ -4,7 +4,8 @@ function RenderNavbar($activetab = "")
     ?>
 
 
-    <nav class="reveal flex justify-between py-4 page-container-x justify-center items-center shadow-sm" style="z-index: 9999;">
+    <nav class="reveal flex justify-between py-4 page-container-x justify-center items-center shadow-sm"
+        style="z-index: 9999;">
         <a href="<?php echo BASEURL ?>" class=" no-underline flex gap-2 justify-center items-center" id="rootimg">
             <span class="rounded-lg h-8 font-bold w-8 flex justify-center items-center bg-black text-white">K</span>
             <span class="font-bold text-black">Khoja</span>
@@ -12,32 +13,46 @@ function RenderNavbar($activetab = "")
 
         <div class="flex justify-between items-center gap-1 p-1 text-sm font-medium border border-gray-200 border-solid rounded-full bg-ternary"
             id="wide-nav">
-            <a class="no-underline nav-link <?php echo $activetab == "home" ? "active-link shadow" : "color-ternary" ?> "
-                href='<?php echo BASEURL ?>index.php'>Home</a>
+            <?php if ((isset($_SESSION['role']) && $_SESSION['role'] == "user") || !isset($_SESSION['isLogged_in'])) { ?>
+                <a class="no-underline nav-link <?php echo $activetab == "home" ? "active-link shadow" : "color-ternary" ?> "
+                    href='<?php echo BASEURL ?>index.php'>Home</a>
 
-            <a class="no-underline nav-link <?php echo $activetab == "discover" ? "active-link shadow" : "color-ternary" ?>"
-                href='<?php echo BASEURL ?>pages/discover.php'>Discover</a>
+                <a class="no-underline nav-link <?php echo $activetab == "discover" ? "active-link shadow" : "color-ternary" ?>"
+                    href='<?php echo BASEURL ?>pages/user/discover.php'>Discover</a>
 
-            <a class="no-underline nav-link <?php echo $activetab == "live-map" ? "active-link shadow" : "color-ternary" ?>"
-                href='<?php echo BASEURL ?>pages/live-map.php'>Live Map</a>
+                <a class="no-underline nav-link <?php echo $activetab == "live-map" ? "active-link shadow" : "color-ternary" ?>"
+                    href='<?php echo BASEURL ?>pages/user/live-map.php'>Live Map</a>
 
-            <a class="no-underline nav-link <?php echo $activetab == "contribute" ? "active-link shadow" : "color-ternary" ?>"
-                href='<?php echo BASEURL ?>pages/contribute.php'>Contribute</a>
+                <a class="no-underline nav-link <?php echo $activetab == "contribute" ? "active-link shadow" : "color-ternary" ?>"
+                    href='<?php echo BASEURL ?>pages/user/contribute.php'>Contribute</a>
 
-            <a class="no-underline nav-link <?php echo $activetab == "booking" ? "active-link shadow" : "color-ternary" ?>"
-                href='<?php echo BASEURL ?>pages/booking.php'>Booking</a>
+                <a class="no-underline nav-link <?php echo $activetab == "booking" ? "active-link shadow" : "color-ternary" ?>"
+                    href='<?php echo BASEURL ?>pages/user/booking.php'>Booking</a>
+
+
+
+            <?php } else if (isset($_SESSION['role']) && $_SESSION['role'] == "driver") { ?>
+                    <a class="no-underline nav-link <?php echo $activetab == "home" ? "active-link shadow" : "color-ternary" ?> "
+                        href='<?php echo BASEURL ?>pages/driver/dashboard.php'>Dashboard</a>
+
+
+
+            <?php } else if (isset($_SESSION['role']) && $_SESSION['role'] == "admin") { ?>
+                        <a class="no-underline nav-link <?php echo $activetab == "overview" ? "active-link shadow" : "color-ternary" ?> "
+                            href='<?php echo BASEURL ?>pages/admin/dashboard.php'>Dashboard</a>
+            <?php } ?>
         </div>
         <?php
         if (isset($_SESSION['isLogged_in']) && $_SESSION['isLogged_in']) {
             ?>
-            <div class="flex gap-2" id="wide-nav-link"> <a href='<?php echo BASEURL ?>pages/profile.php'
+            <div class="flex gap-2" id="wide-nav-link"> <a href='<?php echo BASEURL ?>pages/global/profile.php'
                     class="no-underline text-gray-800 border border-gray-200  py-2 px-4  border-solid rounded-full nav-link-item-hover hover-bg-ternary">
                     <span class="text-sm font-medium  ">
                         Welcome!!
                         <?php echo $_SESSION['user_name'] ?>
                     </span>
                 </a>
-                <a href='<?php echo BASEURL ?>pages/logout.php'
+                <a href='<?php echo BASEURL ?>pages/global/logout.php'
                     class="no-underline text-gray-800 bg-black border border-gray-200  py-2 px-4  border-solid rounded-full nav-link-item-hover ">
                     <span class="text-sm font-medium text-white">
                         Logout
