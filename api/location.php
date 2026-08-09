@@ -35,13 +35,37 @@ function handleGetLocation($conn)
         $lim = 30;
         $offset = (int) isset($_GET['offset']) ? $_GET['offset'] - 1 : 0;
         if ($verifyUser->role == "user") {
-            $sql = "SELECT * from location where status = 'approved' limit $lim offset $offset ";
-        } else {
-            $sql = "SELECT * from location limit $lim offset $offset ";
+            $sql = "SELECT 
+                        l.*,
+                        COALESCE(
+                            JSON_ARRAYAGG(li.image_path),
+                            JSON_ARRAY()
+                        ) AS images
+                    FROM location l
+                    LEFT JOIN location_images li 
+                        ON l.location_id = li.location_id
+                    WHERE l.status = 'approved'
+                    GROUP BY l.location_id
+                    LIMIT $lim OFFSET $offset;";
+        } else if ($verifyUser->role == "admin") {
+            $sql = "SELECT 
+                        l.*,
+                        u.name AS creator_name,
+                        COALESCE(
+                            JSON_ARRAYAGG(li.image_path),
+                            JSON_ARRAY()
+                        ) AS images
+                    FROM location l
+                    LEFT JOIN location_images li 
+                        ON l.location_id = li.location_id
+                    LEFT JOIN users u
+                        ON l.created_by = u.user_id
+                    GROUP BY l.location_id
+                    LIMIT $lim OFFSET $offset;";
         }
         $res = $conn->query($sql);
-        $data = $res->fetch_all(MYSQLI_ASSOC);
         if ($res) {
+            $data = $res->fetch_all(MYSQLI_ASSOC);
             http_response_code(200);
             echo json_encode(["location" => $data]);
             return;

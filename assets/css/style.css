@@ -17,9 +17,11 @@ button {
 
     --bg-ternary: #f7f6f1;
     --bg-body: #fafaf7;
+    --bg-skin:#FBF1DC;
     --color-secondary: #ff5a1f;
     --color-secondary-light: #faf8f3;
     --color-secondary-hover: #fff1ea;
+    --color-warm:#b8730a;
     --border-bg: #28292b;
     --border-gray: #e1e1e2;
 }
@@ -58,6 +60,14 @@ button {
 .bg-disabled {
     background-color: var(--color-ternary);
 }
+
+.bg-skin{
+    background-color: var(--bg-skin);
+}
+.color-warm{
+    color: var(--color-warm);
+}
+
 
 .nav-link-item-hover {
     transition: 0.1s all ease-in-out;
@@ -529,6 +539,8 @@ option:checked {
 #search-select {
     width: auto;
 }
+
+
 
 @media (min-width: 700px) {
     #search-select {

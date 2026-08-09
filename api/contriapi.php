@@ -4,7 +4,29 @@ include '../config/conn.php';
 include "../services/authFunctions.php";
 
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
+    $action = $_POST['action'] ?? '';
+    switch ($action) {
+        case "add":
+            addData($conn);
+            break;
+        case "actionOnLocation":
+            actionOnLocation($conn);
+            break;
+        default:
+            http_response_code(400);
+            echo json_encode([
+                'message' => "Invalid Action"
+            ]);
+    }
 
+} else {
+    http_response_code(400);
+    echo json_encode([
+        'message' => "Invalid Method"
+    ]);
+}
+function addData($conn)
+{
     $placeName = $_POST['place_name'] ?? '';
     $shortPitch = $_POST['short_pitch'] ?? '';
     $placeCategory = $_POST['place_category'] ?? '';
@@ -93,6 +115,41 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     }
 
     exit;
+}
 
+function actionOnLocation($conn)
+{
+    $headers = getallheaders();
+    $authHeader = $headers['Authorization'] ?? '';
+    if (!$authHeader) {
+        http_response_code(401);
+        echo json_encode([
+            "message" => "Authorization required"
+        ]);
+        exit;
+    }
+    $verifyUser = checkLogin($authHeader);
+    if (!$verifyUser->role == "admin") {
+        http_response_code(401);
+        echo json_encode([
+            'message' => "You dont have permission to approve contribution request"
+        ]);
+    }
+    $location_id = $_POST['location_id'];
+    $action = $_POST['locationAction'];
 
+    $sql = "UPDATE location set status= '$action' where location_id = $location_id";
+    $res = mysqli_query($conn, $sql);
+    if ($res) {
+        http_response_code(200);
+        echo json_encode([
+            'message' => "Successifully approved the Contribution Request."
+        ]);
+    } else {
+        http_response_code(400);
+        echo json_encode([
+            'message' => mysqli_error($conn)
+        ]);
+
+    }
 }

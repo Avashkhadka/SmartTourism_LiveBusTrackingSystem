@@ -1,11 +1,13 @@
 export function Card(location) {
     return /*html*/ `<article class="w-full reveal card rounded-2xl overflow-hidden shadow-lg" data-location-id="${location.location_id}">
         <div class="relative">
+            ${location.images ? `
             <img src="../../assets/images/signin-bg.jpg" loading="lazy" alt="${location.place_name}" class="w-full">
+                `: ''}
 
                 <div class="absolute inset-0 h-full w-full p-4">
                     <div class="flex justify-between items-center">
-
+                        
                         <div class="bg-white py-2 px-4 block text-xs font-bold rounded-full">
                             ${location.place_category}
                         </div>

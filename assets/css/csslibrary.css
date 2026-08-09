@@ -2587,6 +2587,9 @@ custon utilities can be added here
     .sm\:justify-center {
         justify-content: center;
     }
+    .sm\:mt-4{
+        margin-top: 1rem;
+    }
 }
 
 @media (min-width: 768px) {

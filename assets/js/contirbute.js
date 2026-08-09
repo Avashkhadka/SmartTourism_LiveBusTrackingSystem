@@ -223,6 +223,7 @@ export class ContributePage {
             Toast("Something went while insertind data", "Error")
 
         }
+        pinFormData.append("action","add")
         xhr.send(pinFormData)
 
 

@@ -25,27 +25,26 @@ function Hero()
                         connect them.</p>
                     <div class="flex gap-3 flex-wrap ">
 
-                        <a href="<?php echo BASEURL."pages/user/discover.php"?>"
-                            class="py-4 px-8  text-white bg-black font-medium shadow rounded-full no-underline nav-link-item-hover">Explore Now</a>
-                        < href="<?php echo BASEURL."pages/user/live-map.php"?>"
-                            class="py-4 px-8 no-underline text-gray-800 shadow border border-gray-200 border-solid nav-link-item-hover rounded-full hover-bg-ternary bg-white font-medium">See
+                        <a href="<?php echo BASEURL . "pages/user/discover.php" ?>"
+                            class="py-4 px-8  text-white bg-black font-medium shadow rounded-full no-underline nav-link-item-hover">Explore
+                            Now</a>
+                        <a href="<?php echo BASEURL . "pages/user/live-map.php" ?>"
+                            class="py-4 px-8 no-underline text-gray-800 shadow border border-gray-200 border-solid nav-link-item-hover rounded-full hover-bg-ternary bg-white font-medium">
+                            See
                             it on the map <i class="fa-solid fa-arrow-right text-xs"></i> </a>
                     </div>
                     <div class="grid border-t border-b py-6 w-full mt-4 hero-count"
                         style="border:1px solid #e2e2e1; border-inline-color: transparent;">
 
-                        <div class="flex flex-col px-4 py-2"><span
-                                class="text-3xl  font-semibold mb-1">12,482</span><span
+                        <div class="flex flex-col px-4 py-2"><span class="text-3xl  font-semibold mb-1">12,482</span><span
                                 class="text-gray-500 text-xs">Place curated</span></div>
-                        <div class="flex flex-col px-4 py-2"><span
-                                class="text-3xl  font-semibold mb-1">3,218</span><span
+                        <div class="flex flex-col px-4 py-2"><span class="text-3xl  font-semibold mb-1">3,218</span><span
                                 class="text-gray-500 text-xs">Live vehicles</span></div>
-                        <div class="flex flex-col px-4 py-2"><span
-                                class="text-3xl  font-semibold mb-1">240</span><span
+                        <div class="flex flex-col px-4 py-2"><span class="text-3xl  font-semibold mb-1">240</span><span
                                 class="text-gray-500 text-xs">Cities online</span></div>
                         <div class="flex flex-col px-4 py-2 " style="border-color: transparent;"><span
-                                class="text-3xl  font-semibold mb-1">4.9</span><span
-                                class="text-gray-500 text-xs">Traveler rating</span></div>
+                                class="text-3xl  font-semibold mb-1">4.9</span><span class="text-gray-500 text-xs">Traveler
+                                rating</span></div>
 
 
                     </div>

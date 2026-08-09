@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Khoja - Avash khadka</title>
-    <?php include '../includes/headerLinks.php' ?>
+    <?php include '../../includes/headerLinks.php' ?>
 </head>
 
 <body>
@@ -18,7 +18,7 @@
             </div>
             <div class="view-location-image-container mt-2">
                 <div class="mainImage-container">
-                    <img src="../assets/images/signup-bg.jpg" class=" h-64 w-full object-cover " alt="">
+                    <img src="../../assets/images/signup-bg.jpg" class=" h-64 w-full object-cover " alt="">
                     <div class="location-image-overlay">
                         <div class="location-category-head"> LIVE . <span class="category-head">TEMPLES</span></div>
                         <div class="location-image-footer">
@@ -31,12 +31,12 @@
                     </div>
                 </div>
                 <div class="image-secondary-container">
-                    <img src="../assets/images/signup-bg.jpg" alt="">
-                    <img src="../assets/images/signup-bg.jpg" alt="">
-                    <img src="../assets/images/signup-bg.jpg" alt="">
-                    <img src="../assets/images/signup-bg.jpg" alt="">
-                    <img src="../assets/images/signup-bg.jpg" alt="">
-                    <img src="../assets/images/signup-bg.jpg" alt="">
+                    <img src="../../assets/images/signup-bg.jpg" alt="">
+                    <img src="../../assets/images/signup-bg.jpg" alt="">
+                    <img src="../../assets/images/signup-bg.jpg" alt="">
+                    <img src="../../assets/images/signup-bg.jpg" alt="">
+                    <img src="../../assets/images/signup-bg.jpg" alt="">
+                    <img src="../../assets/images/signup-bg.jpg" alt="">
                 </div>
             </div>
             <main class="mt-8 reveal">
@@ -110,7 +110,7 @@
     </div>
 
 
-    <?php include '../includes/footerlinks.php' ?>
+    <?php include '../../includes/footerlinks.php' ?>
 </body>
 
 </html>

@@ -1,0 +1,15 @@
+.head-container {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+@media (min-width: 700px) {
+    .head-container {
+        align-items: end;
+
+        /* grid-template-columns: repeat(2, minmax(0, 1fr)); */
+        grid-template-columns:4fr 1fr;
+    }
+}
+@media (min-width: 983px) {
+}

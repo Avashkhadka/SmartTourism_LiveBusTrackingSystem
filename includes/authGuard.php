@@ -29,24 +29,42 @@ $adminPages = [
     "logout.php",
     "profile.php",
     "dashboard.php",
+    "location-approval.php",
 ];
 
 if (isset($_SESSION['isLogged_in']) and $_SESSION['isLogged_in'] == true) {
     if ($_SESSION['role'] == "driver") {
+        ?>
+        <script>
+            localStorage.removeItem("locationDataAdmin")  
+            sessionStorage.removeItem("lastUpdatedTimeAdmin")  
+        </script>
+        <?php
         if (!in_array($currentPage, $driverPages)) {
             header("location: " . BASEURL . "pages/driver/dashboard.php");
             exit;
         }
     } else if ($_SESSION['role'] == "user") {
-        if (!in_array($currentPage, $customerPages)) {
-            header("location: " . BASEURL);
-            exit;
-        }
+        ?>
+            <script>
+                localStorage.removeItem("locationDataAdmin")  
+                sessionStorage.removeItem("lastUpdatedTimeAdmin")  
+            </script><?php
+            if (!in_array($currentPage, $customerPages)) {
+                header("location: " . BASEURL);
+                exit;
+            }
     } else if ($_SESSION['role'] == "admin") {
-        if (!in_array($currentPage, $adminPages)) {
-            header("location: " . BASEURL . "pages/admin/dashboard.php");
-            exit;
-        }
+        ?>
+                <script>
+                    localStorage.removeItem("locationData")  
+                    sessionStorage.removeItem("lastUpdatedTime")  
+                </script>
+            <?php
+            if (!in_array($currentPage, $adminPages)) {
+                header("location: " . BASEURL . "pages/admin/dashboard.php");
+                exit;
+            }
     } else {
         session_destroy();
 
