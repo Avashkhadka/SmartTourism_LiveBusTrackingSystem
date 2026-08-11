@@ -44,7 +44,7 @@ const fetchLocationData = async () => {
                 Toast(res.statusText, "Error");
 
                 setTimeout(() => {
-                    window.location.href = "logout.php";
+                    window.location.href = "../global/logout.php";
                 }, 2000);
 
                 return;
