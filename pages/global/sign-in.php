@@ -41,10 +41,10 @@
                         <span class="color-ternary">New here?</span>
                         <div class="flex gap-2 justify-center items-center mt-4">
 
-                            <a href="<?php echo BASEURL ?>pages/sign-up.php"
+                            <a href="<?php echo BASEURL ?>pages/user/sign-up.php"
                                 class="text-black no-underline font-medium py-2 px-4 border-gray rounded-full">Create
                                 an account</a>
-                            <a href="<?php echo BASEURL ?>pages/driver-sign-up.php"
+                            <a href="<?php echo BASEURL ?>pages/driver/driver-sign-up.php"
                                 class="text-black no-underline font-medium py-2 px-4  rounded-full bg-secondary text-white ">Be
                                 a Driver</a>
                         </div>

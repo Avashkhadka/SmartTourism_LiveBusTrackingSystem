@@ -49,6 +49,7 @@ const handleSignIn = async (signInForm) => {
             body: signInFormData,
         });
         let data = await res.json();
+        console.log(data)
 
         if (data.status == 200) {
             console.log(data);
@@ -87,9 +88,9 @@ const handleDrSignUp = async (drSignInForm, e) => {
     let issuing_office = drSignInFormData.get("issuing_office");
     let year_of_experience = drSignInFormData.get("year_of_experience");
     let rememberMe = drSignInFormData.get("rememberMe");
-    console.log(full_name);
-    let error = false;
 
+    let error = false;
+    console.log(full_name, date_of_birth, email, phone, password, cPassword, license_number, lisence_type, license_issue_date, license_expiry_date, issuing_office, year_of_experience)
     if (
         [full_name, date_of_birth, email, phone, password, cPassword, license_number, lisence_type, license_issue_date, license_expiry_date, issuing_office, year_of_experience].some(
             (value) => !value?.toString().trim(),
@@ -105,6 +106,7 @@ const handleDrSignUp = async (drSignInForm, e) => {
     // }
 
     if (!rememberMe) {
+        
         Toast("Please accept the Terms and Privacy Policy.", "Error");
         error = true;
     }

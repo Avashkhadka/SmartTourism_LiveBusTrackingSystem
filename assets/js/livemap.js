@@ -4,20 +4,29 @@ export const handleLiveMap = async () => {
     const liveMapContainer = document.getElementById("live-map-container")
     if (!liveMapContainer) return;
     const centerMap = document.getElementById("center-map");
-
-
-
     const { latitude, longitude } = await getUserLocation();
-
-
     const map = handleMap(latitude, longitude);
+    const buses = new Map();
 
     centerMap.addEventListener("click", () => {
         map.flyTo([latitude, longitude], 15, {
             duration: 2
         });
     })
+    handleSocket(buses);
+}
 
+
+
+function handleSocket(buses) {
+    const socket = new WebSocket("ws://localhost:8080/bus");
+
+    socket.onmessage = (event) => {
+        const bus = JSON.parse(event.data);
+        buses.set(bus.busId, bus);
+        console.log(bus)
+        console.log("All buses:", buses);
+    };
 }
 
 

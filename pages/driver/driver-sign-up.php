@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,7 +61,7 @@
                                     'type' => 'number'
                                 ]);
                                 ?>
-                              
+
                             </div>
 
 
@@ -128,7 +127,8 @@
                                     "label" => "I aggree to the Terms and Privacy Policy",
                                     "placeholder" => "Minimum 8 characters",
                                     "type" => "checkbox",
-                                    "dclass" => "flex-row-rev"
+                                    "dclass" => "flex-row-rev",
+                                    "value" => "1"
                                 ]) ?>
 
                             </div>
@@ -150,14 +150,14 @@
                     <div class="text-center text-sm mt-4  justify-center gap-2 btn-switch-account">
                         <span>
                             <span class="color-ternary text-left"> Have an account? </span>
-                            <a href="<?php echo BASEURL ?>pages/sign-in.php"
+                            <a href="<?php echo BASEURL ?>pages/global/sign-in.php"
                                 class="text-black no-underline font-medium ">
                                 Sign
                                 in</a>
                         </span>
                         <span>
                             <span class="color-ternary text-left"> You are a client? </span>
-                            <a href="<?php echo BASEURL ?>pages/sign-up.php"
+                            <a href="<?php echo BASEURL ?>pages/user/sign-up.php"
                                 class=" no-underline font-medium color-secondary"> Register as Client </a>
                         </span>
 

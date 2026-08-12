@@ -1,0 +1,39 @@
+#driver-dashboard-card-container {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+.main-control-dashboard {
+    margin-top: 10px;
+    display: flex;
+    /* flex-wrap: wrap; */
+    /* flex-direction: column; */
+    button {
+        font-size: 10px;
+    }
+}
+
+.dashboard-driver-det span {
+    font-size: 10px;
+}
+
+.dashboard-driver-det span {
+    font-size: 10px;
+}
+
+@media (min-width: 700px) {
+    #driver-dashboard-card-container {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .dashboard-driver-det span {
+        font-size: 12px;
+    }
+    .main-control-dashboard {
+        margin-top: 30px;
+        button {
+            font-size: 12px;
+        }
+    }
+}
+@media (min-width: 983px) {
+}

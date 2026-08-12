@@ -1,5 +1,9 @@
 <?php
-include 'generalFunction.php';
+// include 'authFunctions.php';
+
+
+
+$GLOBALS['headers'] = getallheaders();
 function handleDrSignIn($data, $files, $conn)
 {
     $full_name = $data['full_name'];
@@ -134,21 +138,21 @@ function handleDrSignIn($data, $files, $conn)
                 ]);
                 exit;
             }
-            if($res){
+            if ($res) {
 
                 http_response_code(200);
                 echo json_encode([
                     "success" => true,
-                "message" => "Created",
+                    "message" => "Created",
                 ]);
-                }else{
-                    http_response_code(400);
-                    echo json_encode([
+            } else {
+                http_response_code(400);
+                echo json_encode([
                     "success" => true,
                     "message" => "Created",
-                    ]);
-                    
-                }
+                ]);
+
+            }
             // if (!$res) {
             //     http_response_code(500);
 
@@ -166,4 +170,28 @@ function handleDrSignIn($data, $files, $conn)
             // }
         }
     }
+}
+
+
+function getDriverData($conn)
+{
+    try {
+        $verifyUser = checkLogin($GLOBALS['headers']['Authorization']);
+        if ($verifyUser) {
+            http_response_code(200);
+            echo json_encode([
+                "id" => $verifyUser->user_id
+            ]);
+        } else {
+
+            http_response_code(401);
+            echo json_encode(["error" => "U dont have access to use the resource", "b" => $verifyUser]);
+            return;
+        }
+    } catch (err) {
+        http_response_code(400);
+        echo json_encode(["error" => "Something went wrong"]);
+
+    }
+
 }

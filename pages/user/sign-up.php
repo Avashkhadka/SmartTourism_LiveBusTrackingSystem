@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create your account - Khoja</title>
-    <?php include '../includes/headerLinks.php' ?>
+    <?php include '../../includes/headerLinks.php' ?>
 </head>
 
 <body>
@@ -82,7 +82,8 @@
                                 "label" => "I aggree to the Terms and Privacy Policy",
                                 "placeholder" => "Minimum 8 characters",
                                 "type" => "checkbox",
-                                "dclass" => "flex-row-rev"
+                                "dclass" => "flex-row-rev",
+                                "value"=>"1"
                             ]) ?>
 
 
@@ -95,14 +96,14 @@
                     <div class="text-center text-sm flex  justify-center gap-2 pb-8 btn-switch-account">
                         <span>
                             <span class="color-ternary text-left"> Have an account? </span>
-                            <a href="<?php echo BASEURL ?>pages/sign-in.php"
+                            <a href="<?php echo BASEURL ?>pages/global/sign-in.php"
                                 class="text-black no-underline font-medium ">
                                 Sign
                                 in</a>
                         </span>
                         <span>
                             <span class="color-ternary text-left"> Driving a bus? </span>
-                            <a href="<?php echo BASEURL ?>pages/driver-sign-up.php"
+                            <a href="<?php echo BASEURL ?>pages/driver/driver-sign-up.php"
                                 class=" no-underline font-medium color-secondary"> Register as Driver </a>
                         </span>
 
@@ -119,7 +120,7 @@
         </div>
     </section>
 
-    <?php include '../includes/footerlinks.php' ?>
+    <?php include '../../includes/footerlinks.php' ?>
 </body>
 
 </html>

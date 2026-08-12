@@ -11,6 +11,7 @@
 <body>
     <div class="max-w-9xl mx-auto">
         <?php RenderNavbar("overview") ?>
+        
         <?php Footer() ?>
 
     </div>
