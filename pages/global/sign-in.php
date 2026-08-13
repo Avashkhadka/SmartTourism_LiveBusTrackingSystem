@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <section class=" w-full reveal h-screen overflow-hidden ">
+    <section class=" w-full reveal h-screen ">
         <div class="reg-log ">
             <div class="flex w-1-2 reveal">
                 <div class="px-12 py-8 w-144 mx-auto">

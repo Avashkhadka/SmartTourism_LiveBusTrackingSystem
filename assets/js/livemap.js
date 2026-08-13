@@ -32,6 +32,7 @@ function handleSocket(buses, map) {
             if (socketTimer) clearTimeout(socketTimer)
             const bus = JSON.parse(event.data);
             buses.set(bus.busId, bus);
+            console.log(buses)
             // socketTimer = setTimeout(() => {
             for (const [busId, busData] of buses) {
                 PopulateMap(busId, busData, map)

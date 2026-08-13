@@ -16,4 +16,15 @@
 <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
 <script>
     eruda.init();
+    document.addEventListener("DOMContentLoaded", () => {
+        const mobNav = document.getElementById("mob-nav");
+
+        mobNav?.addEventListener("toggle", (e) => {
+            document.body.style.overflow = e.newState === "open"
+                ? "hidden"
+                : "";
+        });
+    });
+
+
 </script>

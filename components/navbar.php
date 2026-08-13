@@ -89,11 +89,108 @@ function RenderNavbar($activetab = "")
         <button id="mob-nav-ham" class="inset-0 border-none bg-transparent" popovertarget="mob-nav"
             popovertargetaction="show"><i class="fa-solid fa-bars text-2xl"></i></button>
 
-        <div class="w-screen h-screen bg-white z-9999 px-12" popover id="mob-nav">
+        <div class="w-screen h-screen  z-9999 page-container bg-body" popover id="mob-nav">
+            <div class="">
+                <div class="flex justify-between  shadow-sm pb-4">
 
-            <button id="mob-nav-ham" class="inset-0 border-none bg-transparent" popovertarget="mob-nav"
-                popovertargetaction="hide"><i class="fa-solid fa-bars text-2xl"></i></button>
+                    <a href="<?php echo BASEURL ?>" class=" no-underline flex gap-2 items-center" id="rootimg">
+                        <span
+                            class="rounded-lg h-8 font-bold w-8 flex justify-center items-center bg-black text-white">K</span>
+                        <span class="font-bold text-black">Khoja</span>
+                    </a>
+                    <button id="mob-nav-ham" class="inset-0 border-none bg-transparent flex justify-end"
+                        popovertarget="mob-nav" popovertargetaction="hide"><i
+                            class="fa-solid fa-bars text-2xl"></i></button>
+                </div>
+                <div class="mt-8 flex flex-col gap-1 text-sm font-medium bg-ternary ">
 
+                    <?php if ((isset($_SESSION['role']) && $_SESSION['role'] == "user") || !isset($_SESSION['isLogged_in'])) { ?>
+                        <a class="no-underline nav-link <?php echo $activetab == "home" ? "active-link shadow" : "color-ternary" ?> "
+                            href='
+                    <?php echo BASEURL ?>index.php'>Home
+                        </a>
+
+                        <a class="no-underline nav-link <?php echo $activetab == "discover" ? "active-link shadow" : "color-ternary" ?>"
+                            href='
+                    <?php echo BASEURL ?>pages/user/discover.php'>Discover
+                        </a>
+
+                        <a class="no-underline nav-link <?php echo $activetab == "live-map" ? "active-link shadow" : "color-ternary" ?>"
+                            href='
+                    <?php echo BASEURL ?>pages/user/live-map.php'>Live Map
+                        </a>
+
+                        <a class="no-underline nav-link <?php echo $activetab == "contribute" ? "active-link shadow" : "color-ternary" ?>"
+                            href='
+                    <?php echo BASEURL ?>pages/user/contribute.php'>Contribute
+                        </a>
+
+                        <a class="no-underline nav-link <?php echo $activetab == "booking" ? "active-link shadow" : "color-ternary" ?>"
+                            href='
+                    <?php echo BASEURL ?>pages/user/booking.php'>Booking
+                        </a>
+
+
+
+                    <?php } else if (isset($_SESSION['role']) && $_SESSION['role'] == "driver") { ?>
+                            <a class="no-underline nav-link <?php echo $activetab == "home" ? "active-link shadow" : "color-ternary" ?> "
+                                href='
+                    <?php echo BASEURL ?>pages/driver/dashboard.php'>Dashboard
+                            </a>
+
+
+
+
+                    <?php } else if (isset($_SESSION['role']) && $_SESSION['role'] == "admin") { ?>
+                                <a class="no-underline nav-link <?php echo $activetab == "overview" ? "active-link shadow" : "color-ternary" ?> "
+                                    href='
+                    <?php echo BASEURL ?>pages/admin/dashboard.php'>Dashboard
+                                </a>
+                                <a class="no-underline nav-link <?php echo $activetab == "approval" ? "active-link shadow" : "color-ternary" ?> "
+                                    href='
+                    <?php echo BASEURL ?>pages/admin/location-approval.php'>Approvals
+                                </a>
+                    <?php } ?>
+                </div>
+                <?php
+                if (isset($_SESSION['isLogged_in']) && $_SESSION['isLogged_in']) {
+                    ?>
+                    <div class="flex gap-4 flex-col mt-6 text-center"> <a href='<?php echo BASEURL ?>pages/global/profile.php'
+                            class="no-underline text-gray-800 border border-gray-200  py-2 px-4  border-solid rounded-full nav-link-item-hover hover-bg-ternary">
+                            <span class="text-sm font-medium  ">
+                                Welcome!!
+                                <?php echo $_SESSION['user_name'] ?>
+                            </span>
+                        </a>
+                        <a href='<?php echo BASEURL ?>pages/global/logout.php'
+                            class="no-underline text-gray-800 bg-black border border-gray-200  py-2 px-4  border-solid rounded-full nav-link-item-hover ">
+                            <span class="text-sm font-medium text-white">
+                                Logout
+
+                            </span>
+                        </a>
+
+                    </div>
+                    <?php
+                } else {
+                    ?>
+                    <div class="flex gap-2" id="wide-nav-link"> <a href='<?php echo BASEURL ?>pages/user/sign-up.php'
+                            class="no-underline text-gray-800 border border-gray-200  py-2 px-4  border-solid rounded-full nav-link-item-hover hover-bg-ternary">
+                            <span class="text-sm font-medium  ">
+                                Sign up
+                            </span>
+                        </a>
+                        <a href='<?php echo BASEURL ?>pages/global/sign-in.php'
+                            class="no-underline text-gray-800 bg-black border border-gray-200  py-2 px-4  border-solid rounded-full nav-link-item-hover ">
+                            <span class="text-sm font-medium text-white">
+                                Sign in
+
+                            </span>
+                        </a>
+
+                    </div>
+                <?php } ?>
+            </div>
 
         </div>
 
