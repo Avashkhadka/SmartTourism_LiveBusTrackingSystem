@@ -66,13 +66,13 @@ function RenderNavbar($activetab = "")
             <?php
         } else {
             ?>
-            <div class="flex gap-2" id="wide-nav-link"> <a href='<?php echo BASEURL ?>pages/sign-up.php'
+            <div class="flex gap-2" id="wide-nav-link"> <a href='<?php echo BASEURL ?>pages/user/sign-up.php'
                     class="no-underline text-gray-800 border border-gray-200  py-2 px-4  border-solid rounded-full nav-link-item-hover hover-bg-ternary">
                     <span class="text-sm font-medium  ">
                         Sign up
                     </span>
                 </a>
-                <a href='<?php echo BASEURL ?>pages/sign-in.php'
+                <a href='<?php echo BASEURL ?>pages/global/sign-in.php'
                     class="no-underline text-gray-800 bg-black border border-gray-200  py-2 px-4  border-solid rounded-full nav-link-item-hover ">
                     <span class="text-sm font-medium text-white">
                         Sign in

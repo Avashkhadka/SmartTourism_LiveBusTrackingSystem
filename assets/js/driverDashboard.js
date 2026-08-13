@@ -1,49 +1,60 @@
 import { AddText } from "../../utils/addText.js";
 import { Toast } from "../../utils/toast.js";
 
-const { BASEURL } = window.CONFIG;
+const { BASEURL, SOCKETPATH } = window.CONFIG;
 
 export const LoadDriverDashboard = async () => {
     const container = document.getElementById("drivers-dashboard");
     if (!container) return;
     const dashboardControls = document.getElementById("dashboard-control");
     if (!dashboardControls) return;
-    const socket = new WebSocket("ws://localhost:8080/bus");
 
-    let DriverData = await fetchDriverData();
+    try {
+        const socket = new WebSocket(SOCKETPATH);
 
 
-    let watchId = null;
-    socket.onerror = (error) => {
-        console.error("WebSocket error:", error);
-    };
 
-    dashboardControls.addEventListener("click", (e) => {
-        const button = e.target.closest("button");
 
-        if (!button) return;
 
-        switch (button.innerText.trim()) {
+        let DriverData = await fetchDriverData();
 
-            case "Edit Profile":
-                break;
 
-            case "Pause Shift":
-                watchId = handlePauseShift(watchId);
-                break;
 
-            case "Go Online":
-                handleGoLive(
-                    watchId,
-                    socket,
-                    (newWatchId) => {
-                        watchId = newWatchId;
-                    },
-                    DriverData
-                );
-                break;
-        }
-    });
+        let watchId = null;
+        socket.onerror = (error) => {
+            console.error("WebSocket error:", error);
+            Toast(error.name)
+        };
+
+        dashboardControls.addEventListener("click", (e) => {
+            const button = e.target.closest("button");
+
+            if (!button) return;
+
+            switch (button.innerText.trim()) {
+
+                case "Edit Profile":
+                    break;
+
+                case "Pause Shift":
+                    watchId = handlePauseShift(watchId);
+                    break;
+
+                case "Go Online":
+                    handleGoLive(
+                        watchId,
+                        socket,
+                        (newWatchId) => {
+                            watchId = newWatchId;
+                        },
+                        DriverData
+                    );
+                    break;
+            }
+        });
+    } catch (err) {
+        console.log("failed to connect with socket")
+    }
 };
 
 
@@ -86,6 +97,10 @@ function sendLocation(lat, lng, socket, DriverData) {
 
     if (socket.readyState !== WebSocket.OPEN) {
         console.warn("WebSocket is not connected");
+        Toast(
+            `WS ERROR Type: ${event.type} State: ${socket.readyState}`,
+            "Error"
+        );
         Toast("WebSocket is not connected", "Error");
         return;
     }
@@ -166,6 +181,8 @@ function handleGoLive(watchId, socket, setWatchId, DriverData) {
         }
     );
 }
+
+
 
 
 function handlePauseShift(watchId) {

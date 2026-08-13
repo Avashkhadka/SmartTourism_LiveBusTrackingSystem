@@ -11,3 +11,11 @@
     border-radius: 50%;
     box-shadow: 0 0 0 8px rgba(66, 133, 244, 0.2);
 }
+.bus-location-dot {
+    width: 18px;
+    height: 18px;
+    background: #f44b42;
+    border: 3px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 0 8px rgba(66, 133, 244, 0.2);
+}

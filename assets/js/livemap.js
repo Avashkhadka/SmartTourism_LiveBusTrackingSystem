@@ -1,8 +1,12 @@
 import { getUserLocation } from "../../utils/getUserLocation.js";
+const {SOCKETPATH} = window.CONFIG
+const busMarkers = new Map();
+
 
 export const handleLiveMap = async () => {
     const liveMapContainer = document.getElementById("live-map-container")
     if (!liveMapContainer) return;
+      console.log(SOCKETPATH)
     const centerMap = document.getElementById("center-map");
     const { latitude, longitude } = await getUserLocation();
     const map = handleMap(latitude, longitude);
@@ -13,22 +17,59 @@ export const handleLiveMap = async () => {
             duration: 2
         });
     })
-    handleSocket(buses);
+    handleSocket(buses, map);
 }
 
 
 
-function handleSocket(buses) {
-    const socket = new WebSocket("ws://localhost:8080/bus");
+function handleSocket(buses, map) {
 
-    socket.onmessage = (event) => {
-        const bus = JSON.parse(event.data);
-        buses.set(bus.busId, bus);
-        console.log(bus)
-        console.log("All buses:", buses);
-    };
+    try {
+      
+        const socket = new WebSocket(SOCKETPATH);
+        let socketTimer = null
+
+        socket.onmessage = (event) => {
+            if (socketTimer) clearTimeout(socketTimer)
+            const bus = JSON.parse(event.data);
+            buses.set(bus.busId, bus);
+            // socketTimer = setTimeout(() => {
+                for (const [busId, busData] of buses) {
+                    PopulateMap(busId, busData, map)
+                }
+            // }, 5000);
+        };
+    } catch (err) {
+        console.log("failed to connect with socket")
+    }
 }
 
+
+
+function PopulateMap(busId, busData, map) {
+    const position = [busData.lat, busData.lng];
+
+    let marker = busMarkers.get(busId);
+
+    if (!marker) {
+        const busIcon = L.divIcon({
+            className: "user-location-marker",
+            html: `<div class="bus-location-dot"></div>`,
+            iconSize: [20, 20],
+            iconAnchor: [10, 10]
+        });
+
+        marker = L.marker(position, {
+            icon: busIcon
+        }).addTo(map);
+
+        busMarkers.set(busId, marker);
+
+    } else {
+        
+        marker.setLatLng(position);
+    }
+}
 
 function handleMap(latitude, longitude) {
     var map = L.map('liveMap', { zoomControl: false }).setView([latitude, longitude], 13);

@@ -14,10 +14,13 @@
     <div class="max-w-9xl mx-auto">
         <?php RenderNavbar("home") ?>
         <?php Hero() ?>
+        <?php $ip = $_SERVER['REMOTE_ADDR'];
+
+?>
         <section class="py-12 page-container reveal mt-8">
             <div class="flex flex-col gap-3">
                 <!-- <div class="flex gap-2 items-center text-gray-600 text-xs  font-medium tracking-widest-long "> -->
-                <p class="text-gray-500 text-sm font-medium">WHAT KHOJA DOES</p>
+                <p class="text-gray-500 text-sm font-medium">WHAT KHOJA DOES <?php echo $ip;?></p>
                 <div class="page-head">
                     <h3>One canvas for the city, the ride and the people who know it.</h3>
                     <span>

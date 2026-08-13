@@ -1,9 +1,9 @@
 <script>
 
     window.CONFIG = {
-        BASEURL: "<?php echo BASEURL ?>"
+        BASEURL: "<?php echo BASEURL ?>",
+        SOCKETPATH: "<?php echo SOCKETPATH ?>"
     }
-
 </script>
 <!-- <script src="https://cdn.maptiler.com/maplibre-gl-js/v1.13.0-rc.4/mapbox-gl.js"></script> -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
@@ -13,3 +13,7 @@
 <!-- <script src="https://cdn.maptiler.com/maplibre-gl-js/v1.13.0-rc.4/mapbox-gl.js"></script> -->
 
 <!-- <script src="https://unpkg.com/maplibre-gl@5.12.0/dist/maplibre-gl.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+<script>
+    eruda.init();
+</script>
