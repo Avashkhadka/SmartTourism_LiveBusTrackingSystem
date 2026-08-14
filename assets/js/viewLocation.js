@@ -15,7 +15,7 @@ export const HandleViewLocation = async () => {
     const busEstfair = document.querySelector("#busEstfair");
     const busETA = document.querySelector("#busETA");
     const near_this_place = document.querySelector("#near_this_place");
-
+    const coverImage = document.querySelector("#coverImage")
 
 
 
@@ -45,6 +45,10 @@ export const HandleViewLocation = async () => {
 
             }
         });
+        console.log(thisLocation)
+        coverImage.src = `../../${JSON.parse(thisLocation.images)[0]}`
+
+
         totalDistance.innerHTML = `<i class="fa-solid fa-map-pin" style="color: rgb(255, 0, 0);"></i> ${parseFloat(thisLocation.distance).toFixed(2)} Km away`
         locationDescription.textContent = thisLocation.short_pitch
 
@@ -52,7 +56,6 @@ export const HandleViewLocation = async () => {
         busETA.innerText = `${Math.round((thisLocation.distance / 20) * 60)} min`
 
 
-        console.log(thisLocation)
 
         var map = L.map('map').setView([thisLocation.latitude, thisLocation.longitude], 13);
 

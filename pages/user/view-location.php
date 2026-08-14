@@ -18,7 +18,7 @@
             </div>
             <div class="view-location-image-container mt-2">
                 <div class="mainImage-container">
-                    <img src="../../assets/images/signup-bg.jpg" class=" h-64 w-full object-cover " alt="">
+                    <img src="" class=" h-64 w-full object-cover " id="coverImage" alt="">
                     <div class="location-image-overlay">
                         <div class="location-category-head"> LIVE . <span class="category-head">TEMPLES</span></div>
                         <div class="location-image-footer">
