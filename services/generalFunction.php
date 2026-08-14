@@ -13,3 +13,14 @@ function uploadImage($file, $folder, $username, $name)
     return $destinationdb;
 
 }
+
+
+function respondJson($statusCode, $message, $extra = [])
+{
+    http_response_code($statusCode);
+    echo json_encode(array_merge([
+        "status" => $statusCode,
+        "message" => $message
+    ], $extra));
+    exit;
+}

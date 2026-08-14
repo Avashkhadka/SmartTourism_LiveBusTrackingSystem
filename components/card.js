@@ -1,8 +1,12 @@
 export function Card(location) {
+    let folderName = `${location.place_name.split(" ").join("")}-${location.location_id}`
+    console.log(folderName)
+    let coverImage = JSON.parse(location.images)
+    console.log(coverImage)
     return /*html*/ `<article class="w-full reveal card rounded-2xl overflow-hidden shadow-lg" data-location-id="${location.location_id}">
         <div class="relative">
             ${location.images ? `
-            <img src="../../assets/images/signin-bg.jpg" loading="lazy" alt="${location.place_name}" class="w-full">
+            <img src="../../${coverImage[0]}" loading="lazy" alt="${location.place_name}" class="w-full object-cover" style='height:230px'>
                 `: ''}
 
                 <div class="absolute inset-0 h-full w-full p-4">

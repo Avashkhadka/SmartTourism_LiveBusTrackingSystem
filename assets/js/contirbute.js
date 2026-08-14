@@ -48,6 +48,7 @@ export class ContributePage {
 
         this.pinFormContainer?.addEventListener("submit", (e) => {
             e.preventDefault();
+            e.stopImmediatePropagation();
             this.handleSubmitForm();
             scrollToTop();
         });
@@ -201,32 +202,82 @@ export class ContributePage {
 
         const xhr = new XMLHttpRequest();
 
-        xhr.open("POST", `${BASEURL}/api/contriapi.php`, true);
+        xhr.open("POST", `${BASEURL}api/contriapi.php`, true);
+
+
 
         xhr.onload = function () {
-            if (xhr.status === 200) {
-                try {
+            console.log("HTTP Status:", xhr.status);
+            console.log("Response:", xhr.responseText);
 
-                    const data = JSON.parse(xhr.responseText);
-                    console.log(data)
+            if (xhr.status >= 200 && xhr.status < 300) {
+                try {
+                    const response = JSON.parse(xhr.responseText);
+                    console.log("Parsed response:", response);
+
                     Toast("Added a contribution request", "Success");
                 } catch (err) {
-                    console.log(xhr.responseText)
-                    Toast("Invalid server response", "Error")
+                    console.error("JSON Parse Error:", err);
+                    console.error("Raw response:", xhr.responseText);
+
+                    Toast("Invalid server response", "Error");
                 }
             } else {
-                Toast("Something went while insertind data", "Error")
+                console.error("HTTP Error:", xhr.status);
+                console.error("Server response:", xhr.responseText);
+
+                Toast(`Server error: ${xhr.status}`, "Error");
             }
-        }
+        };
 
-        xhr.onerror = function () {
-            Toast("Something went while insertind data", "Error")
 
-        }
-        pinFormData.append("action","add")
+
+
+
+
+
+
+
+
+        xhr.onerror = function (event) {
+            console.error("XHR Network Error:", event);
+            console.error("Status:", xhr.status);
+            console.error("Response:", xhr.responseText);
+
+            Toast("Request failed", "Error");
+        };
+
+        // xhr.onload = function () {
+        //     if (xhr.status === 200) {
+        //         try {
+
+        //             const data = JSON.parse(xhr.responseText);
+        //             console.log(data)
+        //             Toast("Added a contribution request", "Success");
+        //         } catch (err) {
+        //             console.log(xhr.responseText)
+        //             Toast("Invalid server response", "Error")
+        //         }
+        //     } else {
+        //         console.log(xhr.responseText)
+        //         Toast("Something went while insertind data", "Error")
+        //     }
+        // }
+
+        // xhr.onerror = function () {
+        //     console.log(xhr.responseText)
+        //     Toast("Something went while insertind data", "Error")
+
+        // }
+        pinFormData.append("action", "add")
         xhr.send(pinFormData)
 
+        console.log("AFTER SEND");
 
+        setTimeout(() => {
+            console.log("XHR state after 1 second:", xhr.readyState);
+            console.log("XHR status:", xhr.status);
+        }, 1000);
 
 
     }

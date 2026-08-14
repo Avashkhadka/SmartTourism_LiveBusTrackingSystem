@@ -176,7 +176,7 @@ const PopulateData = (CardContainer, locations) => {
                             data-location_id=${location.location_id}>
                             
                             
-                            View More
+                            Approve
                         </button>
                     </div>
                 </div>

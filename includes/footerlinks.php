@@ -15,7 +15,7 @@
 <!-- <script src="https://unpkg.com/maplibre-gl@5.12.0/dist/maplibre-gl.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
 <script>
-    eruda.init();
+    // eruda.init();
     document.addEventListener("DOMContentLoaded", () => {
         const mobNav = document.getElementById("mob-nav");
 

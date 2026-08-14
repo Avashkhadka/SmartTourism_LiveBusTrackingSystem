@@ -56,16 +56,18 @@ const fetchLocationData = async () => {
             }
 
             locationData = await res.json();
-            
+
             localStorage.setItem(
                 "locationData",
-                JSON.stringify(locationData)
+                JSON.stringify(locationData.location)
             );
+            console.log(locationData)
             sessionStorage.setItem(
                 "lastUpdatedTime",
                 new Date().getTime()
             );
             isNewLocation = true
+            console.log(isNewLocation)
         }
 
 
@@ -79,6 +81,7 @@ const fetchLocationData = async () => {
                     No locations found.
                 </div>
             `;
+  
             return;
         }
 
@@ -87,6 +90,7 @@ const fetchLocationData = async () => {
             try {
 
                 if (isNewLocation) {
+
                     const locationArr = locations
                         .map((location) => ({
                             ...location,
@@ -105,6 +109,7 @@ const fetchLocationData = async () => {
                         "locationData",
                         JSON.stringify(locationArr)
                     );
+                    console.log("not that this")
                 }
 
                 const locationData = JSON.parse(localStorage.getItem("locationData"))
