@@ -1,0 +1,22 @@
+.email-container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 44px 44px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.passcode-digit {
+    width: 70px;
+    height: 80px;
+    border: 1px solid #494949;
+    border-radius: 8px;
+    font-size: 32px;
+    text-align: center;
+    background-color: #242426;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}

@@ -12,7 +12,7 @@ if (!$conn) {
     createBusTable($conn);
     createLocationTable($conn);
     // populateInitialLocationData($conn);
-    addLocationInformation($conn);
+    // addLocationInformation($conn);
 }
 
 

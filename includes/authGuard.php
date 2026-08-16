@@ -6,7 +6,7 @@ $publicPages = [
     "sign-in.php",
     "sign-up.php",
     "driver-sign-up.php",
-
+    "emailHandler.php",
 ];
 
 $driverPages = [
@@ -23,7 +23,8 @@ $customerPages = [
     "booking.php",
     "profile.php",
     "view-location.php",
-
+    "emailHandler.php",
+    "sendmail.php",
 ];
 $adminPages = [
     "logout.php",
@@ -36,7 +37,7 @@ if (isset($_SESSION['isLogged_in']) and $_SESSION['isLogged_in'] == true) {
     if ($_SESSION['role'] == "driver") {
         ?>
         <script>
-            localStorage.removeItem("locationDataAdmin")  
+            localStorage.removeItem("locationDataAdmin")
             sessionStorage.removeItem("lastUpdatedTimeAdmin")  
         </script>
         <?php
@@ -47,7 +48,7 @@ if (isset($_SESSION['isLogged_in']) and $_SESSION['isLogged_in'] == true) {
     } else if ($_SESSION['role'] == "user") {
         ?>
             <script>
-                localStorage.removeItem("locationDataAdmin")  
+                localStorage.removeItem("locationDataAdmin")
                 sessionStorage.removeItem("lastUpdatedTimeAdmin")  
             </script><?php
             if (!in_array($currentPage, $customerPages)) {
@@ -57,7 +58,7 @@ if (isset($_SESSION['isLogged_in']) and $_SESSION['isLogged_in'] == true) {
     } else if ($_SESSION['role'] == "admin") {
         ?>
                 <script>
-                    localStorage.removeItem("locationData")  
+                    localStorage.removeItem("locationData")
                     sessionStorage.removeItem("lastUpdatedTime")  
                 </script>
             <?php

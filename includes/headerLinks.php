@@ -18,6 +18,7 @@
 <link rel="stylesheet" href=" <?php echo BASEURL ?>assets/css/contribute.css">
 <link rel="stylesheet" href=" <?php echo BASEURL ?>assets/css/approval.css">
 <link rel="stylesheet" href=" <?php echo BASEURL ?>assets/css/dashboard.css">
+<link rel="stylesheet" href=" <?php echo BASEURL ?>assets/css/email.css">
 
 
 
