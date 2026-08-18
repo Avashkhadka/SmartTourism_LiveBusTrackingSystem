@@ -6,13 +6,16 @@ $publicPages = [
     "sign-in.php",
     "sign-up.php",
     "driver-sign-up.php",
-    "emailHandler.php",
+    "otpPage.php",
+    "forgot-password.php",
 ];
 
 $driverPages = [
     "logout.php",
     "profile.php",
     "dashboard.php",
+    "otpPage.php",
+    "forgot-password.php",
 ];
 $customerPages = [
     "index.php",
@@ -23,14 +26,16 @@ $customerPages = [
     "booking.php",
     "profile.php",
     "view-location.php",
-    "emailHandler.php",
-    "sendmail.php",
+    "otpPage.php",
+    "forgot-password.php",
 ];
 $adminPages = [
     "logout.php",
     "profile.php",
     "dashboard.php",
     "location-approval.php",
+    "otpPage.php",
+    "forgot-password.php",
 ];
 
 if (isset($_SESSION['isLogged_in']) and $_SESSION['isLogged_in'] == true) {

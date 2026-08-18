@@ -1,3 +1,4 @@
+import { handleLoading } from "../../utils/handleLoading.js";
 import { Toast } from "../../utils/toast.js";
 const { BASEURL } = window.CONFIG;
 
@@ -106,7 +107,7 @@ const handleDrSignUp = async (drSignInForm, e) => {
     // }
 
     if (!rememberMe) {
-        
+
         Toast("Please accept the Terms and Privacy Policy.", "Error");
         error = true;
     }
@@ -195,7 +196,7 @@ const handleSignUp = async (signUpForm) => {
 
     if (error) return;
     Toast("Please wait...", "Success");
-    isLoading = true;
+    handleLoading(true);
     try {
         let res = await fetch(`${BASEURL}api/auth.php`, {
             method: "POST",
@@ -203,18 +204,24 @@ const handleSignUp = async (signUpForm) => {
         });
 
         let data = await res.json();
+        console.log(data);
+        // data = JSON.parse(data);
         if (data.status == 200) {
             Toast(`${data.message}`, "Success");
             Toast("Redirecting...", "Success");
+
             setTimeout(() => {
-                window.location.href = `${BASEURL}pages/global/sign-in.php`;
+                window.location.href = `${BASEURL}pages/global/otpPage.php?expires_on=${data.expiresOn}&request_id=${data.requestId}&email=${data.email}`;
             }, 1000);
+            handleLoading(false);
             signUpForm.reset();
         } else if (data.status == 409) {
             Toast(`${data.message}`, "Error");
+            handleLoading(false);
         }
     } catch (err) {
         Toast("Something went wrong", "Error");
+        handleLoading(false);
         console.log(err);
     }
     isLoading = false;

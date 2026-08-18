@@ -5,7 +5,7 @@ use PHPMailer\PHPMailer\Exception;
 
 require '../vendor/autoload.php';
 require '../config/constants.php';
-require 'emailHandler.php';
+require 'emailTemplate.php';
 $mail = new PHPMailer(true);
 
 
@@ -34,7 +34,7 @@ try {
 
     $mail->isHTML(true);
     $mail->Subject = 'This is the test';
-    $message = sendTemplate([
+    $message = emailTemplate([
         "passcode" => "153456",
         "expiresOn" => "08:56",
         "requestId" => "TRT 34-2"
