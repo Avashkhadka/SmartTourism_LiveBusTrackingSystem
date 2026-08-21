@@ -6,6 +6,7 @@ require_once __DIR__ . '/../services/generalFunction.php';
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
+$emailHandler = new EmailHandler();
 
 function getUser($field, $value, $conn)
 {
