@@ -46,6 +46,10 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
            handleOtpVerification($_POST, $conn);
             break;
 
+        case "otp_verification":
+           handleOtpVerification($_POST, $conn);
+            break;
+
         default:
             echo json_encode([
                 "status" => 400,
