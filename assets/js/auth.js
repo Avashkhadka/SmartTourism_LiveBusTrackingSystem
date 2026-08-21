@@ -1,3 +1,4 @@
+import { handleLoading } from "../../utils/handleLoading.js";
 import { Toast } from "../../utils/toast.js";
 const { BASEURL } = window.CONFIG;
 
@@ -77,6 +78,9 @@ const handleDrSignUp = async (drSignInForm, e) => {
     let date_of_birth = drSignInFormData.get("date_of_birth");
     let email = drSignInFormData.get("email");
     let phone = drSignInFormData.get("phone");
+    let country = drSignInFormData.get("country");
+    let city = drSignInFormData.get("city");
+    let nationality = drSignInFormData.get("nationality");
 
     let password = drSignInFormData.get("password");
     let cPassword = drSignInFormData.get("cPassword");
@@ -90,9 +94,8 @@ const handleDrSignUp = async (drSignInForm, e) => {
     let rememberMe = drSignInFormData.get("rememberMe");
 
     let error = false;
-    console.log(full_name, date_of_birth, email, phone, password, cPassword, license_number, lisence_type, license_issue_date, license_expiry_date, issuing_office, year_of_experience)
     if (
-        [full_name, date_of_birth, email, phone, password, cPassword, license_number, lisence_type, license_issue_date, license_expiry_date, issuing_office, year_of_experience].some(
+        [full_name, date_of_birth, email, phone, country, city, nationality, password, cPassword, license_number, lisence_type, license_issue_date, license_expiry_date, issuing_office, year_of_experience].some(
             (value) => !value?.toString().trim(),
         )
     ) {
@@ -106,7 +109,7 @@ const handleDrSignUp = async (drSignInForm, e) => {
     // }
 
     if (!rememberMe) {
-        
+
         Toast("Please accept the Terms and Privacy Policy.", "Error");
         error = true;
     }
@@ -117,8 +120,8 @@ const handleDrSignUp = async (drSignInForm, e) => {
     }
     if (error) return;
     Toast("Please wait...", "Success");
+    handleLoading(true);
     try {
-        console.log("Before fetch");
 
         let res = await fetch(`${BASEURL}api/auth.php`, {
             method: "POST",
@@ -128,16 +131,20 @@ const handleDrSignUp = async (drSignInForm, e) => {
         console.log(res);
         let data = await res.json();
         console.log(data);
-        if (res.status == 200) {
+        if (data.status == 200) {
             Toast(`${data.message}`, "Success");
             Toast("Redirecting...", "Success");
+
             setTimeout(() => {
-                window.location.href = `${BASEURL}pages/global/sign-in.php`;
-            }, 5000);
+                window.location.href = `${BASEURL}pages/global/otpPage.php?expires_on=${data.expiresOn}&request_id=${data.requestId}&email=${data.email}&for=user_verification`;
+            }, 1000);
+            handleLoading(false);
             drSignInForm.reset();
-        } else if (res.status == 409) {
+        } else if (data.status == 409) {
             Toast(`${data.message}`, "Error");
-        } else {
+            handleLoading(false);
+        }
+        else {
             console.log("something else");
         }
     } catch (err) {
@@ -147,8 +154,6 @@ const handleDrSignUp = async (drSignInForm, e) => {
 };
 
 const handleSignUp = async (signUpForm) => {
-    const logs = JSON.parse(localStorage.getItem("logs")) || [];
-    console.log("Previous logs:", logs);
     const signUpFormData = new FormData(signUpForm);
     signUpFormData.append("action", "signup");
     let fname = signUpFormData.get("full_name");
@@ -195,7 +200,7 @@ const handleSignUp = async (signUpForm) => {
 
     if (error) return;
     Toast("Please wait...", "Success");
-    isLoading = true;
+    handleLoading(true);
     try {
         let res = await fetch(`${BASEURL}api/auth.php`, {
             method: "POST",
@@ -203,18 +208,24 @@ const handleSignUp = async (signUpForm) => {
         });
 
         let data = await res.json();
+        console.log(data);
+        // data = JSON.parse(data);
         if (data.status == 200) {
             Toast(`${data.message}`, "Success");
             Toast("Redirecting...", "Success");
+
             setTimeout(() => {
-                window.location.href = `${BASEURL}pages/global/sign-in.php`;
+                window.location.href = `${BASEURL}pages/global/otpPage.php?expires_on=${data.expiresOn}&request_id=${data.requestId}&email=${data.email}&for=user_verification`;
             }, 1000);
+            handleLoading(false);
             signUpForm.reset();
         } else if (data.status == 409) {
             Toast(`${data.message}`, "Error");
+            handleLoading(false);
         }
     } catch (err) {
         Toast("Something went wrong", "Error");
+        handleLoading(false);
         console.log(err);
     }
     isLoading = false;

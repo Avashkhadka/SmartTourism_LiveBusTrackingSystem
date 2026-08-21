@@ -47,18 +47,28 @@
                                     'type' => 'date',
                                 ]);
 
-                                Input([
-                                    'id' => 'email',
-                                    'label' => 'Email',
-                                    'placeholder' => 'your@email.com',
-                                    'type' => 'email'
-                                ]);
 
                                 Input([
                                     'id' => 'phone',
                                     'label' => 'Phone',
-                                    'placeholder' => '+977 9800000002',
+                                    'placeholder' => '+977 9800000000',
                                     'type' => 'number'
+                                ]);
+
+                                Input([
+                                    'id' => 'country',
+                                    'label' => 'Country',
+                                    'placeholder' => 'Nepal'
+                                ]);
+                                Input([
+                                    'id' => 'city',
+                                    'label' => 'City',
+                                    'placeholder' => 'Kathmandu'
+                                ]);
+                                Input([
+                                    'id' => 'nationality',
+                                    'label' => 'Nationality',
+                                    'placeholder' => 'Nepali',
                                 ]);
                                 ?>
 
@@ -66,6 +76,9 @@
 
 
 
+                            <div class="flex flex-col gap-2">
+                                <?php Input(['id' => 'email', 'label' => 'Email', 'placeholder' => 'your@email.com', 'type' => 'email']); ?>
+                            </div>
                             <div class="flex flex-col gap-2">
                                 <?php Input(['id' => "password", "label" => "Password", "placeholder" => "Minimum 8 characters"]) ?>
                             </div>

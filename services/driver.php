@@ -4,19 +4,25 @@
 
 
 $GLOBALS['headers'] = getallheaders();
-function handleDrSignIn($data, $files, $conn)
-{
-    $full_name = $data['full_name'];
-    $email = $data['email'];
-    $phone = $data['phone'];
-    $password = password_hash($data['password'], PASSWORD_DEFAULT);
 
-    $license_number = $data['license_number'];
-    $license_type = $data['license_type'];
-    $license_issue_date = $data['license_issue_date'];
-    $license_expiry_date = $data['license_expiry_date'];
-    $issuing_office = $data['issuing_office'];
-    $year_of_experience = $data['year_of_experience'];
+function process_pending_driver($conn, $signup)
+{
+    $name = $signup['full_name'];
+    $email = $signup['email'];
+    $phone = $signup['phone'];
+    $country = $signup['country'];
+    $city = $signup['city'];
+    $nationality = $signup['nationality'];
+    $password = $signup['password'];
+
+    $license_number = $signup['license_number'];
+    $license_type = $signup['license_type'];
+    $license_issue_date = $signup['license_issue_date'];
+    $license_expiry_date = $signup['license_expiry_date'];
+    $issuing_office = $signup['issuing_office'];
+    $year_of_experience = $signup['year_of_experience'];
+
+    $role = $signup['role'];
 
     // $vechicle_number = $data['vechicle_number'];
     // $vechicle_type = $data['vechicle_type'];
@@ -76,18 +82,15 @@ function handleDrSignIn($data, $files, $conn)
 
 
     if (count(getUser("email", $email, $conn)) > 0) {
-        http_response_code(409);
-        echo json_encode([
-            "error" => true,
+        return [
             "message" => "Account already exists",
-            "data" => $data,
-        ]);
+            "status" => 409
+        ];
     } else if (count(getUser("phone", $phone, $conn)) > 0) {
-        http_response_code(409);
-        echo json_encode([
-            "error" => true,
+        return [
             "message" => "No Duplicate Phone Number Allowed",
-        ]);
+            "status" => 409
+        ];
     } else {
         $sql = "INSERT INTO users(
             name,
@@ -100,15 +103,15 @@ function handleDrSignIn($data, $files, $conn)
             profile_image,
             role
         ) VALUES(
-            '$full_name',
+            '$name',
             '$email',
             '$phone',
-            'nepali',
-            'Nepal',
-            'Kathmandu',
+            '$nationality',
+            '$country',
+            '$city',
             '$password',
             'uploads/profiles/default.png',
-            'driver'
+            '$role'
         )";
 
         $res = mysqli_query($conn, $sql);
@@ -116,58 +119,27 @@ function handleDrSignIn($data, $files, $conn)
         if (!$res) {
             http_response_code(500);
 
-            echo json_encode([
-                "error" => true,
+            return [
                 "message" => "Failed to create user.",
-                "ermsg" => $res,
-            ]);
+                "status"=>500
+            ];
         } else {
-
             $user_id = mysqli_insert_id($conn);
             $sql = "INSERT INTO driver_documents(user_id,license_number,license_type,license_issue_date,license_expiry_date, issuing_office,year_of_experience) VALUES($user_id,'$license_number','$license_type','$license_issue_date','$license_expiry_date','$issuing_office','$year_of_experience')";
 
-
             $res = mysqli_query($conn, $sql);
             if (!$res) {
-                http_response_code(500);
 
-                echo json_encode([
-                    "error" => true,
-                    "message" => "Failed to create user.",
-                    "ermsg" => mysqli_error($conn),
-                ]);
-                exit;
-            }
-            if ($res) {
-
-                http_response_code(200);
-                echo json_encode([
-                    "success" => true,
-                    "message" => "Created",
-                ]);
+                return [
+                    "message" => "Driver details could not be saved.",
+                    "status" => 500
+                ];
             } else {
-                http_response_code(400);
-                echo json_encode([
-                    "success" => true,
-                    "message" => "Created",
-                ]);
-
+                return [
+                    "message" => "Driver registration completed successfully",
+                    "status" => 200
+                ];
             }
-            // if (!$res) {
-            //     http_response_code(500);
-
-            //     echo json_encode([
-            //         "error" => true,
-            //         "message" => "Driver details could not be saved.",
-            //     ]);
-            // } else {
-            //     http_response_code(200);
-
-            //     echo json_encode([
-            //         "success" => true,
-            //         "message" => "Driver registration completed successfully.",
-            //     ]);
-            // }
         }
     }
 }

@@ -2,8 +2,9 @@
 session_start();
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../config/constants.php';
+require_once __DIR__ . '/../services/generalFunction.php';
 use Firebase\JWT\JWT;
-use Firebase\JWT\KEY;
+use Firebase\JWT\Key;
 
 
 function getUser($field, $value, $conn)
@@ -25,6 +26,119 @@ function getUser($field, $value, $conn)
 
 
 
+function handleOtpUserVerification($data, $conn)
+{
+    $submittedOtp = $data['otp_code'] ?? '';
+    $sessionOtp = $_SESSION['otp'] ?? null;
+    $expiresAt = $_SESSION['otp_expires'] ?? null;
+
+    // Check whether OTP exists
+    if ($sessionOtp === null || $expiresAt === null) {
+        http_response_code(400);
+        echo json_encode([
+            "message" => "OTP not found or session expired",
+            "error" => true
+        ]);
+        return;
+    }
+
+    // Check expiry
+    if (time() > $expiresAt) {
+        unset($_SESSION['otp'], $_SESSION['otp_expires']);
+        http_response_code(400);
+        echo json_encode([
+            "message" => "OTP expired",
+            "error" => true
+        ]);
+        return;
+    }
+
+    // Check OTP
+    if ((string) $submittedOtp !== (string) $sessionOtp) {
+        http_response_code(400);
+        echo json_encode([
+            "message" => "Invalid OTP",
+            "error" => true
+        ]);
+        return;
+    }
+
+    // OTP is correct
+    $signup = $_SESSION['pending_signup'];
+    $status = [];
+    if ($signup['role'] == "user") {
+        $status = process_pending_user($conn, $signup);
+    } else if ($signup['role'] == "driver") {
+        $status = process_pending_driver($conn, $signup);
+    }
+
+
+    unset($_SESSION['otp'], $_SESSION['otp_expires']);
+    respondJson($status['status'], $status['message']);
+
+    // echo json_encode([
+    // "message" => "OTP verified successfully",
+    // "error" => false,
+    // ]);
+}
+
+function process_pending_user($conn, $signup)
+{
+
+    $name = $signup['full_name'];
+    $nationality = $signup['nationality'];
+    $email = $signup['email'];
+    $phone = $signup['phone'];
+    $country = $signup['country'];
+    $city = $signup['city'];
+    $password = $signup['password'];
+    $role = $signup['role'];
+
+    $sql = "INSERT INTO users 
+        (name, email, nationality, country, city, phone, password, profile_image, role)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    $stmt = mysqli_prepare($conn, $sql);
+
+    $profileImage = 'assets/profiles/default.png';
+
+    mysqli_stmt_bind_param(
+        $stmt,
+        "sssssssss",
+        $name,
+        $email,
+        $nationality,
+        $country,
+        $city,
+        $phone,
+        $password,
+        $profileImage,
+        $role
+    );
+
+    $res = mysqli_stmt_execute($stmt);
+
+    if ($res) {
+
+        // Remove temporary signup data after successful account creation
+        unset($_SESSION['pending_signup']);
+
+        return [
+            "error" => false,
+            "message" => "Account Created successfully",
+            "status" => 200
+        ];
+
+    } else {
+
+        return [
+            "error" => true,
+            "message" => "Failed To Create An Account",
+            "status" => 400
+        ];
+    }
+}
+
 function checkLogin($jwt)
 {
     try {
@@ -36,22 +150,47 @@ function checkLogin($jwt)
         json_encode(['error' => $e->getMessage()]);
     }
 
-    // if (isset($_SESSION['isLogged_in']) && $_SESSION['isLogged_in']) {
-    //     return true;
-    // } else {
-    //     return false;
-    // }
 }
 
+function handleDrSignIn($data, $conn)
+{
+    $name = $data['full_name'];
+    $email = $data['email'];
+    $phone = $data['phone'];
+    $password = password_hash($data['password'], PASSWORD_DEFAULT);
+
+    if (count(getUser("email", $email, $conn)) > 0) {
+        http_response_code(409);
+        echo json_encode([
+            "error" => true,
+            "message" => "Account already exists",
+            "data" => $data,
+        ]);
+    } else if (count(getUser("phone", $phone, $conn)) > 0) {
+        http_response_code(409);
+        echo json_encode([
+            "error" => true,
+            "message" => "No Duplicate Phone Number Allowed",
+        ]);
+    } else {
+        $status = otpMailer($email, $name);
+        if ($status['status']) {
+            $data['password'] = $password;
+            $data['role'] = 'driver';
+            $_SESSION['pending_signup'] = $data;
+        }
+
+        respondJson($status['status'], $status['message'], $status);
+    }
+
+}
 
 function handleSignup($data, $conn)
 {
+
     $name = $data['full_name'];
-    $nationality = $data['nationality'];
     $email = $data['email'];
     $phone = $data['phone'];
-    $country = $data['country'];
-    $city = $data['city'];
     $password = password_hash($data['password'], PASSWORD_DEFAULT);
 
 
@@ -69,41 +208,19 @@ function handleSignup($data, $conn)
             "status" => 409,
         ]);
     } else {
-        $sql = "INSERT INTO users (name,email,nationality,country,city,phone,password,profile_image,role) values(
-    '$name',
-    '$email',
-    '$nationality',
-    '$country',
-    '$city',
-    '$phone',
-    '$password',
-    'assets/profiles/default.png',
-    'user'
-)";
-        $res = mysqli_query($conn, $sql);
-        if ($res) {
-            header("Content-Type: application/json");
-            echo json_encode([
-                "success" => true,
-                "message" => "Account Created successfully",
-                "status" => 200,
-            ]);
+        $status = otpMailer($email, $name);
+        if ($status['status']) {
 
-        } else {
-            echo json_encode([
-                "error" => true,
-                "message" => "Failed To Create An Account",
-                "status" => 400,
-            ]);
+            $data['role'] = "user";
+            $data['password'] = $password;
+            $_SESSION['pending_signup'] = $data;
         }
 
+        respondJson($status['status'], $status['message'], $status);
+
     }
-
-
-
-    
-
 }
+
 function handleSignIn($data, $conn)
 {
     $email = $data['email'];
@@ -123,15 +240,13 @@ function handleSignIn($data, $conn)
             $key = JWTSECRETKEY;
             $payload = [
                 "user_id" => $info[0]['user_id'],
-                "role"=>$info[0]['role'],
+                "role" => $info[0]['role'],
                 "email" => $info[0]['email'],
                 "iat" => time(),              // Issued at
                 "exp" => time() + 3600 * 12        // Expires in 12 hour
             ];
             $jwt = JWT::encode($payload, $key, 'HS256');
-
             echo json_encode(["success" => true, "message" => "Login Successful", "status" => 200, "jwt_code" => $jwt]);
-
         } else {
             echo json_encode(["error" => true, "message" => "Incorrect Password", "status" => 400,]);
         }

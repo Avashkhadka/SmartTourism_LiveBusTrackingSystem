@@ -20,7 +20,26 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             break;
 
         case "driverSignup":
-            handleDrSignIn($_POST, $_FILES, $conn);
+            handleDrSignIn($_POST, $conn);
+            break;
+
+        case "otp_verification":
+            $otp_for = $_POST['otp_for'] ?? '';
+
+            switch ($otp_for) {
+                case "user_verification":
+                    handleOtpUserVerification($_POST, $conn);
+                    break;
+
+                default:
+                    echo json_encode([
+                        "status" => 400,
+                        "message" => "Invalid action."
+                    ]);
+                    break;
+            }
+
+
             break;
 
         default:

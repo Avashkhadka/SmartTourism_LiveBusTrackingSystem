@@ -4,3 +4,4 @@ composer.lock
 uploads
 config/constants.php
 .env
+documentation/latexDoc/
