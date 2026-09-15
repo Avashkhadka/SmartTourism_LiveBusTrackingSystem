@@ -35,7 +35,7 @@
                         <span>★ 4.9</span>
                     </div>
                 </div>
-                <div class="gap-2 main-control-dashboard" id="dashboard-control">
+                <div class="gap-2 main-control-dashboard justify-end" id="dashboard-control">
 
                     <button
                         class="no-underline w-fit text-gray-800 border font-semibold border-gray-400 py-2 px-3  border-solid rounded-full nav-link-item-hover hover-bg-ternary bg-body  font-medium  "
@@ -56,7 +56,7 @@
 
                 </div>
             </div>
-            <div class="border-t-gray w-full"></div>
+            <div class="border-t-gray w-full "></div>
 
             <div class="gap-6" id="driver-dashboard-card-container">
                 <div class=""></div>

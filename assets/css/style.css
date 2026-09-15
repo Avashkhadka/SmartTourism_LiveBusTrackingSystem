@@ -556,7 +556,8 @@ option:checked {
     .page-container {
         padding: 3rem;
     }
-    .page-container {
+
+    .page-container-x {
         padding: 0 3rem;
     }
     .hero-count {

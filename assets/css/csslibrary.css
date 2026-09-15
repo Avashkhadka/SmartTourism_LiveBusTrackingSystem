@@ -2239,6 +2239,15 @@ custon utilities can be added here
 .bg-warning {
     background-color: #d64418;
 }
+.bg-warning-light {
+    background-color: #ec91753d;
+}
+.bg-danger {
+    background-color: #ffdc90;
+}
+.bg-danger-light {
+    background-color: #FBF1DC;
+}
 
 .text-primary {
     color: var(--color-primary);
@@ -2257,6 +2266,9 @@ custon utilities can be added here
 }
 .text-warning {
     color: #d64418;
+}
+.text-danger {
+    color: #fb8e00;
 }
 
 .border-default {
@@ -2425,6 +2437,9 @@ custon utilities can be added here
     .md\:hidden {
         display: none;
     }
+     .md\:justify-end {
+    justify-content: flex-end;
+}
 }
 
 @media (min-width: 1024px) {

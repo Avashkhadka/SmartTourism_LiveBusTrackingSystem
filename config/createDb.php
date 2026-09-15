@@ -78,14 +78,21 @@ function createDriverDocuments($conn)
         issuing_office VARCHAR(255) NOT NULL,
         year_of_experience INT NOT NULL,
 
-        id_front_photo VARCHAR(255)  default Null,
-        id_back_photo VARCHAR(255) default Null,
-        id_status VARCHAR(255) DEFAULT 'pending', 
+        bill_book_front_photo VARCHAR(255)  default Null,
+        bill_book_back_photo VARCHAR(255) default Null,
+        bill_book_status VARCHAR(255) DEFAULT 'pending', 
 
-        license_front_photo VARCHAR(255) default Null,
-        license_back_photo VARCHAR(255)  default Null,
-        license_status VARCHAR(255) DEFAULT 'pending', 
+        driving_license_front_photo VARCHAR(255) default Null,
+        driving_license_back_photo VARCHAR(255)  default Null,
+        driving_license_status VARCHAR(255) DEFAULT 'pending', 
+
+        insurance_document_front_photo VARCHAR(255) default Null,
+        insurance_document_back_photo  VARCHAR(255)  default Null,
+        insurance_document_status VARCHAR(255) DEFAULT 'pending', 
+
+
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
 
         FOREIGN KEY (user_id) REFERENCES users(user_id)
     )";

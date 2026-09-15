@@ -42,13 +42,13 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
             break;
 
-        case "otp_verification":
-           handleOtpVerification($_POST, $conn);
-            break;
+        // case "otp_verification":
+        //    handleOtpVerification($_POST, $conn);
+        //     break;
 
-        case "otp_verification":
-           handleOtpVerification($_POST, $conn);
-            break;
+        // case "otp_verification":
+        //    handleOtpVerification($_POST, $conn);
+        //     break;
 
         default:
             echo json_encode([

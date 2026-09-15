@@ -34,6 +34,8 @@ function RenderNavbar($activetab = "")
             <?php } else if (isset($_SESSION['role']) && $_SESSION['role'] == "driver") { ?>
                     <a class="no-underline nav-link <?php echo $activetab == "home" ? "active-link shadow" : "color-ternary" ?> "
                         href='<?php echo BASEURL ?>pages/driver/dashboard.php'>Dashboard</a>
+                    <a class="no-underline nav-link <?php echo $activetab == "home" ? "active-link shadow" : "color-ternary" ?> "
+                        href='<?php echo BASEURL ?>pages/driver/document.php'>Documents</a>
 
 
 
@@ -137,7 +139,8 @@ function RenderNavbar($activetab = "")
                                 href='
                     <?php echo BASEURL ?>pages/driver/dashboard.php'>Dashboard
                             </a>
-
+                            <a class="no-underline nav-link <?php echo $activetab == "home" ? "active-link shadow" : "color-ternary" ?> "
+                                href='<?php echo BASEURL ?>pages/driver/document.php'>Documents</a>
 
 
 

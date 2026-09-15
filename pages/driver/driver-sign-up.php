@@ -38,7 +38,7 @@
                                 Input([
                                     'id' => 'full_name',
                                     'label' => 'Full Name',
-                                    'placeholder' => 'Avash Khadka'
+                                    'placeholder' => 'Avash Khadka',
                                 ]);
 
                                 Input([

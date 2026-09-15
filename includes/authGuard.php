@@ -16,6 +16,7 @@ $driverPages = [
     "dashboard.php",
     "otpPage.php",
     "forgot-password.php",
+    "document.php",
 ];
 $customerPages = [
     "index.php",

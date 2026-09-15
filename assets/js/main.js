@@ -3,6 +3,7 @@ import { LoadAuthHandler } from "./auth.js";
 import { LoadContribute } from "./contirbute.js";
 import { loadDiscoverpage } from "./discoverPage.js";
 import { LoadDriverDashboard } from "./driverDashboard.js";
+import { loadDriverDocumentation } from "./driverdocument.js";
 import { LoadDriversSignUp } from "./drivers-sign-up.js";
 import { LoadIntersectionObserver } from "./intersectionObserver.js";
 import { handleLiveMap } from "./livemap.js";
@@ -18,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     LoadContribute();
     LoadLoationApproval();
     LoadDriverDashboard()
+    loadDriverDocumentation()
     HandleOtp()
 
     LoadIntersectionObserver();
