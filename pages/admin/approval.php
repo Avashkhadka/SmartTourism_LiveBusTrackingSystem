@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <div class="max-w-9xl mx-auto" id="location-approval-container">
+    <div class="max-w-9xl mx-auto" id="approval-container">
         <?php RenderNavbar("approval") ?>
         <section class="flex flex-col gap-4 py-8 page-container">
             <div class="reveal head-container ">
@@ -33,12 +33,12 @@
                         Review user-submitted famous places before they go live.
                     </div>
                 </div>
-                <div class="flex gap-2 sm:mt-4 ">
+                <div class="flex gap-2 sm:mt-4 justify-end ">
                     <button
                         class="no-underline w-fit  bg-skin color-warm font-semibold border-none py-2 px-4 rounded-full  text-sm font-medium "
                         style="text-wrap: nowrap;">
 
-                        <span>3</span> pending
+                        <span id="pending-location">3</span> pending
                     </button>
                     <button
                         class="no-underline w-fit text-gray-800 border font-semibold border-gray-500 py-2 px-4  border-solid rounded-full nav-link-item-hover hover-bg-ternary text-sm font-medium  "
@@ -58,8 +58,53 @@
 
 
             </div>
+            <div class="reveal head-container ">
+                <div class="flex flex-col w-full">
 
+
+                    <div class="font-semibold  text-4xl mt-4">Verify Drivers</div>
+                    <div class="color-gray text-sm font-medium mt-4">
+                        Review and verify driver-submitted information before approval.
+                    </div>
+                </div>
+                <div class="flex gap-2 sm:mt-4 justify-end ">
+                    <button
+                        class="no-underline w-fit  bg-skin color-warm font-semibold border-none py-2 px-4 rounded-full  text-sm font-medium "
+                        style="text-wrap: nowrap;">
+
+                        <span id="pending-driver">3</span> pending
+                    </button>
+                    <button
+                        class="no-underline w-fit text-gray-800 border font-semibold border-gray-500 py-2 px-4  border-solid rounded-full nav-link-item-hover hover-bg-ternary text-sm font-medium  "
+                        style="text-wrap: nowrap;">
+                        Bulk approve
+                    </button>
+
+                </div>
+            </div>
+            <div class="border-t-gray w-full"></div>
+            <div class="bg-ternary w-full text-black gap-2" id="drivers-submission-approval-container">
+
+                <!-- <div class='w-full p-16 text-black rounded-lg text-lg text-center border-gray'>
+                    Loading Please wait...
+                </div> -->
+
+
+
+            </div>
         </section>
+
+        <dialog id="verify-dialog" class=" dialog-black p-6 rounded-lg">
+            <div class="flex justify-between items-center ">
+
+                <h3>Verify Driver</h3>
+                <button onclick="this.closest('dialog').close()" class="p-2 outline-none border-none "><i class="fa-solid fa-x"></i></button>
+            </div>
+
+            <div class="" id="dialog-data-container">
+
+            </div>
+        </dialog>
         <?php Footer() ?>
     </div>
 

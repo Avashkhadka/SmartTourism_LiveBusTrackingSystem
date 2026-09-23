@@ -1,5 +1,6 @@
 import { Card } from "../../components/card.js";
 import { Toast } from "../../utils/toast.js";
+import { VerifyDialog } from "../../utils/viewInfo.js";
 
 const { BASEURL } = window.CONFIG;
 
@@ -7,7 +8,7 @@ const { BASEURL } = window.CONFIG;
 
 
 export const LoadLoationApproval = async () => {
-    const container = document.getElementById("location-approval-container");
+    const container = document.getElementById("approval-container");
     if (!container) return;
 
     const CardContainer = document.querySelector(
@@ -22,46 +23,73 @@ export const LoadLoationApproval = async () => {
 
     const showLocationDetail = document.querySelectorAll(".show-location-detail");
 
-    CardContainer.addEventListener("click", (e) => {
+    CardContainer.addEventListener("click", async (e) => {
         const button = e.target.closest(".show-location-detail")
         if (!button) return;
-        const token = localStorage.getItem("jwtToken");
+        const location_id = button.dataset.location_id;
+        const sellocation = locations.find(location => location.location_id == location_id);
+        const dialog = document.getElementById("verify-dialog");
+        dialog.innerHTML = VerifyDialog(sellocation, "location", BASEURL)
+        await loadMap(sellocation.latitude, sellocation.longitude);
+        dialog.showModal();
 
-        const data = new FormData();
-        data.append("action", "actionOnLocation");
-        data.append("location_id", button.dataset.location_id);
-        data.append("locationAction", "approved");
+        // const token = localStorage.getItem("jwtToken");
 
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", `${BASEURL}/api/contriapi.php`, true);
-        xhr.setRequestHeader("Authorization", token)
+        // const data = new FormData();
+        // data.append("action", "actionOnLocation");
+        // data.append("location_id", button.dataset.location_id);
+        // data.append("locationAction", "approved");
 
-        xhr.onload = function () {
+        // const xhr = new XMLHttpRequest();
+        // xhr.open("POST", `${BASEURL}/api/contriapi.php`, true);
+        // xhr.setRequestHeader("Authorization", token)
 
-            const data = JSON.parse(xhr.responseText);
-            if (xhr.status === 200) {
-                Toast(data.message, "Success")
-                let loc = JSON.parse(localStorage.getItem("locationDataAdmin")).location
-                loc = loc.map(l => l.location_id === button.dataset.location_id ? { ...l, status: "approved" } : l)
-                if (!loc.length > 0) {
-                    updateMessage(CardContainer, "No locations Need to be approved.")
-                }
-                localStorage.setItem("locationDataAdmin", JSON.stringify({ location: loc }));
-                PopulateData(CardContainer, loc)
+        // xhr.onload = function () {
 
-            } if (xhr.status === 401) {
-                Toast(data.message, "Error")
-            }
-        }
-        xhr.onerror = function () {
-            Toast("Failed to Approve Location", "Success")
-        }
+        //     const data = JSON.parse(xhr.responseText);
+        //     if (xhr.status === 200) {
+        //         Toast(data.message, "Success")
+        //         let loc = JSON.parse(localStorage.getItem("locationDataAdmin")).location
+        //         loc = loc.map(l => l.location_id === button.dataset.location_id ? { ...l, status: "approved" } : l)
+        //         if (!loc.length > 0) {
+        //             updateMessage(CardContainer, "No locations Need to be approved.")
+        //         }
+        //         localStorage.setItem("locationDataAdmin", JSON.stringify({ location: loc }));
+        //         PopulateData(CardContainer, loc)
 
-        xhr.send(data)
+        //     } if (xhr.status === 401) {
+        //         Toast(data.message, "Error")
+        //     }
+        // }
+        // xhr.onerror = function () {
+        //     Toast("Failed to Approve Location", "Success")
+        // }
+
+        // xhr.send(data)
 
     })
 
 
+}
+
+async function loadMap(lat, long, placeName) {
+    try {
+        const latitude = lat;
+        const longitude = long;
+
+        const map = L.map("locmap", {
+        }).setView([latitude, longitude], 13);
+
+        L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        const marker = L.marker([latitude, longitude]).addTo(map);
+        marker.bindPopup(placeName || "Location").openPopup();
+    } catch (err) {
+        console.error("Failed to load map:", err);
+    }
 }
 
 
@@ -71,44 +99,40 @@ const fetchLocationData = async (CardContainer) => {
         CardContainer.classList.add("flex");
         let locationData =
             JSON.parse(localStorage.getItem("locationDataAdmin")) || [];
-        let lastUpdatedTime = parseInt(sessionStorage.getItem("lastUpdatedTimeAdmin")) || 0;
-        let buff = parseInt((new Date().getTime() - lastUpdatedTime) / (1000 * 60));
-        if (locationData.length === 0 || buff >= 15) {
-            const res = await fetch(
-                `${BASEURL}api/location.php/getlocation`,
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization:
-                            localStorage.getItem("jwtToken") || "",
-                    },
-                }
-            );
-            console.log(res)
-            if (res.status === 401) {
-                Toast(res.statusText, "Error");
-
-                setTimeout(() => {
-                    window.location.href = "logout.php";
-                }, 2000);
-
-                return;
+        const res = await fetch(
+            `${BASEURL}api/location.php/getlocation`,
+            {
+                method: "GET",
+                headers: {
+                    Authorization:
+                        localStorage.getItem("jwtToken") || "",
+                },
             }
-            if (!res.ok) {
-                Toast(res.statusText, "Error");
-                return;
-            }
+        );
+        console.log(res)
+        if (res.status === 401) {
+            Toast(res.statusText, "Error");
 
-            locationData = await res.json();
-            localStorage.setItem(
-                "locationDataAdmin",
-                JSON.stringify(locationData)
-            );
-            sessionStorage.setItem(
-                "lastUpdatedTimeAdmin",
-                new Date().getTime()
-            );
+            setTimeout(() => {
+                window.location.href = "../global/logout.php";
+            }, 2000);
+
+            return;
         }
+        if (!res.ok) {
+            Toast(res.statusText, "Error");
+            return;
+        }
+
+        locationData = await res.json();
+        localStorage.setItem(
+            "locationDataAdmin",
+            JSON.stringify(locationData)
+        );
+        sessionStorage.setItem(
+            "lastUpdatedTimeAdmin",
+            new Date().getTime()
+        );
         const locations = Array.isArray(locationData)
             ? locationData
             : locationData.location || [];;
@@ -130,12 +154,14 @@ const PopulateData = (CardContainer, locations) => {
     let pendingCount = locations.filter(
         location => location.status === "pending"
     ).length;
+
     if (pendingCount > 0) {
 
         let cardHtml = "";
         locations.forEach(location => {
             if (location.status == "approved") return;
             pendingCount++;
+            console.log(location)
             cardHtml +=/*html*/ `     
               <article class="w-full reveal card rounded-2xl overflow-hidden shadow-lg"
               data-location-id="${location.location_id}">
@@ -166,7 +192,9 @@ const PopulateData = (CardContainer, locations) => {
                             ${location.short_pitch}
                         </p>
                         <p class="text-xs color-gray font-medium my-4">
-                         <i class="fa-classic fa-solid fa-user"></i>     ${location.creator_name.split(" ").map(e => e.charAt(0).toUpperCase() + e.slice(1)).join(" ")}
+                         <i class="fa-classic fa-solid fa-user"></i>     ${location.creator_name.includes(" ")
+                    ? location.creator_name.split(" ").map(e => e.charAt(0).toUpperCase() + e.slice(1)).join(" ")
+                    : location.creator_name}
                         </p>
 
                         <div class="w-full mb-4" style="border: 1px solid var(--border-gray);"></div>
@@ -176,15 +204,15 @@ const PopulateData = (CardContainer, locations) => {
                             data-location_id=${location.location_id}>
                             
                             
-                            Approve
+                            View
                         </button>
                     </div>
                 </div>
             </article>`
         });
         CardContainer.innerHTML = cardHtml
-    }else{
-        updateMessage(CardContainer,"No locations Need to be approved.")
+    } else {
+        updateMessage(CardContainer, "No locations Need to be approved.")
     }
 
 }

@@ -43,7 +43,7 @@ function RenderNavbar($activetab = "")
                         <a class="no-underline nav-link <?php echo $activetab == "overview" ? "active-link shadow" : "color-ternary" ?> "
                             href='<?php echo BASEURL ?>pages/admin/dashboard.php'>Dashboard</a>
                         <a class="no-underline nav-link <?php echo $activetab == "approval" ? "active-link shadow" : "color-ternary" ?> "
-                            href='<?php echo BASEURL ?>pages/admin/location-approval.php'>Approvals</a>
+                            href='<?php echo BASEURL ?>pages/admin/approval.php'>Approvals</a>
             <?php } ?>
         </div>
         <?php
@@ -151,7 +151,7 @@ function RenderNavbar($activetab = "")
                                 </a>
                                 <a class="no-underline nav-link <?php echo $activetab == "approval" ? "active-link shadow" : "color-ternary" ?> "
                                     href='
-                    <?php echo BASEURL ?>pages/admin/location-approval.php'>Approvals
+                    <?php echo BASEURL ?>pages/admin/approval.php'>Approvals
                                 </a>
                     <?php } ?>
                 </div>

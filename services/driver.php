@@ -195,3 +195,96 @@ function addDocument($post, $files, $conn)
         respondJson(500, $e->getMessage());
     }
 }
+
+
+function actionOnDriver($conn)
+{
+    $headers = getallheaders();
+    $authHeader = $headers['Authorization'] ?? '';
+    if (!$authHeader) {
+        http_response_code(401);
+        echo json_encode([
+            "message" => "Authorization required"
+        ]);
+        exit;
+    }
+    $verifyUser = checkLogin($authHeader);
+    if (!$verifyUser->role == "admin") {
+        http_response_code(401);
+        echo json_encode([
+            'message' => "You dont have permission to approve contribution request"
+        ]);
+    }
+    $location_id = $_POST['driver_id'];
+    $action = $_POST['DriverAction'];
+
+    $sql = "UPDATE location set status= '$action' where location_id = $location_id";
+    $res = mysqli_query($conn, $sql);
+    if ($res) {
+        http_response_code(200);
+        echo json_encode([
+            'message' => "Successifully approved the Contribution Request."
+        ]);
+    } else {
+        http_response_code(400);
+        echo json_encode([
+            'message' => mysqli_error($conn)
+        ]);
+
+    }
+}
+
+
+
+
+function getDrivers($conn)
+{
+    $headers = getallheaders();
+    $authHeader = $headers['Authorization'] ?? '';
+    if (!$authHeader) {
+        http_response_code(401);
+        echo json_encode([
+            "message" => "Authorization required"
+        ]);
+        exit;
+    }
+    $verifyUser = checkLogin($authHeader);
+    if (!$verifyUser->role == "admin") {
+        http_response_code(401);
+        echo json_encode([
+            'message' => "You dont have permission to approve contribution request"
+        ]);
+    }
+
+    $sql = "SELECT *
+        FROM users u
+        JOIN driver_documents d ON u.user_id = d.user_id
+        WHERE u.role = 'driver'
+        AND (
+            d.bill_book_status != 'approved'
+            OR d.driving_license_status != 'approved'
+            OR d.insurance_document_status != 'approved'
+        )
+        AND d.bill_book_front_photo IS NOT NULL
+        AND d.bill_book_back_photo IS NOT NULL
+        AND d.driving_license_front_photo IS NOT NULL
+        AND d.driving_license_back_photo IS NOT NULL
+        AND d.insurance_document_front_photo IS NOT NULL
+        AND d.insurance_document_back_photo IS NOT NULL";
+        
+    $res = mysqli_query($conn, $sql);
+    if ($res) {
+        $data = $res->fetch_all(MYSQLI_ASSOC);
+        respondJson(
+            200,
+            "Successifully fetched Drivers Data.",
+            ["driver" => $data]
+        );
+    } else {
+        http_response_code(400);
+        echo json_encode([
+            'message' => mysqli_error($conn)
+        ]);
+
+    }
+}

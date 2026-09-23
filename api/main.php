@@ -11,7 +11,7 @@ include "../services/authFunctions.php";
 //     $action = $_POST['action'] ?? '';
 
 //     switch ($action) {
-       
+
 //         default:
 //             echo json_encode([
 //                 "status" => 400,
@@ -20,11 +20,22 @@ include "../services/authFunctions.php";
 //             break;
 //     }
 // }
+
+
+
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
     $action = $_GET['action'];
     switch ($action) {
         case "get-driver-details":
             getDriverData($conn);
+            break;
+
+        case "actionOnDriver":
+            actionOnDriver($conn);
+            break;
+
+        case "getdrivers":
+            getDrivers($conn);
             break;
 
         default:

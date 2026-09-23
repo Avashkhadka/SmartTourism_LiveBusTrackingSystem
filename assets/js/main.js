@@ -2,6 +2,7 @@
 import { LoadAuthHandler } from "./auth.js";
 import { LoadContribute } from "./contirbute.js";
 import { loadDiscoverpage } from "./discoverPage.js";
+import { LoadDriverApproval } from "./driver-approvals.js";
 import { LoadDriverDashboard } from "./driverDashboard.js";
 import { loadDriverDocumentation } from "./driverdocument.js";
 import { LoadDriversSignUp } from "./drivers-sign-up.js";
@@ -20,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     LoadLoationApproval();
     LoadDriverDashboard()
     loadDriverDocumentation()
+    LoadDriverApproval();
     HandleOtp()
 
     LoadIntersectionObserver();

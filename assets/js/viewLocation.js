@@ -65,8 +65,7 @@ export const HandleViewLocation = async () => {
         }).addTo(map);
 
         var marker = L.marker([thisLocation.latitude, thisLocation.longitude]).addTo(map);
-        marker.bindPopup(thisLocation.name).openPopup();
-
+        marker.bindPopup(thisLocation.place_name).openPopup();
 
         let nearThisPlaceHtml = ""
 

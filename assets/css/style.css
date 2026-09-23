@@ -541,6 +541,19 @@ option:checked {
     grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
+.dialog-black {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    outline: none;
+    border: none;
+}
+
+.dialog-black::backdrop {
+    background-color: #00000074;
+}
+
 #search-select {
     width: auto;
 }

@@ -34,7 +34,7 @@ $adminPages = [
     "logout.php",
     "profile.php",
     "dashboard.php",
-    "location-approval.php",
+    "approval.php",
     "otpPage.php",
     "forgot-password.php",
 ];
