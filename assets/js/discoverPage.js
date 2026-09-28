@@ -120,7 +120,6 @@ const fetchLocationData = async () => {
 
                 locationArr.forEach((location) => {
                     if (location.distance >= 30) return;
-                    console.log(location)
                     html += Card(location)
                 });
 

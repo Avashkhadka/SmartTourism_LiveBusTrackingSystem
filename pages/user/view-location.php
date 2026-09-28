@@ -39,7 +39,7 @@
                     <img src="../../assets/images/signup-bg.jpg" alt="">
                 </div>
             </div>
-            <main class="mt-8 reveal">
+            <main class="mt-8 reveal ">
                 <div>
                     <div
                         class="color-secondary text-xs rounded-full font-bold mb-2 py-2 px-4 w-fit text-center bg-secondary-25 category-head">
@@ -89,7 +89,7 @@
                     </div>
                     <div class="flex flex-col gap-4 mt-6">
 
-                        <a href="<?php echo BASEURL . "pages/discover.php" ?>"
+                        <a href="<?php echo BASEURL . "pages/user/book_seat.php" ?>"
                             class="py-3 flex justify-center items-center  text-white bg-secondary gap-2 font-medium shadow rounded-full no-underline nav-link-item-hover">Book
                             seat now <i class="fa-solid fa-arrow-right"></i></a>
                         <a href=""

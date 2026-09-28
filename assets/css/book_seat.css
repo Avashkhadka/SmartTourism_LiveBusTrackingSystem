@@ -1,0 +1,38 @@
+.grid-main {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 1.5rem;
+    .location-heading-title {
+        font-weight: bolder;
+        font-size: 42px;
+    }
+    .location-heading-sub {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+}
+.available_bus_card {
+    transition: 0.2s ease-in-out;
+    background-color: white;
+}
+
+.available_bus_card:hover {
+    transform: translateY(-4px);
+}
+
+@media (min-width: 700px) {
+    .grid-main {
+        grid-template-columns: 2fr 1fr;
+        align-items: start;
+        gap: 50px;
+        .location-heading-sub {
+            flex-direction: row;
+        }
+        .side-form {
+            position: sticky;
+            top: 100px;
+        }
+    }
+}

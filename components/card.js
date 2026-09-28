@@ -1,6 +1,5 @@
 export function Card(location) {
     let coverImage = JSON.parse(location.images)
-    console.log(coverImage)
     return /*html*/ `<article class="w-full reveal card rounded-2xl overflow-hidden shadow-lg" data-location-id="${location.location_id}">
         <div class="relative">
             ${location.images ? `

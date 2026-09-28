@@ -29,6 +29,7 @@ $customerPages = [
     "view-location.php",
     "otpPage.php",
     "forgot-password.php",
+    "book_seat.php",
 ];
 $adminPages = [
     "logout.php",

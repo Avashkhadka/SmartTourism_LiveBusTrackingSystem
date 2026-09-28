@@ -29,15 +29,29 @@ function handleSocket(buses, map) {
         let socketTimer = null
 
         socket.onmessage = (event) => {
-            if (socketTimer) clearTimeout(socketTimer)
+            if (socketTimer) clearTimeout(socketTimer);
+
             const bus = JSON.parse(event.data);
-            buses.set(bus.busId, bus);
-            console.log(buses)
-            // socketTimer = setTimeout(() => {
-            for (const [busId, busData] of buses) {
-                PopulateMap(busId, busData, map)
+            console.log(bus)
+            if (bus.status !== "Active") {
+                const busDetails = busMarkers.get(bus.busId);
+
+                if (busDetails?.marker) {
+                    map.removeLayer(busDetails.marker);
+                    busMarkers.delete(bus.busId);
+                }
+
+                buses.delete(bus.busId);
+                return;
             }
-            // }, 5000);
+
+            buses.set(bus.busId, bus);
+
+            for (const [busId, busData] of buses) {
+                if (busData.status === "Active") {
+                    PopulateMap(busId, busData, map);
+                }
+            }
         };
     } catch (err) {
         console.log("failed to connect with socket")

@@ -2,7 +2,7 @@ import { AddText } from "../../utils/addText.js";
 import { Toast } from "../../utils/toast.js";
 
 const { BASEURL, SOCKETPATH } = window.CONFIG;
-const headCardTitle = ["SHIFT STATUS","NEXT TRIP"];
+const headCardTitle = ["SHIFT STATUS", "NEXT TRIP"];
 
 class DriverDashboard {
     constructor() {
@@ -12,13 +12,15 @@ class DriverDashboard {
         this.socket = null;
         this.watchId = null;
         this.DriverData = null;
+        this.lastLat = null;
+        this.lastLng = null;
     }
 
     async init() {
         if (!this.container || !this.dashboardControls || !this.cardContainer) return;
 
         this.renderDriverCard();
-         AddText("#head-card-driver-0", "Offline");
+        AddText("#head-card-driver-0", "Offline");
         try {
             this.DriverData = await this.fetchDriverData();
             this.socket = new WebSocket(SOCKETPATH);
@@ -67,7 +69,6 @@ class DriverDashboard {
             xhr.setRequestHeader("Content-Type", "application/json");
 
             xhr.onload = () => {
-                console.log(xhr.responseText);
                 if (xhr.status === 200) {
                     try {
                         resolve(JSON.parse(xhr.responseText));
@@ -82,7 +83,7 @@ class DriverDashboard {
         });
     }
 
-    sendLocation(lat, lng) {
+    sendLocation(lat, lng, status) {
         if (!this.socket || this.socket.readyState !== WebSocket.OPEN) {
             Toast("WebSocket is not connected", "Error");
             return;
@@ -91,7 +92,8 @@ class DriverDashboard {
         const data = {
             busId: `BUS-${this.DriverData.id}`,
             lat,
-            lng
+            lng,
+            status: status,
         };
 
         this.socket.send(JSON.stringify(data));
@@ -112,7 +114,10 @@ class DriverDashboard {
         let locationReceived = false;
 
         this.watchId = navigator.geolocation.watchPosition(
-            (pos) => {
+            pos => {
+                this.lastLat = pos.coords.latitude;
+                this.lastLng = pos.coords.longitude;
+
                 if (!locationReceived) {
                     locationReceived = true;
                     Toast("You are now online", "Success");
@@ -123,12 +128,12 @@ class DriverDashboard {
 
                 this.sendLocation(
                     pos.coords.latitude,
-                    pos.coords.longitude
+                    pos.coords.longitude,
+                    "Active"
                 );
             },
-            (err) => {
+            err => {
                 console.error("GPS error:", err.code, err.message);
-
                 if (err.code === 1)
                     Toast("Location permission denied", "Error");
                 else if (err.code === 2)
@@ -150,12 +155,19 @@ class DriverDashboard {
             return;
         }
 
+        this.sendLocation(
+            this.lastLat,
+            this.lastLng,
+            "Pause"
+        );
+
         navigator.geolocation.clearWatch(this.watchId);
         this.watchId = null;
 
         Toast("Shift paused", "Success");
         AddText("#DriverStatus", "ON PAUSE");
         AddText("#head-card-driver-0", "Offline");
+
         console.log("Location tracking stopped");
     }
 }
