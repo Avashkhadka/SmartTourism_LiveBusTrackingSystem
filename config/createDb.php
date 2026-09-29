@@ -9,6 +9,7 @@ if (!$conn) {
     TableUser($conn);
     createAdmin($conn);
     createDriverDocuments($conn);
+    createRouteTable($conn);
     createBusTable($conn);
     createLocationTable($conn);
     // populateInitialLocationData($conn);
@@ -107,45 +108,58 @@ function createDriverDocuments($conn)
     }
 }
 
-function createBusTable($conn)
+function createRouteTable($conn)
 {
-    $sql = "CREATE TABLE if not exists bus (
-        bus_id INT AUTO_INCREMENT PRIMARY KEY,
-
-        user_id INT NULL,
-
-        bus_number VARCHAR(50) NOT NULL UNIQUE,
-        vehicle_type VARCHAR(100) NOT NULL,
-
-        seat_capacity INT NOT NULL,
-
-        registration_number VARCHAR(100) NOT NULL UNIQUE,
-        registration_date DATE,
-
-        insurance_number VARCHAR(100),
-        insurance_expiry_date DATE,
-
-        operating_city VARCHAR(100) NOT NULL,
-
-        bus_image VARCHAR(255),
-        billbook_front_photo VARCHAR(255) NOT NULL,
-        billbook_back_photo VARCHAR(255) NOT NULL,
-        status varchar(255) DEFAULT 'inactive',
-
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
-        
-        FOREIGN KEY (user_id) REFERENCES users(user_id)
+    $sql = "CREATE TABLE IF NOT EXISTS route(
+        route_id INT AUTO_INCREMENT PRIMARY KEY,
+        route_name VARCHAR(255) DEFAULT NULL,
+        distance DECIMAL(10,2) DEFAULT NULL,
+        total_stops INT DEFAULT NULL,
+        route_stops JSON DEFAULT NULL
     )";
 
     $res = mysqli_query($conn, $sql);
+    if ($res) {
+        echo "<br>Route Table Created Successfully!!!";
+    } else {
+        echo "<br>Error Creating Route Table: " . mysqli_error($conn);
+    }
+}
+function createBusTable($conn)
+{
+    $sql = "CREATE TABLE IF NOT EXISTS bus(
+        bus_id INT AUTO_INCREMENT PRIMARY KEY,
+        user_id INT DEFAULT NULL,
+        driver_id INT DEFAULT NULL,
+        route_id INT DEFAULT NULL,
+        bus_number VARCHAR(100) DEFAULT NULL,
+        registration_number VARCHAR(100) DEFAULT NULL,
+        vehicle_type VARCHAR(100) DEFAULT NULL,
+        seat_capacity INT DEFAULT NULL,
+        current_latitude DECIMAL(10,8) DEFAULT NULL,
+        current_longitude DECIMAL(11,8) DEFAULT NULL,
+        bill_book_no VARCHAR(100) DEFAULT NULL,
+        insurance_number VARCHAR(100) DEFAULT NULL,
+        insurance_expiry_date DATE DEFAULT NULL,
+        bus_image JSON DEFAULT NULL,
+        status VARCHAR(50) DEFAULT 'PENDING',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
+        FOREIGN KEY (user_id) REFERENCES users(user_id),
+        FOREIGN KEY (route_id) REFERENCES route(route_id)
+    )";
+
+    $res = mysqli_query($conn, $sql);
     if ($res) {
         echo "<br>Bus Table Created Successfully!!!";
     } else {
-        echo "<br>Error: " . mysqli_error($conn);
+        echo "<br>Error Creating Bus Table: " . mysqli_error($conn);
     }
 }
+
+
+
+
 
 function createLocationTable($conn)
 {

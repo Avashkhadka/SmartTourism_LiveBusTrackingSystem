@@ -32,10 +32,12 @@ function RenderNavbar($activetab = "")
 
 
             <?php } else if (isset($_SESSION['role']) && $_SESSION['role'] == "driver") { ?>
-                    <a class="no-underline nav-link <?php echo $activetab == "home" ? "active-link shadow" : "color-ternary" ?> "
+                    <a class="no-underline nav-link <?php echo $activetab == "driverDashboard" ? "active-link shadow" : "color-ternary" ?> "
                         href='<?php echo BASEURL ?>pages/driver/dashboard.php'>Dashboard</a>
-                    <a class="no-underline nav-link <?php echo $activetab == "home" ? "active-link shadow" : "color-ternary" ?> "
+                    <a class="no-underline nav-link <?php echo $activetab == "driverDocument" ? "active-link shadow" : "color-ternary" ?> "
                         href='<?php echo BASEURL ?>pages/driver/document.php'>Documents</a>
+                    <a class="no-underline nav-link <?php echo $activetab == "registerBus" ? "active-link shadow" : "color-ternary" ?> "
+                        href='<?php echo BASEURL ?>pages/driver/register-bus.php'>Register Bus</a>
 
 
 
@@ -44,6 +46,8 @@ function RenderNavbar($activetab = "")
                             href='<?php echo BASEURL ?>pages/admin/dashboard.php'>Dashboard</a>
                         <a class="no-underline nav-link <?php echo $activetab == "approval" ? "active-link shadow" : "color-ternary" ?> "
                             href='<?php echo BASEURL ?>pages/admin/approval.php'>Approvals</a>
+                        <a class="no-underline nav-link <?php echo $activetab == "routeBuilder" ? "active-link shadow" : "color-ternary" ?> "
+                            href='<?php echo BASEURL ?>pages/admin/route_builder.php'>Route Builder</a>
             <?php } ?>
         </div>
         <?php
@@ -135,12 +139,14 @@ function RenderNavbar($activetab = "")
 
 
                     <?php } else if (isset($_SESSION['role']) && $_SESSION['role'] == "driver") { ?>
-                            <a class="no-underline nav-link <?php echo $activetab == "home" ? "active-link shadow" : "color-ternary" ?> "
+                            <a class="no-underline nav-link <?php echo $activetab == "dashboard" ? "active-link shadow" : "color-ternary" ?> "
                                 href='
-                    <?php echo BASEURL ?>pages/driver/dashboard.php'>Dashboard
+                    <?php echo BASEURL ?>pages/driver/dashboard.php'>Dashboard <?php echo $activetab ?>
                             </a>
                             <a class="no-underline nav-link <?php echo $activetab == "home" ? "active-link shadow" : "color-ternary" ?> "
                                 href='<?php echo BASEURL ?>pages/driver/document.php'>Documents</a>
+                            <a class="no-underline nav-link <?php echo $activetab == "home" ? "active-link shadow" : "color-ternary" ?> "
+                                href='<?php echo BASEURL ?>pages/driver/register_bus.php'>Register Bus</a>
 
 
 

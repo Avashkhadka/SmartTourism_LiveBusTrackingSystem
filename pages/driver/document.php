@@ -21,7 +21,7 @@ $requiredDoc = [
 
 <body>
     <div class="max-w-9xl  " id="drivers-document">
-        <?php RenderNavbar("booking") ?>
+        <?php RenderNavbar("driverDocument") ?>
         <section class="flex flex-col gap-4 py-8 page-container">
 
             <div class=" head-container">

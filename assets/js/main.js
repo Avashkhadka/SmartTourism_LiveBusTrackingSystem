@@ -10,6 +10,8 @@ import { LoadIntersectionObserver } from "./intersectionObserver.js";
 import { handleLiveMap } from "./livemap.js";
 import { LoadLoationApproval } from "./location-approval.js";
 import { HandleOtp } from "./otpPage.js";
+import { LoadRegisterBus } from "./register-bus.js";
+import { LoadRouteBuild } from "./route-build.js";
 import { HandleViewLocation } from "./viewLocation.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -22,6 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
     LoadDriverDashboard()
     loadDriverDocumentation()
     LoadDriverApproval();
+    LoadRegisterBus();
+    LoadRouteBuild();
     HandleOtp()
 
     LoadIntersectionObserver();

@@ -12,7 +12,7 @@ function Input($props = [])
     $value = $props['value'] ?? '';
   
     ?>
-    <div class="flex gap-2 mb-2  <?php echo $dclass; ?>">
+    <div class="flex gap-2 mb-2 <?php echo $dclass; ?>">
         <label for="<?php echo $id; ?>" class="text-sm color-ternary <?php echo $lclass; ?>">
             <?php echo $label; ?>
             

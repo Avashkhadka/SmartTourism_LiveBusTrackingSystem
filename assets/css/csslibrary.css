@@ -1044,8 +1044,6 @@
     top: 2rem;
 }
 
-
-
 .top-auto {
     top: auto;
 }
@@ -2224,8 +2222,8 @@ custon utilities can be added here
 .bg-success {
     background-color: #47c75a;
 }
-.bg-success-light{
-    background-color: #E6F5EC;
+.bg-success-light {
+    background-color: #e6f5ec;
 }
 .bg-disabled {
     background-color: #cccccc;
@@ -2246,7 +2244,7 @@ custon utilities can be added here
     background-color: #ffdc90;
 }
 .bg-danger-light {
-    background-color: #FBF1DC;
+    background-color: #fbf1dc;
 }
 
 .text-primary {
@@ -2437,9 +2435,9 @@ custon utilities can be added here
     .md\:hidden {
         display: none;
     }
-     .md\:justify-end {
-    justify-content: flex-end;
-}
+    .md\:justify-end {
+        justify-content: flex-end;
+    }
 }
 
 @media (min-width: 1024px) {
@@ -2602,7 +2600,7 @@ custon utilities can be added here
     .sm\:justify-center {
         justify-content: center;
     }
-    .sm\:mt-4{
+    .sm\:mt-4 {
         margin-top: 1rem;
     }
 }
@@ -2653,6 +2651,9 @@ custon utilities can be added here
 }
 
 @media (min-width: 768px) {
+    .md\:grid-cols-1 {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
     .md\:grid-cols-2 {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }

@@ -10,7 +10,7 @@
 
 <body>
     <div class="max-w-9xl mx-auto " id="drivers-dashboard">
-        <?php RenderNavbar("booking") ?>
+        <?php RenderNavbar("driverDashboard") ?>
         <section class="flex flex-col gap-4 py-8 page-container">
             <div class="reveal head-container ">
                 <div class="flex flex-col w-full">

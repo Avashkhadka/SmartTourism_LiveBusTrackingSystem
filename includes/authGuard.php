@@ -17,6 +17,7 @@ $driverPages = [
     "otpPage.php",
     "forgot-password.php",
     "document.php",
+    "register-bus.php",
 ];
 $customerPages = [
     "index.php",
@@ -38,6 +39,7 @@ $adminPages = [
     "approval.php",
     "otpPage.php",
     "forgot-password.php",
+    "route_builder.php",
 ];
 
 if (isset($_SESSION['isLogged_in']) and $_SESSION['isLogged_in'] == true) {

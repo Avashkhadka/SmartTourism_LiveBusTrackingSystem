@@ -4,6 +4,7 @@ include '../config/conn.php';
 include '../services/driver.php';
 include '../services/user.php';
 include '../services/admin.php';
+include '../services/bus.php';
 include "../services/authFunctions.php";
 
 
@@ -45,4 +46,22 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
             ]);
             break;
     }
+} else if ($_SERVER['REQUEST_METHOD'] === "POST") {
+    $action = $_POST['action'];
+    switch ($action) {
+        case "registerBus":
+            handleBusRegistration($conn);
+            break;
+        
+        case "saveRoute":
+            handleRouteSave($conn);
+            break;
+        default:
+            echo json_encode([
+                "status" => 400,
+                "message" => "Invalid action."
+            ]);
+            break;
+    }
+
 }
