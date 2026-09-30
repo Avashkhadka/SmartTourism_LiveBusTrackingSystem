@@ -208,10 +208,6 @@ class RouteBuilder {
     }
 
     clearPoints() {
-        this.totalDistanceElem.innerText = `0.00 km`;
-        this.estTravelElem.innerText = `0 min`
-        this.totalStopsElem.innerText = 0;
-
         this.markers.forEach(marker => {
             this.map.removeLayer(marker);
         });
@@ -223,8 +219,12 @@ class RouteBuilder {
         this.mapStopPoints = [];
         this.markers = [];
         this.routeLine = null;
+        this.totalDistance = 0;
+        this.stopsListsElem.innerHTML = "";
+        this.totalDistanceElem.innerText = `0.00 km`;
+        this.estTravelElem.innerText = `0 min`
+        this.totalStopsElem.innerText = 0;
 
-        this.handleUpdatedPoints();
         console.log(this.mapStopPoints);
     }
 }

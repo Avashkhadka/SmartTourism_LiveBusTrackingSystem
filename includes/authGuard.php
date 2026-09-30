@@ -40,6 +40,7 @@ $adminPages = [
     "otpPage.php",
     "forgot-password.php",
     "route_builder.php",
+    "bus_request.php",
 ];
 
 if (isset($_SESSION['isLogged_in']) and $_SESSION['isLogged_in'] == true) {

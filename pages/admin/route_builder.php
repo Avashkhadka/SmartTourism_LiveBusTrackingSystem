@@ -20,7 +20,7 @@ $requiredDoc = [
 </head>
 
 <body>
-    <div class="max-w-9xl  " id="routeBuilder">
+    <div class="max-w-9xl mx-auto " id="routeBuilder">
         <?php RenderNavbar("routeBuilder") ?>
         <section class="flex flex-col gap-4 py-8 page-container">
 

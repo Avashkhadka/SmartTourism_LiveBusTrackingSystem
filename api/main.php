@@ -25,7 +25,7 @@ include "../services/authFunctions.php";
 
 
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
-    $action = $_GET['action'];
+    $action = $_GET['action']??"";
     switch ($action) {
         case "get-driver-details":
             getDriverData($conn);
@@ -39,6 +39,16 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
             getDrivers($conn);
             break;
 
+        case "getRoutes":
+            getRoutes($conn);
+            break;
+        case "getbusrequests":
+            getBusData($conn);
+            break;
+        
+        case "manageBusAction":
+            manageBus($conn);
+            break;
         default:
             echo json_encode([
                 "status" => 400,
@@ -56,6 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
         case "saveRoute":
             handleRouteSave($conn);
             break;
+            
         default:
             echo json_encode([
                 "status" => 400,

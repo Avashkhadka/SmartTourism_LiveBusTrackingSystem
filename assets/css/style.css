@@ -548,6 +548,7 @@ option:checked {
     transform: translate(-50%, -50%);
     outline: none;
     border: none;
+    width: 90%;
 }
 
 .dialog-black::backdrop {
@@ -559,6 +560,9 @@ option:checked {
 }
 
 @media (min-width: 700px) {
+    .dialog-black {
+        width: auto;
+    }
     #search-select {
         width: 9rem;
         text-align: center;

@@ -1,5 +1,6 @@
 
 import { LoadAuthHandler } from "./auth.js";
+import { LoadBusApproval } from "./bus_request.js";
 import { LoadContribute } from "./contirbute.js";
 import { loadDiscoverpage } from "./discoverPage.js";
 import { LoadDriverApproval } from "./driver-approvals.js";
@@ -26,6 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
     LoadDriverApproval();
     LoadRegisterBus();
     LoadRouteBuild();
+    LoadBusApproval();
     HandleOtp()
 
     LoadIntersectionObserver();

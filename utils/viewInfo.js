@@ -328,5 +328,138 @@ export const VerifyDialog = (data, type, BASEURL) => {
         `;
     }
 
+    if (type === "bus") {
+        return /*html*/`
+        <div class="driver-dialog-content">
+            <div class="driver-dialog-header">
+                <div>
+                    <h2>Verify Bus</h2>
+                    <p>Review bus information and submitted details.</p>
+                </div>
+                <button class="dialog-close-btn" onclick="document.getElementById('bus-req-dialog').close()">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="driver-main-grid">
+                <div class="driver-profile-card">
+                    <img src="${BASEURL}${data.bus_image}" class="driver-profile-image">
+                    <h3>${data.bus_number}</h3>
+                    <p>${data.vehicle_type}</p>
+                    <span class="driver-role">${data.status}</span>
+                </div>
+
+                <div class="driver-info">
+                    <div class="driver-section">
+                        <h3>Bus Information</h3>
+                        <div class="driver-info-grid">
+                            <div class="driver-info-item">
+                                <span>Bus Number</span>
+                                <strong>${data.bus_number || "N/A"}</strong>
+                            </div>
+                            <div class="driver-info-item">
+                                <span>Vehicle Type</span>
+                                <strong>${data.vehicle_type || "N/A"}</strong>
+                            </div>
+                            <div class="driver-info-item">
+                                <span>Seat Capacity</span>
+                                <strong>${data.seat_capacity || "N/A"}</strong>
+                            </div>
+                            <div class="driver-info-item">
+                                <span>Bill Book Number</span>
+                                <strong>${data.bill_book_no || "N/A"}</strong>
+                            </div>
+                            <div class="driver-info-item">
+                                <span>Insurance Number</span>
+                                <strong>${data.insurance_number || "N/A"}</strong>
+                            </div>
+                            <div class="driver-info-item">
+                                <span>Status</span>
+                                <strong>${data.status || "N/A"}</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="driver-section">
+                        <h3>Owner Information</h3>
+                        <div class="driver-info-grid">
+                            <div class="driver-info-item">
+                                <span>Full Name</span>
+                                <strong>${data.name || "N/A"}</strong>
+                            </div>
+                            <div class="driver-info-item">
+                                <span>Email</span>
+                                <strong>${data.email || "N/A"}</strong>
+                            </div>
+                            <div class="driver-info-item">
+                                <span>Phone</span>
+                                <strong>${data.phone || "N/A"}</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="driver-section">
+                <h3>Bus Image</h3>
+                <div class="place-images">
+                    ${data.bus_image ? `
+                        <img src="${BASEURL}${data.bus_image}" onclick="window.open(this.src,'_blank')">
+                    ` : `
+                        <span class="empty-value">No bus image submitted.</span>
+                    `}
+                </div>
+            </div>
+
+            <div class="driver-section">
+                <h3>Submission Information</h3>
+                <div class="driver-info-grid">
+                    <div class="driver-info-item">
+                        <span>Submitted By</span>
+                        <strong>${data.name || "Unknown"}</strong>
+                    </div>
+                    <div class="driver-info-item">
+                        <span>Created At</span>
+                        <strong>${data.created_at || "N/A"}</strong>
+                    </div>
+                    <div class="driver-info-item">
+                        <span>Bus ID</span>
+                        <strong>#${data.bus_id || "N/A"}</strong>
+                    </div>
+                    <div class="driver-info-item">
+                        <span>Route</span>
+                        <strong>${data.route_name || "N/A"}</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="driver-dialog-actions" id="bus-dialog-actions">
+
+                <button
+                    data-id="${data.bus_id}"
+                    data-action="reject"
+                    class="py-2 px-4 rounded-full border-none bg-secondary text-white">
+                    Reject
+                </button>
+
+                <button
+                    data-id="${data.bus_id}"
+                    data-action="accept"
+                    class="py-2 px-4 rounded-full border-none bg-secondary text-white">
+                    Approve
+                </button>
+
+                <button
+                    data-id="${data.bus_id}"
+                    data-action="close"
+                    class="py-2 px-4 rounded-full border-none">
+                    Close
+                </button>
+
+            </div>
+        </div>
+    `;
+    }
+
     return "";
 };

@@ -48,6 +48,8 @@ function RenderNavbar($activetab = "")
                             href='<?php echo BASEURL ?>pages/admin/approval.php'>Approvals</a>
                         <a class="no-underline nav-link <?php echo $activetab == "routeBuilder" ? "active-link shadow" : "color-ternary" ?> "
                             href='<?php echo BASEURL ?>pages/admin/route_builder.php'>Route Builder</a>
+                        <a class="no-underline nav-link <?php echo $activetab == "busApproval" ? "active-link shadow" : "color-ternary" ?> "
+                            href='<?php echo BASEURL ?>pages/admin/bus_request.php'>Bus Request</a>
             <?php } ?>
         </div>
         <?php

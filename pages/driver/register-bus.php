@@ -103,7 +103,7 @@ $requiredDoc = [
                         Select([
                             "label" => "Operating Route",
                             "id" => "operating_route",
-                            "option" => ["Dakshinkali", "Kalimati", "Kritipur"],
+                            "option" => ["Select Route"],
                             "dclass" => "flex-col w-full color-gray"
                         ]); ?>
 

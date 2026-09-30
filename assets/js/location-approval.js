@@ -94,11 +94,9 @@ async function loadMap(lat, long, placeName) {
 
 
 
-const fetchLocationData = async (CardContainer) => {
+const fetchLocationData = async () => {
     try {
-        CardContainer.classList.add("flex");
-        let locationData =
-            JSON.parse(localStorage.getItem("locationDataAdmin")) || [];
+
         const res = await fetch(
             `${BASEURL}api/location.php/getlocation`,
             {
@@ -124,26 +122,15 @@ const fetchLocationData = async (CardContainer) => {
             return;
         }
 
-        locationData = await res.json();
-        localStorage.setItem(
-            "locationDataAdmin",
-            JSON.stringify(locationData)
-        );
-        sessionStorage.setItem(
-            "lastUpdatedTimeAdmin",
-            new Date().getTime()
-        );
-        const locations = Array.isArray(locationData)
-            ? locationData
-            : locationData.location || [];;
+        let routes = await res.json();
 
-        if (!locations.length) {
-            updateMessage(CardContainer, " No locations found.")
-        }
+        // if (!locations.length) {
+        //     updateMessage(CardContainer, " No locations found.")
+        // }
 
 
 
-        return locations
+        return routes
 
     } catch (err) {
         console.log(err)
