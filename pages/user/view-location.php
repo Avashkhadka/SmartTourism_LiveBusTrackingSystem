@@ -69,9 +69,9 @@
 
                 </div>
                 <div class="reveal rounded-2xl border-gray p-6 side-form">
-                    <div class="color-gray text-xs font-base">ENTRY FORM</div>
+                    <div class="color-gray text-xs font-base">ENTRY PRICE</div>
                     <div class="mt-2 flex justify-between">
-                        <div class="text-black font-bold text-2xl">100 Rs</div>
+                        <div class="text-black font-bold text-2xl" id="busEstEntryFeevl"></div>
                         <div
                             class=" flex justify-center items-center py-2 px-4 rounded-full bg-success-light text-success font-semibold text-xs">
                             Open now</div>
@@ -80,17 +80,16 @@
                     <div>
                         <div class="flex justify-between my-4">
                             <div class="color-gray text-xs font-medium">ETA</div>
-                            <div class="font-bold text-sm" id="busETA">40 min</div>
+                            <div class="font-bold text-sm" id="busETA"></div>
                         </div>
                         <div class="flex justify-between my-4">
                             <div class="color-gray text-xs font-medium">Fare</div>
-                            <div class="font-bold text-sm" id="busEstfair">Rs 40</div>
+                            <div class="font-bold text-sm" id="busEstfair"></div>
                         </div>
                     </div>
                     <div class="flex flex-col gap-4 mt-6">
 
-                        <a href="<?php echo BASEURL . "pages/user/book_seat.php" ?>"
-                            class="py-3 flex justify-center items-center  text-white bg-secondary gap-2 font-medium shadow rounded-full no-underline nav-link-item-hover">Book
+                        <a id="bookNowAnchor" class="py-3 flex justify-center items-center  text-white bg-secondary gap-2 font-medium shadow rounded-full no-underline nav-link-item-hover">Book
                             seat now <i class="fa-solid fa-arrow-right"></i></a>
                         <a href=""
                             class="py-3 flex justify-center items-center no-underline text-gray-800 shadow border border-gray-200 border-solid nav-link-item-hover rounded-full hover-bg-ternary gap-2 bg-white font-medium"><i

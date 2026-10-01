@@ -279,8 +279,8 @@ const updateMessage = (CardContainer, message) => {
     CardContainer.classList.add("flex");
 
     CardContainer.innerHTML = `
-                < div class="w-full p-16 text-black rounded-lg text-lg text-center border-gray" >
+                <div class="w-full p-16 text-black rounded-lg text-lg text-center border-gray" >
                     ${message}
-        </ >
+                </div>
     `;
 };

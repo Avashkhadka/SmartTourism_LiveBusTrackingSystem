@@ -16,6 +16,8 @@ export const HandleViewLocation = async () => {
     const busETA = document.querySelector("#busETA");
     const near_this_place = document.querySelector("#near_this_place");
     const coverImage = document.querySelector("#coverImage")
+    const bookNowAnchor = document.querySelector("#bookNowAnchor")
+    const busEstEntryFee = document.querySelector("#busEstEntryFeevl")
 
 
 
@@ -51,11 +53,26 @@ export const HandleViewLocation = async () => {
 
         totalDistance.innerHTML = `<i class="fa-solid fa-map-pin" style="color: rgb(255, 0, 0);"></i> ${parseFloat(thisLocation.distance).toFixed(2)} Km away`
         locationDescription.textContent = thisLocation.short_pitch
+        const entryFee = parseFloat(thisLocation.entry_fee) === 0
+            ? "Free"
+            : `${thisLocation.entry_fee.split(".")[0]} Rs`;
 
-        busEstfair.innerText = `Rs ${parseInt((thisLocation.distance < 5) ? "25" : 5 * thisLocation.distance)}`
-        busETA.innerText = `${Math.round((thisLocation.distance / 20) * 60)} min`
+        const estimatedFare = parseInt(thisLocation.distance < 5 ? "25" : 5 * thisLocation.distance);
 
+        const eta = Math.round((thisLocation.distance / 20) * 60);
 
+        busEstEntryFee.innerHTML = entryFee;
+        busEstfair.innerText = `Rs ${estimatedFare}`;
+        busETA.innerText = `${eta} min`;
+
+        bookNowAnchor.href =
+            `${BASEURL}pages/user/book_seat.php` +
+            `?location_id=${thisLocation.location_id}` +
+            `&lat=${thisLocation.latitude}` +
+            `&lng=${thisLocation.longitude}` +
+            `&eta=${eta}` +
+            `&est_fare=${estimatedFare}`+
+            `&entry_fee=${entryFee}`;
 
         var map = L.map('map').setView([thisLocation.latitude, thisLocation.longitude], 13);
 

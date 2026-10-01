@@ -29,10 +29,10 @@
                     </div>
                     <div class="font-semibold  text-4xl mt-4"> <?php echo $_SESSION['user_name'] ?></div>
                     <div class="color-gray font-medium dashboard-driver-det">
-                        <span>avash2063@gmail.com</span> ·
+                        <span><?php echo $_SESSION['user_email'] ?></span> ·
                         <span>License DL-2018-9341</span> ·
-                        <span>412 trips</span> ·
-                        <span>★ 4.9</span>
+                        <span>0 trips</span> ·
+                        <span>★ 5</span>
                     </div>
                 </div>
                 <div class="gap-2 main-control-dashboard justify-end" id="dashboard-control">

@@ -48,7 +48,7 @@ const handleAction = (actions) => {
         }
 
         try {
-            const res = await fetch(`${BASEURL}/api/main.php?action=manageBusAction&id=${id}&mode=${mode}`, {
+            const res = await fetch(`${BASEURL}/api/main.php?action=manageRecord&id=${id}&mode=${mode}&tb=bus&tbfn=bus_id`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("jwtToken") || ""

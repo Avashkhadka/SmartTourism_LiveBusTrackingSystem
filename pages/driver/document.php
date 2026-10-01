@@ -78,17 +78,7 @@ $requiredDoc = [
                                     <p class="text-lg font-semibold"><?php echo $file[0] ?></p>
                                     <p class=" text-xs color-ternary "><?php echo $file[2] ?></p>
                                 </div>
-                                <div class="flex flex-col gap-3 mt-4">
-                                    <?php
-                                    Input([
-                                        'id' => $file[1] . '_document_number',
-                                        'label' => 'Document Number',
-                                        'placeholder' => 'Enter Number',
-                                        'type' => "number",
-                                    ]);
-
-                                    ?>
-                                </div>
+                           
                                 <div class="flex gap-2">
 
                                     <?php
@@ -118,8 +108,7 @@ $requiredDoc = [
 
                     <div class=" flex  w-full justify-start md:justify-end">
                         <button type="submit" class=" border-none outline-none py-3 px-8 text-white bg-secondary font-medium shadow rounded-full no-underline
-                            nav-link-item-hover">Explore
-                            Now</button>
+                            nav-link-item-hover">Save and Submit</button>
 
                     </div>
 

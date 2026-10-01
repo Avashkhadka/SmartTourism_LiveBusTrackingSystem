@@ -35,32 +35,10 @@ $availablebus = [1, 2, 3]
                     </div>
 
                     <div class="available_bus_container flex flex-col gap-2">
-                        <?php foreach($availablebus as $a){
-                            
+                        <?php foreach ($availablebus as $a) {
+
                             ?>
-                            <div class="available_bus_card flex shadow-md  w-full gap-4 rounded-3xl border-gray p-4">
-                                <input type="radio" name="availableBus" id="bus_id_<?php echo $a?>">
-                                <label for="bus_id_<?php echo $a?>" class="w-full">
-                                    <div class="flex justify-between w-full">
-                                        <div class="flex flex-col gap-2">
-                                            <span>
 
-                                                bus name
-                                            </span>
-                                            <span>Route</span>
-                                        </div>
-                                        <div class="flex flex-col gap-2">
-                                            <span>
-
-                                                3min
-                                            </span>
-                                            <span>
-                                                Available
-                                            </span>
-                                        </div>
-                                    </div>
-                                </label>
-                            </div>
                         <?php } ?>
                     </div>
 
@@ -68,9 +46,9 @@ $availablebus = [1, 2, 3]
 
                 </div>
                 <div class="reveal rounded-2xl border-gray p-6 side-form">
-                    <div class="color-gray text-xs font-base">ENTRY FORM</div>
+                    <div class="color-gray text-xs font-base">ENTRY PRICE</div>
                     <div class="mt-2 flex justify-between">
-                        <div class="text-black font-bold text-2xl">100 Rs</div>
+                        <div class="text-black font-bold text-2xl" id="busEstEntryFeesl"></div>
                         <div
                             class=" flex justify-center items-center py-2 px-4 rounded-full bg-success-light text-success font-semibold text-xs">
                             Open now</div>
@@ -79,11 +57,11 @@ $availablebus = [1, 2, 3]
                     <div>
                         <div class="flex justify-between my-4">
                             <div class="color-gray text-xs font-medium">ETA</div>
-                            <div class="font-bold text-sm" id="busETA">40 min</div>
+                            <div class="font-bold text-sm" id="busETAsl"></div>
                         </div>
                         <div class="flex justify-between my-4">
                             <div class="color-gray text-xs font-medium">Fare</div>
-                            <div class="font-bold text-sm" id="busEstfair">Rs 40</div>
+                            <div class="font-bold text-sm" id="busEstfairsl"></div>
                         </div>
                     </div>
                     <div class="flex flex-col gap-4 mt-6">
@@ -91,10 +69,7 @@ $availablebus = [1, 2, 3]
                         <a href="<?php echo BASEURL . "pages/user/book_seat.php" ?>"
                             class="py-3 flex justify-center items-center  text-white bg-secondary gap-2 font-medium shadow rounded-full no-underline nav-link-item-hover">Book
                             seat now <i class="fa-solid fa-arrow-right"></i></a>
-                        <a href=""
-                            class="py-3 flex justify-center items-center no-underline text-gray-800 shadow border border-gray-200 border-solid nav-link-item-hover rounded-full hover-bg-ternary gap-2 bg-white font-medium"><i
-                                class="fa-regular fa-heart"></i> Save
-                            Place </a>
+
 
 
                     </div>

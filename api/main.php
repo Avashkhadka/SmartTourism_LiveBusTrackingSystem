@@ -42,16 +42,23 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
         case "getRoutes":
             getRoutes($conn);
             break;
+
         case "getbusrequests":
             getBusData($conn);
             break;
-        
-        case "manageBusAction":
-            manageBus($conn);
+
+        case "getUserData":
+            getUserBusData($conn);
             break;
+
+        case "manageRecord":
+            manageRecord($conn);
+            break;
+
         case "getActiveBusData":
             getActiveBusData($conn);
             break;
+
         case "getBusByDriverId":
             getBusByDriverId($conn);
             break;
@@ -73,7 +80,11 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
         case "saveRoute":
             handleRouteSave($conn);
             break;
-            
+        
+        case "updateBus":
+            updateBus($conn);
+            break;
+        
         default:
             echo json_encode([
                 "status" => 400,

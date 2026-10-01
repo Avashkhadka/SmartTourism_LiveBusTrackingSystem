@@ -24,6 +24,7 @@ class DriverDashboard {
         try {
             let res = await this.fetchBusByDriver();
             this.busData = res.data[0]
+       
             this.socket = new WebSocket(SOCKETPATH);
 
             this.socket.onerror = (error) => {
@@ -32,6 +33,10 @@ class DriverDashboard {
             };
 
             this.dashboardControls.addEventListener("click", (e) => {
+                if (!this.busData) {
+                    Toast("No bus assigned to this driver", "Error");
+                    return;
+                }
                 const button = e.target.closest("button");
                 if (!button) return;
 

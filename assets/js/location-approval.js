@@ -21,7 +21,6 @@ export const LoadLoationApproval = async () => {
     PopulateData(CardContainer, locations)
 
 
-    const showLocationDetail = document.querySelectorAll(".show-location-detail");
 
     CardContainer.addEventListener("click", async (e) => {
         const button = e.target.closest(".show-location-detail")
@@ -30,48 +29,53 @@ export const LoadLoationApproval = async () => {
         const sellocation = locations.find(location => location.location_id == location_id);
         const dialog = document.getElementById("verify-dialog");
         dialog.innerHTML = VerifyDialog(sellocation, "location", BASEURL)
-        await loadMap(sellocation.latitude, sellocation.longitude);
         dialog.showModal();
-
-        // const token = localStorage.getItem("jwtToken");
-
-        // const data = new FormData();
-        // data.append("action", "actionOnLocation");
-        // data.append("location_id", button.dataset.location_id);
-        // data.append("locationAction", "approved");
-
-        // const xhr = new XMLHttpRequest();
-        // xhr.open("POST", `${BASEURL}/api/contriapi.php`, true);
-        // xhr.setRequestHeader("Authorization", token)
-
-        // xhr.onload = function () {
-
-        //     const data = JSON.parse(xhr.responseText);
-        //     if (xhr.status === 200) {
-        //         Toast(data.message, "Success")
-        //         let loc = JSON.parse(localStorage.getItem("locationDataAdmin")).location
-        //         loc = loc.map(l => l.location_id === button.dataset.location_id ? { ...l, status: "approved" } : l)
-        //         if (!loc.length > 0) {
-        //             updateMessage(CardContainer, "No locations Need to be approved.")
-        //         }
-        //         localStorage.setItem("locationDataAdmin", JSON.stringify({ location: loc }));
-        //         PopulateData(CardContainer, loc)
-
-        //     } if (xhr.status === 401) {
-        //         Toast(data.message, "Error")
-        //     }
-        // }
-        // xhr.onerror = function () {
-        //     Toast("Failed to Approve Location", "Success")
-        // }
-
-        // xhr.send(data)
+        await loadMap(sellocation.latitude, sellocation.longitude);
+        handleAction(document.querySelector(".location-dialog-actions"), dialog);
 
     })
 
 
 }
 
+
+const handleAction = (actions, dialog) => {
+    console.log(actions)
+    actions.addEventListener("click", async (e) => {
+        const button = e.target.closest("button");
+        if (!button) return;
+
+        const id = button.dataset.location_id;
+        const mode = button.dataset.action;
+
+        if (mode === "close") {
+            dialog.close();
+            return;
+        }
+
+        try {
+            const res = await fetch(`${BASEURL}/api/main.php?action=manageRecord&id=${id}&mode=${mode}&tb=location&tbfn=location_id`, {
+                method: "GET",
+                headers: {
+                    Authorization: localStorage.getItem("jwtToken") || ""
+                }
+            });
+
+            const data = await res.json();
+
+            if (data.status === 200) {
+                Toast(data.message, "Success");
+                dialog.close();
+                LoadLoationApproval();
+            } else {
+                Toast(data.message || "Action failed", "Error");
+            }
+        } catch (error) {
+            console.error(error);
+            Toast("Something went wrong", "Error");
+        }
+    });
+};
 async function loadMap(lat, long, placeName) {
     try {
         const latitude = lat;
@@ -128,7 +132,7 @@ const fetchLocationData = async () => {
         //     updateMessage(CardContainer, " No locations found.")
         // }
 
-
+        localStorage.setItem("locationDataAdmin", JSON.stringify({ location: routes.location }));
 
         return routes.location
 

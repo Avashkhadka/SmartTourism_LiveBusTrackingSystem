@@ -16,6 +16,16 @@ function handleBusRegistration($conn)
         $bill_book_no = $_POST['bill_book_no'];
         $operating_route = $_POST['operating_route'];
 
+        $sql = "SELECT status from users where user_id = $user_id";
+        $res = mysqli_query($conn, $sql);
+        if (!$res) {
+            respondJson(400, "Something went wrong", ["code" => $sql]);
+        }
+        $userStatus = mysqli_fetch_assoc($res);
+        if ($userStatus['status'] !== 'accepted') {
+            respondJson(400, "Your account is not accepted. Please wait for approval.");
+            return;
+        }
 
         $sql = "SELECT * FROM bus where `bus_number` = '$bus_number'";
         $res = mysqli_query($conn, $sql);
@@ -165,6 +175,7 @@ function getBusData($conn)
     if ($res) {
         $data = $res->fetch_all(MYSQLI_ASSOC);
         foreach ($data as &$bus) {
+            $bus["bus_image"] = json_decode($bus["bus_image"], true);
             $bus["route_stops"] = json_decode($bus["route_stops"], true);
         }
         respondJson(200, "Successfully fetched Bus Data.", ["data" => $data]);
@@ -173,49 +184,136 @@ function getBusData($conn)
     }
 }
 
-
-function manageBus($conn)
+function getUserBusData($conn)
 {
     $headers = getallheaders();
     $authHeader = $headers['Authorization'] ?? '';
 
     if (!$authHeader) {
         respondJson(401, "Authorization required");
-        exit;
     }
 
     $verifyUser = checkLogin($authHeader);
-    if ($verifyUser->role != "admin") {
-        respondJson(401, "You dont have permission to manage bus requests");
-        exit;
+
+    if ($verifyUser->role != "driver") {
+        respondJson(401, "You don't have permission to access bus data");
     }
 
-    $bus_id = $_GET['id'] ?? null;
-    $mode = $_GET['mode'] ?? null;
-    if (!$bus_id || !$mode) {
-        respondJson(400, "Bus ID and mode are required");
-        exit;
-    }
-    if (!in_array($mode, ["accept", "reject"])) {
-        respondJson(400, "Invalid mode");
-        exit;
+    $user_id = $verifyUser->user_id;
+
+    $stmt = mysqli_prepare($conn, "
+    SELECT
+        b.*,
+        r.route_name,
+        r.route_id,
+        r.distance,
+        r.total_stops
+    FROM bus b
+    LEFT JOIN route r
+        ON b.route_id = r.route_id
+    WHERE b.user_id = ?
+    LIMIT 1
+");
+
+    mysqli_stmt_bind_param($stmt, "i", $user_id);
+    mysqli_stmt_execute($stmt);
+
+    $result = mysqli_stmt_get_result($stmt);
+    if (!$result) {
+        mysqli_stmt_close($stmt);
+        respondJson(400, mysqli_error($conn));
     }
 
-    $status = $mode === "accept" ? "approved" : "rejected";
-    $stmt = mysqli_prepare($conn, "UPDATE bus SET status = ? WHERE bus_id = ?");
-    mysqli_stmt_bind_param($stmt, "si", $status, $bus_id);
-    if (mysqli_stmt_execute($stmt)) {
-        if (mysqli_stmt_affected_rows($stmt) > 0) {
-            respondJson(200, "Bus $status successfully");
-        } else {
-            respondJson(404, "Bus not found");
-        }
-    } else {
-        respondJson(500, mysqli_stmt_error($stmt));
-    }
+    $data = $result->fetch_all(MYSQLI_ASSOC);
+
     mysqli_stmt_close($stmt);
+    if (empty($data)) {
+        respondJson(404, "No bus data found");
+    }
+
+    foreach ($data as &$bus) {
+        $bus["bus_image"] = json_decode($bus["bus_image"], true);
+    }
+    respondJson(
+        200,
+        "Successfully fetched Bus Data.",
+        ["bus" => $data[0]]
+    );
 }
 
+function updateBus($conn)
+{
+    $headers = getallheaders();
+    $authHeader = $headers['Authorization'] ?? '';
+
+    if (!$authHeader) {
+        respondJson(401, "Authorization required");
+    }
+
+    $verifyUser = checkLogin($authHeader);
+
+    if ($verifyUser->role != "driver") {
+        respondJson(401, "You don't have permission to update bus data");
+    }
+
+    $user_id = $verifyUser->user_id;
+
+    $bus_number = $_POST['bus_number'] ?? '';
+    $bus_type = $_POST['bus_type'] ?? '';
+    $total_seats = $_POST['total_seats'] ?? '';
+    $bus_fare = $_POST['bus_fare'] ?? 5;
+    $insurance_number = $_POST['insurance_number'] ?? '';
+    $bill_book_no = $_POST['bill_book_no'] ?? '';
+    $operating_route = $_POST['operating_route'] ?? '';
+
+    if (
+        !$bus_number ||
+        !$bus_type ||
+        !$total_seats ||
+        !$insurance_number ||
+        !$bill_book_no ||
+        !$operating_route
+    ) {
+        respondJson(400, "Invalid Bus Data");
+    }
+
+    $bus_fare = $bus_fare > 5 ? $bus_fare : 5;
+
+    $stmt = mysqli_prepare($conn, "
+        UPDATE bus
+        SET
+            route_id = ?,
+            bus_number = ?,
+            vehicle_type = ?,
+            seat_capacity = ?,
+            bill_book_no = ?,
+            insurance_number = ?
+        WHERE user_id = ?
+    ");
+
+    mysqli_stmt_bind_param(
+        $stmt,
+        "ississi",
+        $operating_route,
+        $bus_number,
+        $bus_type,
+        $total_seats,
+        $bill_book_no,
+        $insurance_number,
+        $user_id
+    );
+
+    if (mysqli_stmt_execute($stmt)) {
+        mysqli_stmt_close($stmt);
+
+        respondJson(200, "Bus updated successfully.");
+    }
+
+    $error = mysqli_stmt_error($stmt);
+    mysqli_stmt_close($stmt);
+
+    respondJson(500, $error);
+}
 
 function getBusByDriverId($conn)
 {

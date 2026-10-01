@@ -192,15 +192,38 @@ function deleteUploadedFiles($imagePaths)
         }
     }
 }
+
+function removeDirectory($dir)
+{
+    if (!is_dir($dir))
+        return;
+
+    foreach (scandir($dir) as $item) {
+        if ($item === "." || $item === "..")
+            continue;
+
+        $path = $dir . DIRECTORY_SEPARATOR . $item;
+
+        if (is_dir($path)) {
+            removeDirectory($path);
+        } else {
+            unlink($path);
+        }
+    }
+
+    rmdir($dir);
+}
 function uploadImages($path, $Id, $data, $fieldNames)
 {
     $image_without_space = implode("", explode(" ", $data));
     $uploadDir = __DIR__ . '/../uploads/' . $path . '/' . $image_without_space . "-" . $Id;
 
-    if (!is_dir($uploadDir)) {
-        if (!mkdir($uploadDir, 0755, true)) {
-            throw new Exception("Failed to create upload directory");
-        }
+    if (is_dir($uploadDir)) {
+        removeDirectory($uploadDir);
+    }
+
+    if (!mkdir($uploadDir, 0755, true)) {
+        throw new Exception("Failed to create upload directory");
     }
 
     $imagePaths = [];
@@ -250,4 +273,49 @@ function uploadImages($path, $Id, $data, $fieldNames)
     }
 
     return $imagePaths;
+}
+
+
+function manageRecord($conn)
+{
+    $headers = getallheaders();
+    $authHeader = $headers['Authorization'] ?? '';
+
+    if (!$authHeader) {
+        respondJson(401, "Authorization required");
+        exit;
+    }
+
+    $verifyUser = checkLogin($authHeader);
+    if ($verifyUser->role != "admin") {
+        respondJson(401, "You dont have permission to manage Requested Resources");
+        exit;
+    }
+
+    $id = $_GET['id'] ?? null;
+    $mode = $_GET['mode'] ?? null;
+    $tb = $_GET['tb'] ?? null;
+    $tbfn = $_GET['tbfn'] ?? null;
+    if (!$id || !$mode) {
+        respondJson(400, "Record ID and mode are required");
+        exit;
+    }
+    if (!in_array($mode, ["accept", "reject"])) {
+        respondJson(400, "Invalid mode");
+        exit;
+    }
+
+    $status = $mode === "accept" ? "approved" : "rejected";
+    $stmt = mysqli_prepare($conn, "UPDATE $tb SET status = ? WHERE $tbfn = ?");
+    mysqli_stmt_bind_param($stmt, "si", $status, $id);
+    if (mysqli_stmt_execute($stmt)) {
+        if (mysqli_stmt_affected_rows($stmt) > 0) {
+            respondJson(200, "Record $status successfully");
+        } else {
+            respondJson(404, "Record not found");
+        }
+    } else {
+        respondJson(500, mysqli_stmt_error($stmt));
+    }
+    mysqli_stmt_close($stmt);
 }

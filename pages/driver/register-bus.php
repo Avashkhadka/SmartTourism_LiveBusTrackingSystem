@@ -27,7 +27,7 @@ $requiredDoc = [
             <div class=" head-container">
                 <div class="flex flex-col w-full ">
 
-                    <div class="font-semibold  text-4xl mt-4"> Register a New Bus</div>
+                    <div class="font-semibold  text-4xl mt-4" id="register_bus_header"> Register a New Bus</div>
                     <div class="color-gray font-medium dashboard-driver-det">
                         <span>Submit for verification — usually approved within 24 hours.</span>
 
@@ -107,7 +107,7 @@ $requiredDoc = [
                             "dclass" => "flex-col w-full color-gray"
                         ]); ?>
 
-                        <div>
+                        <div id="register-bus-image-container">
                             <div class="mt-8">
                                 <div class="text-lg text-black font-semibold">Add photos</div>
                                 <div class="text-sm color-gray mt-1 ">Submit Bus Images</div>

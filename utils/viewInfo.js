@@ -309,19 +309,27 @@ export const VerifyDialog = (data, type, BASEURL) => {
                 </div>
             </div>
 
-              <div class="driver-dialog-actions">
+              <div class="location-dialog-actions">
                        <button class="py-2 px-4 rounded-full border-none"
-                           onclick="document.getElementById('verify-dialog').close()">
+                           data-action="close">
                            Cancel
                        </button>
            
-                       <button class="py-2 px-4 rounded-full border-none bg-red-500 text-white">
-                           Reject
-                       </button>
-           
-                       <button class="py-2 px-4 bg-secondary text-white rounded-full border-none">
-                           Approve Driver
-                       </button>
+                        <button
+                    data-location_id="${data.location_id}"
+                    data-action="reject"
+                    class="py-2 px-4 rounded-full border-none bg-secondary text-white">
+                    Reject
+                </button>
+
+                <button
+                    data-location_id="${data.location_id}"
+                    data-action="accept"
+                    class="py-2 px-4 rounded-full border-none bg-secondary text-white">
+                    Approve
+                </button>
+
+          
                    </div>
         </div>
 
