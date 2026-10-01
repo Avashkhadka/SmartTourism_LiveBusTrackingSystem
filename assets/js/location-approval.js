@@ -130,7 +130,7 @@ const fetchLocationData = async () => {
 
 
 
-        return routes
+        return routes.location
 
     } catch (err) {
         console.log(err)
@@ -138,10 +138,12 @@ const fetchLocationData = async () => {
 }
 
 const PopulateData = (CardContainer, locations) => {
+    // if(!locations) return;
     let pendingCount = locations.filter(
         location => location.status === "pending"
     ).length;
 
+    document.getElementById("pending-location").innerText = `${pendingCount} `
     if (pendingCount > 0) {
 
         let cardHtml = "";

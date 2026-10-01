@@ -167,7 +167,7 @@ function getBusData($conn)
         foreach ($data as &$bus) {
             $bus["route_stops"] = json_decode($bus["route_stops"], true);
         }
-        respondJson(200, "Successfully fetched Bus Data.", ["bus" => $data]);
+        respondJson(200, "Successfully fetched Bus Data.", ["data" => $data]);
     } else {
         respondJson(400, mysqli_error($conn));
     }
@@ -214,5 +214,62 @@ function manageBus($conn)
         respondJson(500, mysqli_stmt_error($stmt));
     }
     mysqli_stmt_close($stmt);
+}
+
+
+function getBusByDriverId($conn)
+{
+    $headers = getallheaders();
+    $authHeader = $headers['Authorization'] ?? '';
+    if (!$authHeader) {
+        respondJson(401, "Authorization required");
+        exit;
+    }
+    $verifyUser = checkLogin($authHeader);
+    if ($verifyUser->role != "driver") {
+        respondJson(401, "You dont have permission to Access bus requests");
+        exit;
+    }
+    $user_id = $verifyUser->user_id;
+
+    $sql = "SELECT b.*,u.name,u.email,u.phone,u.nationality,u.country,u.city,r.route_name,r.distance,r.total_stops,r.route_stops FROM bus b INNER JOIN users u ON b.user_id = u.user_id LEFT JOIN route r ON b.route_id = r.route_id where b.status ='approved' and b.user_id =$user_id";
+    $res = mysqli_query($conn, $sql);
+    if ($res) {
+        $data = $res->fetch_all(MYSQLI_ASSOC);
+        foreach ($data as &$bus) {
+            $bus["route_stops"] = json_decode($bus["route_stops"], true);
+        }
+        respondJson(200, "Successfully fetched Bus Data.", ["data" => $data]);
+    } else {
+        respondJson(400, mysqli_error($conn));
+    }
+
+}
+function getActiveBusData($conn)
+{
+    $headers = getallheaders();
+    $authHeader = $headers['Authorization'] ?? '';
+    if (!$authHeader) {
+        respondJson(401, "Authorization required");
+        exit;
+    }
+    $verifyUser = checkLogin($authHeader);
+    if ($verifyUser->role != "user") {
+        respondJson(401, "You dont have permission to Access bus requests");
+        exit;
+    }
+    $activeBusId = $_GET['activeBusId'];
+
+    $sql = "SELECT b.*,u.name,u.email,u.phone,u.nationality,u.country,u.city,r.route_name,r.distance,r.total_stops,r.route_stops FROM bus b INNER JOIN users u ON b.user_id = u.user_id LEFT JOIN route r ON b.route_id = r.route_id where b.status ='approved' and b.bus_id in ($activeBusId)";
+    $res = mysqli_query($conn, $sql);
+    if ($res) {
+        $data = $res->fetch_all(MYSQLI_ASSOC);
+        foreach ($data as &$bus) {
+            $bus["route_stops"] = json_decode($bus["route_stops"], true);
+        }
+        respondJson(200, "Successfully fetched Bus Data.", ["bus" => $data]);
+    } else {
+        respondJson(400, mysqli_error($conn));
+    }
 }
 ?>

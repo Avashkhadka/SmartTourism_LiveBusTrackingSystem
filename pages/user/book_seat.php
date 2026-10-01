@@ -15,7 +15,7 @@ $availablebus = [1, 2, 3]
 </head>
 
 <body>
-    <div class="max-w-9xl mx-auto">
+    <div class="max-w-9xl mx-auto" id="bookBusContainer">
         <?php RenderNavbar("overview") ?>
         <section class="flex flex-col gap-4 py-8 page-container">
             <div class="reveal head-container ">

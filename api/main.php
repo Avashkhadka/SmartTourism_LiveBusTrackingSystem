@@ -49,6 +49,13 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
         case "manageBusAction":
             manageBus($conn);
             break;
+        case "getActiveBusData":
+            getActiveBusData($conn);
+            break;
+        case "getBusByDriverId":
+            getBusByDriverId($conn);
+            break;
+
         default:
             echo json_encode([
                 "status" => 400,

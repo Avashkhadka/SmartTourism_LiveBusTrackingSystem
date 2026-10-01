@@ -29,7 +29,7 @@ export const LoadDriverApproval = async () => {
         const driver = Drivers.find(driver => driver.user_id == driver_id);
         const dialog = document.getElementById("verify-dialog");
 
-        dialog.innerHTML = VerifyDialog(driver,"driver",BASEURL)
+        dialog.innerHTML = VerifyDialog(driver, "driver", BASEURL)
 
         dialog.showModal();
 
@@ -160,6 +160,8 @@ const PopulateData = (CardContainer, drivers) => {
     );
 
 
+    document.getElementById("pending-driver").innerText = `${pendingDrivers.length} `
+    
     if (pendingDrivers.length > 0) {
         let cardHtml = "";
 

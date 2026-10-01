@@ -11,7 +11,7 @@ class DriverDashboard {
         this.cardContainer = document.getElementById("driver-dashboard-card-container");
         this.socket = null;
         this.watchId = null;
-        this.DriverData = null;
+        this.busData = null;
         this.lastLat = null;
         this.lastLng = null;
     }
@@ -22,7 +22,8 @@ class DriverDashboard {
         this.renderDriverCard();
         AddText("#head-card-driver-0", "Offline");
         try {
-            this.DriverData = await this.fetchDriverData();
+            let res = await this.fetchBusByDriver();
+            this.busData = res.data[0]
             this.socket = new WebSocket(SOCKETPATH);
 
             this.socket.onerror = (error) => {
@@ -61,10 +62,10 @@ class DriverDashboard {
         `).join("");
     }
 
-    fetchDriverData() {
+    fetchBusByDriver() {
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
-            xhr.open("GET", `${BASEURL}api/main.php?action=get-driver-details`, true);
+            xhr.open("GET", `${BASEURL}api/main.php?action=getBusByDriverId`, true);
             xhr.setRequestHeader("Authorization", localStorage.getItem("jwtToken"));
             xhr.setRequestHeader("Content-Type", "application/json");
 
@@ -83,6 +84,7 @@ class DriverDashboard {
         });
     }
 
+
     sendLocation(lat, lng, status) {
         if (!this.socket || this.socket.readyState !== WebSocket.OPEN) {
             Toast("WebSocket is not connected", "Error");
@@ -90,7 +92,7 @@ class DriverDashboard {
         }
 
         const data = {
-            busId: `BUS-${this.DriverData.id}`,
+            busId: `BUS-${this.busData.bus_id}`,
             lat,
             lng,
             status: status,

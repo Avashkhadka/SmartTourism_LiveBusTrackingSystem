@@ -97,7 +97,7 @@ const fetchBusData = async (CardContainer) => {
         }
 
         const busData = await res.json();
-        const buses = Array.isArray(busData) ? busData : busData.bus || [];
+        const buses = Array.isArray(busData) ? busData : busData.data || [];
 
         if (!buses.length) {
             updateMessage(CardContainer, "No bus requests found.");

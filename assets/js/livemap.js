@@ -1,7 +1,7 @@
 import { getUserLocation } from "../../utils/getUserLocation.js";
-const { SOCKETPATH } = window.CONFIG
+const { BASEURL, SOCKETPATH } = window.CONFIG
 const busMarkers = new Map();
-
+const availableBus = [];
 
 export const handleLiveMap = async () => {
     const liveMapContainer = document.getElementById("live-map-container")
@@ -20,6 +20,50 @@ export const handleLiveMap = async () => {
 }
 
 
+function setBusData(bus) {
+    availableBus.push(bus);
+}
+
+
+async function fetchBusData() {
+    try {
+
+        const activeBusId = availableBus.map((el) => {
+            return el.split("-")[1];
+        })
+        console.log(activeBusId)
+
+        const res = await fetch(`${BASEURL}api/main.php?action=getActiveBusData&activeBusId=${activeBusId.join(",")}`, {
+            method: "GET",
+            headers: {
+                Authorization: localStorage.getItem("jwtToken") || ""
+            }
+        });
+
+        if (res.status === 401) {
+            Toast(res.statusText, "Error");
+
+            setTimeout(() => {
+                window.location.href = "../global/logout.php";
+            }, 2000);
+
+            return [];
+        }
+
+        if (!res.ok) {
+            Toast(res.statusText, "Error");
+            return [];
+        }
+
+        const busData = await res.json();
+        return busData.bus;
+    } catch (err) {
+        console.log(err);
+        Toast("Failed to fetch bus requests.", "Error");
+        return [];
+    }
+
+}
 
 function handleSocket(buses, map) {
 
@@ -31,24 +75,39 @@ function handleSocket(buses, map) {
         socket.onmessage = (event) => {
             if (socketTimer) clearTimeout(socketTimer);
 
-            const bus = JSON.parse(event.data);
-            console.log(bus)
-            if (bus.status !== "Active") {
-                const busDetails = busMarkers.get(bus.busId);
+            const busesData = JSON.parse(event.data);
 
-                if (busDetails?.marker) {
-                    map.removeLayer(busDetails.marker);
-                    busMarkers.delete(bus.busId);
+            for (const [busId] of buses) {
+                if (!busesData.some(bus => bus.busId === busId)) {
+                    const busDetails = busMarkers.get(busId);
+
+                    if (busDetails?.marker) {
+                        map.removeLayer(busDetails.marker);
+                        busMarkers.delete(busId);
+                    }
+
+                    buses.delete(busId);
                 }
-
-                buses.delete(bus.busId);
-                return;
             }
 
-            buses.set(bus.busId, bus);
+            for (const bus of busesData) {
+                if (bus.status === "Active") {
+                    buses.set(bus.busId, bus);
+                } else {
+                    const busDetails = busMarkers.get(bus.busId);
+
+                    if (busDetails?.marker) {
+                        map.removeLayer(busDetails.marker);
+                        busMarkers.delete(bus.busId);
+                    }
+
+                    buses.delete(bus.busId);
+                }
+            }
 
             for (const [busId, busData] of buses) {
                 if (busData.status === "Active") {
+                    setBusData(busId);
                     PopulateMap(busId, busData, map);
                 }
             }
@@ -78,24 +137,30 @@ async function PopulateMap(busId, busData, map) {
         }).addTo(map);
 
         let BusDetails = await fetchBusData()
+
+        let FilteredBusDetails = BusDetails.find(el => el.bus_id == busId.split("-")[1]);
+
         marker.bindPopup(`
-        <div class="flex flex-col gap-2 px4 py-2" >
-            <span>
-                <strong>   Bus Id:</strong> ${busId}
-            </span>
-            <span>
-                <strong>   Final Destination:</strong> ${BusDetails.route_to}
-            </span>
-            <span>
-                <strong>   No of Seats:</strong> ${BusDetails.seats}
-            </span>
-            <span>
-                 <strong>   Fee:</strong> ${BusDetails.fee}
-            </span>
-            <button class='text-xs text-white font-semibold rounded-full bg-secondary border-none py-2 px-8'>Book Seat</button>
-        </div>
-        
-        `)
+            <div class="flex flex-col gap-2 px4 py-2" >
+                <span>
+                    <strong>   Bus Number:</strong> ${FilteredBusDetails.bus_number}
+                </span>
+                <span>
+                    <strong>   Contact Number:</strong> ${FilteredBusDetails.phone}
+                </span>
+                <span>
+                    <strong>   No of Seats:</strong> ${FilteredBusDetails.seat_capacity}
+                </span>
+                <span>
+                    <strong>   Total Stops:</strong> ${FilteredBusDetails.total_stops}
+                </span>
+                <span>
+                    <strong>   Bus Route:</strong> ${FilteredBusDetails.route_name}
+                </span>
+                <button class='text-xs text-white font-semibold rounded-full bg-secondary border-none py-2 px-8'>Book Seat</button>
+            </div>
+            
+            `)
         busMarkers.set(busId, { marker: marker, busDetails: BusDetails });
 
     } else {
@@ -105,16 +170,16 @@ async function PopulateMap(busId, busData, map) {
 }
 
 
-function fetchBusData() {
-    // const xhr = new XMLHttpRequest();
-    // xhr.open("POST","")
-    return {
-        "route": "3",
-        "route_to": "RNAC",
-        "seats": 19,
-        "fee": 120,
-    }
-}
+// function fetchBusData() {
+//     // const xhr = new XMLHttpRequest();
+//     // xhr.open("POST","")
+//     return {
+//         "route": "3",
+//         "route_to": "RNAC",
+//         "seats": 19,
+//         "fee": 120,
+//     }
+// }
 
 
 function handleMap(latitude, longitude) {
