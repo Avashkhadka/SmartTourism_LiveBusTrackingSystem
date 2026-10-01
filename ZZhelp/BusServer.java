@@ -2,6 +2,7 @@ package socketIo;
 
 import jakarta.websocket.*;
 import jakarta.websocket.server.ServerEndpoint;
+
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -18,18 +19,29 @@ public class BusServer {
         clients.add(session);
         System.out.println("Client connected: " + session.getId());
 
+        StringBuilder allBuses = new StringBuilder("[");
+        boolean first = true;
+
         for (String message : buses.values()) {
-            try {
-                session.getBasicRemote().sendText(message);
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (!first) {
+                allBuses.append(",");
             }
+
+            allBuses.append(message);
+            first = false;
+        }
+
+        allBuses.append("]");
+
+        try {
+            session.getBasicRemote().sendText(allBuses.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     @OnMessage
     public void onMessage(String message, Session sender) {
-
         if (message == null || message.trim().isEmpty()) {
             return;
         }
@@ -41,9 +53,23 @@ public class BusServer {
 
             buses.put(busId, message);
 
+            StringBuilder allBuses = new StringBuilder("[");
+            boolean first = true;
+
+            for (String bus : buses.values()) {
+                if (!first) {
+                    allBuses.append(",");
+                }
+
+                allBuses.append(bus);
+                first = false;
+            }
+
+            allBuses.append("]");
+
             for (Session session : clients) {
                 try {
-                    session.getBasicRemote().sendText(message);
+                    session.getBasicRemote().sendText(allBuses.toString());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
