@@ -16,14 +16,28 @@ function handleBusRegistration($conn)
         $bill_book_no = $_POST['bill_book_no'];
         $operating_route = $_POST['operating_route'];
 
-        $sql = "SELECT status from users where user_id = $user_id";
+        $sql = "SELECT 
+                d.bill_book_status,
+                d.driving_license_status,
+                d.insurance_document_status,
+                CASE
+                    WHEN d.bill_book_status = 'approved'
+                    AND d.driving_license_status = 'approved'
+                    AND d.insurance_document_status = 'approved'
+                    THEN 'approved'
+                    ELSE 'pending'
+                END AS document_status
+                FROM users u
+                JOIN driver_documents d 
+                ON u.user_id = d.user_id
+                WHERE u.user_id = $user_id;";
         $res = mysqli_query($conn, $sql);
         if (!$res) {
             respondJson(400, "Something went wrong", ["code" => $sql]);
         }
         $userStatus = mysqli_fetch_assoc($res);
-        if ($userStatus['status'] !== 'accepted') {
-            respondJson(400, "Your account is not accepted. Please wait for approval.");
+        if ($userStatus['document_status'] !== 'approved') {
+            respondJson(400, "Your account is not accepted. Please submit your details and wait for approval.");
             return;
         }
 
@@ -257,6 +271,31 @@ function updateBus($conn)
     }
 
     $user_id = $verifyUser->user_id;
+
+    $sql = "SELECT 
+                d.bill_book_status,
+                d.driving_license_status,
+                d.insurance_document_status,
+                CASE
+                    WHEN d.bill_book_status = 'approved'
+                    AND d.driving_license_status = 'approved'
+                    AND d.insurance_document_status = 'approved'
+                    THEN 'approved'
+                    ELSE 'pending'
+                END AS document_status
+                FROM users u
+                JOIN driver_documents d 
+                ON u.user_id = d.user_id
+                WHERE u.user_id = $user_id;";
+    $res = mysqli_query($conn, $sql);
+    if (!$res) {
+        respondJson(400, "Something went wrong", ["code" => $sql]);
+    }
+    $userStatus = mysqli_fetch_assoc($res);
+    if ($userStatus['document_status'] !== 'approved') {
+        respondJson(400, "Your account is not accepted. Please wait for approval.");
+        return;
+    }
 
     $bus_number = $_POST['bus_number'] ?? '';
     $bus_type = $_POST['bus_type'] ?? '';

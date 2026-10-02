@@ -29,6 +29,7 @@ class BusBooking {
 
     async init() {
         this.ActiveBus = await this.handleSocket();
+        console.log("Active Bus", this.ActiveBus);
         this.buses = this.ActiveBus;
 
         if (this.buses.length > 0) {
@@ -56,15 +57,18 @@ class BusBooking {
                         targetLng
                     )
                 );
+                const busData = this.buses.find(b => b.busId.split("-")[1] === bus.bus_id);
 
+                let distanceFromBus = calculateDistance(busData.lat, busData.lng, this.lat, this.lng);
                 const distance = Math.min(...distances);
 
                 return {
                     ...bus,
-                    distance
+                    distance,
+                    distanceFromBus
                 };
             })
-            .filter(bus => bus.distance < 0.5);
+            .filter(bus => bus.distance < 0.5 && bus.distanceFromBus < 30);
         this.populateBus(buses);
 
         return buses;
@@ -72,8 +76,9 @@ class BusBooking {
 
     async populateBus(buses) {
         this.availableBusContainer.innerHTML = "";
-
+        console.log(this.buses);
         if (buses.length === 0) {
+
             this.availableBusContainer.innerHTML = `
                 <div class="w-full p-16 text-black rounded-lg text-lg text-center border-gray" >
                     No bus available for this route.
@@ -81,13 +86,15 @@ class BusBooking {
             `;
             return;
         } else {
-            buses.forEach(bus => {
+            buses.forEach((bus,i) => {
+
+
                 const busCard = document.createElement("div");
-                busCard.classList.add("bus-card", "p-4", "border", "rounded-lg", "mb-4");
+                busCard.classList.add("bus-card", "border", "rounded-lg");
                 busCard.innerHTML =/*html*/`
                      <div class="available_bus_card flex shadow-md  w-full gap-4 rounded-3xl border-gray p-4">
-                                <input type="radio" name="availableBus" id="bus_id_<?php echo $a?>">
-                                <label for="bus_id_<?php echo $a?>" class="w-full">
+                                <input type="radio" name="availableBus" id="bus_id_${i}">
+                                <label for="bus_id_${i}" class="w-full">
                                     <div class="flex justify-between w-full">
                                         <div class="flex flex-col gap-2">
                                             <span class="font-bold">
@@ -99,7 +106,7 @@ class BusBooking {
                                         <div class="flex flex-col gap-2 color-gray text-sm items-end ">
                                             <span class="font-semibold text-md text-white bg-secondary rounded-full w-fit px-6  text-center py-2">
 
-                                                ${Math.round((bus.distance / 20) * 60)} min
+                                                 ${Math.round((bus.distanceFromBus / 20) * 60)} min
                                             </span>
                                             <span>
                                                 ${bus.seat_capacity} seats | ${bus.vehicle_type}
