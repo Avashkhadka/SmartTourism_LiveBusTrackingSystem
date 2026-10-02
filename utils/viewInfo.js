@@ -123,6 +123,18 @@ export const VerifyDialog = (data, type, BASEURL) => {
                                    <img src="${BASEURL}${data.bill_book_front_photo}">
                                    <img src="${BASEURL}${data.bill_book_back_photo}">
                                </div>
+                               <div class="driver-dialog-actions flex flex-col" id="driver-dialog-actions-b">
+                            
+                                    ${data.bill_book_status != "approved" ? `<div class='flex h-24 justify-center items-center font-bold'>Document ${data.bill_book_status}</div>` : `<button class="py-2 px-4 rounded-full border-none bg-red-500 mt-4 text-white"
+                                        data-action="reject" data-field=bill_book_status data-id="${data.user_id}">
+                                        Reject
+                                    </button>
+                        
+                                    <button class="py-2 px-4 bg-secondary text-white rounded-full border-none"
+                                        data-action="accept" data-field=bill_book_status data-id="${data.user_id}">
+                                        Approve Driver
+                                    </button>`}
+                                </div>
                            </div>
            
                            <div class="document-card">
@@ -137,6 +149,19 @@ export const VerifyDialog = (data, type, BASEURL) => {
                                    <img src="${BASEURL}${data.driving_license_front_photo}">
                                    <img src="${BASEURL}${data.driving_license_back_photo}">
                                </div>
+                               <div class="driver-dialog-actions flex flex-col" id="driver-dialog-actions-l">
+                         
+
+                                    ${data.driving_license_status === "approved" ? "<div class='flex h-24 justify-center items-center font-bold'>Document Verified</div>" : `<button class="py-2 px-4 rounded-full border-none mt-4 bg-red-500 text-white"
+                                        data-action="reject" data-field=driving_license_status data-id="${data.user_id}">
+                                        Reject
+                                    </button>
+                        
+                                    <button class="py-2 px-4 bg-secondary text-white rounded-full border-none"
+                                        data-action="accept" data-field=driving_license_status data-id="${data.user_id}">
+                                        Approve Driver
+                                    </button>`}
+                                </div>
                            </div>
            
                            <div class="document-card">
@@ -151,25 +176,24 @@ export const VerifyDialog = (data, type, BASEURL) => {
                                    <img src="${BASEURL}${data.insurance_document_front_photo}">
                                    <img src="${BASEURL}${data.insurance_document_back_photo}">
                                </div>
-                           </div>
-           
+                               <div class="driver-dialog-actions flex flex-col" id="driver-dialog-actions-i">
+                            
+                        
+                                    ${data.insurance_document_status === "approved" ? "<div class='flex h-24 justify-center items-center font-bold'>Document Verified</div>" : `<button class="py-2 px-4 rounded-full border-none mt-4   bg-red-500 text-white"
+                                        data-action="reject" data-field=insurance_document_status data-id="${data.user_id}">
+                                        Reject
+                                    </button>
+                        
+                                    <button class="py-2 px-4 bg-secondary text-white rounded-full border-none"
+                                        data-action="accept" data-field=insurance_document_status data-id="${data.user_id}">
+                                        Approve Driver
+                                    </button>`}
+                                </div>
+                            </div>
                        </div>
                    </div>
            
-                   <div class="driver-dialog-actions">
-                       <button class="py-2 px-4 rounded-full border-none"
-                           onclick="document.getElementById('verify-dialog').close()">
-                           Cancel
-                       </button>
-           
-                       <button class="py-2 px-4 rounded-full border-none bg-red-500 text-white">
-                           Reject
-                       </button>
-           
-                       <button class="py-2 px-4 bg-secondary text-white rounded-full border-none">
-                           Approve Driver
-                       </button>
-                   </div>
+                   
            
                </div>
         `;

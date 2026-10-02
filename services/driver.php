@@ -184,7 +184,7 @@ function addDocument($post, $files, $conn)
         $documentPaths = uploadImages("driver_documents", $data['user_id'], $_SESSION['user_name'], $fieldNames);
         updateImages($conn, "driver_documents", ["driving_license_front_photo", "driving_license_back_photo", "bill_book_front_photo", "bill_book_back_photo", "insurance_document_front_photo", "insurance_document_back_photo"], $data['user_id'], $documentPaths);
         mysqli_commit($conn);
-        respondJson(201, "Documents added successfully.", [
+        respondJson(200, "Documents added successfully.", [
             "documents" => $documentPaths
         ]);
 
@@ -261,9 +261,9 @@ function getDrivers($conn)
         JOIN driver_documents d ON u.user_id = d.user_id
         WHERE u.role = 'driver'
         AND (
-            d.bill_book_status != 'approved'
-            OR d.driving_license_status != 'approved'
-            OR d.insurance_document_status != 'approved'
+            d.bill_book_status in ('pending')
+            OR d.driving_license_status in ('pending')
+            OR d.insurance_document_status in ('pending')
         )
         AND d.bill_book_front_photo IS NOT NULL
         AND d.bill_book_back_photo IS NOT NULL
@@ -271,7 +271,7 @@ function getDrivers($conn)
         AND d.driving_license_back_photo IS NOT NULL
         AND d.insurance_document_front_photo IS NOT NULL
         AND d.insurance_document_back_photo IS NOT NULL";
-        
+
     $res = mysqli_query($conn, $sql);
     if ($res) {
         $data = $res->fetch_all(MYSQLI_ASSOC);

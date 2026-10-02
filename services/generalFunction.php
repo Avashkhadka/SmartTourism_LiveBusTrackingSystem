@@ -296,6 +296,8 @@ function manageRecord($conn)
     $mode = $_GET['mode'] ?? null;
     $tb = $_GET['tb'] ?? null;
     $tbfn = $_GET['tbfn'] ?? null;
+    $statusField = $_GET['status'] ?? "status";
+
     if (!$id || !$mode) {
         respondJson(400, "Record ID and mode are required");
         exit;
@@ -306,16 +308,16 @@ function manageRecord($conn)
     }
 
     $status = $mode === "accept" ? "approved" : "rejected";
-    $stmt = mysqli_prepare($conn, "UPDATE $tb SET status = ? WHERE $tbfn = ?");
+    $stmt = mysqli_prepare($conn, "UPDATE $tb SET $statusField = ? WHERE $tbfn = ?");
     mysqli_stmt_bind_param($stmt, "si", $status, $id);
     if (mysqli_stmt_execute($stmt)) {
         if (mysqli_stmt_affected_rows($stmt) > 0) {
-            respondJson(200, "Record $status successfully");
+            respondJson(200, "Record $status successfully",["UPDATE $tb SET $statusField = $status WHERE $tbfn = $id"]);
         } else {
             respondJson(404, "Record not found");
         }
     } else {
-        respondJson(500, mysqli_stmt_error($stmt));
+        respondJson(500, mysqli_stmt_error($stmt),["tb"=>$tb,"tbfn"=>$tbfn]);
     }
     mysqli_stmt_close($stmt);
 }

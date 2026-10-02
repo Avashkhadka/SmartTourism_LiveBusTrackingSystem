@@ -33,70 +33,114 @@ export const LoadDriverApproval = async () => {
 
         dialog.showModal();
 
+
+
+        handleAction(document.querySelector("#driver-dialog-actions-b"), dialog)
+        handleAction(document.querySelector("#driver-dialog-actions-l"), dialog)
+        handleAction(document.querySelector("#driver-dialog-actions-i"), dialog)
+
+
+        // document.querySelector("#driver-dialog-actions").addEventListener("click", (e) => {
+        //     const button = e.target.closest("#driver-dialog-actions");
+        //     if (!button) return;
+        //     console.log("button", button)
+        // const token = localStorage.getItem("jwtToken");
+        // const data = new FormData();
+
+        // data.append("action", "actionOnDriver");
+        // data.append("driver_id", button.dataset.driver_id);
+        // data.append("driverAction", "approved");
+
+        // const xhr = new XMLHttpRequest();
+
+        // xhr.open("POST", `${BASEURL}/api/driverapi.php`, true);
+        // xhr.setRequestHeader("Authorization", token);
+
+        // xhr.onload = function () {
+        //     const response = JSON.parse(xhr.responseText);
+
+        //     if (xhr.status === 200) {
+        //         Toast(response.message, "Success");
+
+        //         let drivers = JSON.parse(
+        //             localStorage.getItem("driverDataAdmin")
+        //         );
+
+        //         drivers = Array.isArray(drivers)
+        //             ? drivers
+        //             : drivers.driver || [];
+
+        //         drivers = drivers.map((driver) =>
+        //             driver.driver_id === button.dataset.driver_id
+        //                 ? { ...driver, status: "approved" }
+        //                 : driver
+        //         );
+
+        //         localStorage.setItem(
+        //             "driverDataAdmin",
+        //             JSON.stringify({ driver: drivers })
+        //         );
+
+        //         PopulateData(CardContainer, drivers);
+        //     }
+
+        //     if (xhr.status === 401) {
+        //         Toast(response.message, "Error");
+        //     }
+        // };
+
+        // xhr.onerror = function () {
+        //     Toast("Failed to Approve Driver", "Error");
+        // };
+
+        // xhr.send(data);
+        // });
     })
 
-
-
-
-
-    // CardContainer.addEventListener("click", (e) => {
-    //     const button = e.target.closest(".show-driver-detail");
-    //     if (!button) return;
-
-    //     const token = localStorage.getItem("jwtToken");
-    //     const data = new FormData();
-
-    //     data.append("action", "actionOnDriver");
-    //     data.append("driver_id", button.dataset.driver_id);
-    //     data.append("driverAction", "approved");
-
-    //     const xhr = new XMLHttpRequest();
-
-    //     xhr.open("POST", `${BASEURL}/api/driverapi.php`, true);
-    //     xhr.setRequestHeader("Authorization", token);
-
-    //     xhr.onload = function () {
-    //         const response = JSON.parse(xhr.responseText);
-
-    //         if (xhr.status === 200) {
-    //             Toast(response.message, "Success");
-
-    //             let drivers = JSON.parse(
-    //                 localStorage.getItem("driverDataAdmin")
-    //             );
-
-    //             drivers = Array.isArray(drivers)
-    //                 ? drivers
-    //                 : drivers.driver || [];
-
-    //             drivers = drivers.map((driver) =>
-    //                 driver.driver_id === button.dataset.driver_id
-    //                     ? { ...driver, status: "approved" }
-    //                     : driver
-    //             );
-
-    //             localStorage.setItem(
-    //                 "driverDataAdmin",
-    //                 JSON.stringify({ driver: drivers })
-    //             );
-
-    //             PopulateData(CardContainer, drivers);
-    //         }
-
-    //         if (xhr.status === 401) {
-    //             Toast(response.message, "Error");
-    //         }
-    //     };
-
-    //     xhr.onerror = function () {
-    //         Toast("Failed to Approve Driver", "Error");
-    //     };
-
-    //     xhr.send(data);
-    // });
 };
 
 
+
+const handleAction = (actions, dialog) => {
+
+    actions.addEventListener("click", async (e) => {
+        const button = e.target.closest("button");
+        if (!button) return;
+
+        const id = button.dataset.id;
+        const mode = button.dataset.action;
+        const type = button.dataset.field;
+        const statusfield = type.split("_").slice(0, 2).join("_") + "_status"
+        console.log("id", id, "mode", mode, "type", type,"ststus",statusfield)
+
+        if (mode === "close") {
+            dialog.close();
+            return;
+        }
+
+        try {
+            const res = await fetch(`${BASEURL}/api/main.php?action=manageRecord&id=${id}&mode=${mode}&tb=driver_documents&tbfn=user_id&status=${statusfield}`, {
+                method: "GET",
+                headers: {
+                    Authorization: localStorage.getItem("jwtToken") || ""
+                }
+            });
+
+            const data = await res.json();
+
+            if (data.status === 200) {
+                Toast(data.message, "Success");
+                dialog.close();
+                LoadDriverApproval();
+            } else {
+                Toast(data.message || "Action failed", "Error");
+            }
+        } catch (error) {
+            console.error(error);
+            Toast("Something went wrong", "Error");
+        }
+    });
+};
 
 
 const fetchDriversData = async (CardContainer) => {
@@ -161,7 +205,7 @@ const PopulateData = (CardContainer, drivers) => {
 
 
     document.getElementById("pending-driver").innerText = `${pendingDrivers.length} `
-    
+
     if (pendingDrivers.length > 0) {
         let cardHtml = "";
 
