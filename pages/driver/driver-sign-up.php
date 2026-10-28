@@ -45,6 +45,7 @@
                                     'id' => 'date_of_birth',
                                     'label' => 'Date Of Birth',
                                     'type' => 'date',
+                                    'max' => date('Y-m-d', strtotime('-18 years'))
                                 ]);
 
 

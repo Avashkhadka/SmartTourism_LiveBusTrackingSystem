@@ -1,4 +1,5 @@
 
+import { LoadFunction } from "./adminDashboard.js";
 import { LoadAuthHandler } from "./auth.js";
 import { LoadBusBooking } from "./book_bus.js";
 import { LoadBusApproval } from "./bus_request.js";
@@ -30,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
     LoadRouteBuild();
     LoadBusApproval();
     LoadBusBooking();
+    LoadFunction();
     HandleOtp()
 
     LoadIntersectionObserver();

@@ -81,15 +81,15 @@ function createDriverDocuments($conn)
 
         bill_book_front_photo VARCHAR(255)  default Null,
         bill_book_back_photo VARCHAR(255) default Null,
-        bill_book_status VARCHAR(255) DEFAULT 'pending', 
+        bill_book_status VARCHAR(255) DEFAULT 'missing', 
 
         driving_license_front_photo VARCHAR(255) default Null,
         driving_license_back_photo VARCHAR(255)  default Null,
-        driving_license_status VARCHAR(255) DEFAULT 'pending', 
+        driving_license_status VARCHAR(255) DEFAULT 'missing', 
 
         insurance_document_front_photo VARCHAR(255) default Null,
         insurance_document_back_photo  VARCHAR(255)  default Null,
-        insurance_document_status VARCHAR(255) DEFAULT 'pending', 
+        insurance_document_status VARCHAR(255) DEFAULT 'missing', 
 
 
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

@@ -183,7 +183,7 @@ $amenities = ["Parking", "Restrooms", "Food nearby", "Wifi", "WheelChair access"
                             ]);
                             Select([
                                 "label" => "How to reach",
-                                "id" => "how-to-reach",
+                                "id" => "how_to_reach",
                                 "option" => ["Walking", "Bus  + Walk", "Trek","Bus"],
                                 "dclass" => "flex-col w-full color-gray",
                             ]);

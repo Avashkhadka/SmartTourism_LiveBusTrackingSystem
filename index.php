@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +14,7 @@
         <?php RenderNavbar("home") ?>
         <?php Hero() ?>
 
-?>
+
         <section class="py-12 page-container reveal mt-8">
             <div class="flex flex-col gap-3">
                 <!-- <div class="flex gap-2 items-center text-gray-600 text-xs  font-medium tracking-widest-long "> -->
@@ -162,7 +161,7 @@
     </div>
 
     <?php
-  
+
     include 'includes/footerlinks.php'
         ?>
 

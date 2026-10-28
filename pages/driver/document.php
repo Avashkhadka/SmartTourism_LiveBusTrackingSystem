@@ -70,9 +70,9 @@ $requiredDoc = [
                     foreach ($requiredDoc as $file) {
 
                         ?>
-                        <div class="p-6 border-gray bg-white flex flex-col rounded-xl">
+                        <div class="p-6 border-gray bg-white flex flex-col rounded-xl relative">
 
-                            <div class="doc-status flex justify-end">--Missing</div>
+                            <!-- <div class="doc-status flex justify-end">--Missing</div> -->
                             <div>
                                 <div>
                                     <p class="text-lg font-semibold"><?php echo $file[0] ?></p>

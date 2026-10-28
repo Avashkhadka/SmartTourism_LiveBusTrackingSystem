@@ -65,14 +65,21 @@ export const HandleViewLocation = async () => {
         busEstfair.innerText = `Rs ${estimatedFare}`;
         busETA.innerText = `${eta} min`;
 
+        let how_to_reach = thisLocation.how_to_reach
+            .toLowerCase()
+            .split(/\s*\+\s*|\s+/)
+            .filter(Boolean)
+            .join("_");
+
         bookNowAnchor.href =
             `${BASEURL}pages/user/book_seat.php` +
             `?location_id=${thisLocation.location_id}` +
             `&lat=${thisLocation.latitude}` +
             `&lng=${thisLocation.longitude}` +
             `&eta=${eta}` +
-            `&est_fare=${estimatedFare}`+
-            `&entry_fee=${entryFee}`;
+            `&est_fare=${estimatedFare}` +
+            `&entry_fee=${entryFee}` +
+            `&how_to_reach=${how_to_reach}`;
 
         var map = L.map('map').setView([thisLocation.latitude, thisLocation.longitude], 13);
 

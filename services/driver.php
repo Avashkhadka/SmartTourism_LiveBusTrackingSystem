@@ -167,6 +167,51 @@ function getDriverData($conn)
     }
 
 }
+function getDriverDocData($conn)
+{
+    $headers = getallheaders();
+    $authHeader = $headers['Authorization'] ?? '';
+
+    if (!$authHeader) {
+        respondJson(401, "Authorization required");
+    }
+
+    $verifyUser = checkLogin($authHeader);
+
+    if ($verifyUser->role != "driver") {
+        respondJson(401, "You don't have permission to access bus data");
+    }
+
+    $user_id = $verifyUser->user_id;
+
+    $stmt = mysqli_prepare($conn, "
+    SELECT * from driver_documents d
+    WHERE d.user_id = ?
+    LIMIT 1
+");
+
+    mysqli_stmt_bind_param($stmt, "i", $user_id);
+    mysqli_stmt_execute($stmt);
+
+    $result = mysqli_stmt_get_result($stmt);
+    if (!$result) {
+        mysqli_stmt_close($stmt);
+        respondJson(400, mysqli_error($conn));
+    }
+
+    $data = $result->fetch_all(MYSQLI_ASSOC);
+
+    mysqli_stmt_close($stmt);
+    if (empty($data)) {
+        respondJson(200, "No user data found");
+    }
+
+    respondJson(
+        200,
+        "Successfully fetched Bus Data.",
+        ["bus" => $data[0]]
+    );
+}
 
 
 function addDocument($post, $files, $conn)
@@ -182,7 +227,9 @@ function addDocument($post, $files, $conn)
         $fieldNames = ["driving_license_front_photo", "driving_license_back_photo", "bill_book_front_photo", "bill_book_back_photo", "insurance_front_photo", "insurance_back_photo"];
 
         $documentPaths = uploadImages("driver_documents", $data['user_id'], $_SESSION['user_name'], $fieldNames);
-        updateImages($conn, "driver_documents", ["driving_license_front_photo", "driving_license_back_photo", "bill_book_front_photo", "bill_book_back_photo", "insurance_document_front_photo", "insurance_document_back_photo"], $data['user_id'], $documentPaths);
+        array_push($documentPaths, "pending", "pending", "pending");
+        updateImages($conn, "driver_documents", ["driving_license_front_photo", "driving_license_back_photo", "bill_book_front_photo", "bill_book_back_photo", "insurance_document_front_photo", "insurance_document_back_photo","bill_book_status","driving_license_status","insurance_document_status"], $data['user_id'], $documentPaths);
+
         mysqli_commit($conn);
         respondJson(200, "Documents added successfully.", [
             "documents" => $documentPaths

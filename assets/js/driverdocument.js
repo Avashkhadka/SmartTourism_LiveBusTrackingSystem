@@ -1,3 +1,4 @@
+import { AddText } from "../../utils/addText.js";
 import { Toast } from "../../utils/toast.js";
 const { BASEURL } = window.CONFIG;
 export const loadDriverDocumentation = () => {
@@ -5,7 +6,8 @@ export const loadDriverDocumentation = () => {
     if (!container) return;
 
     const documentForm = document.getElementById("document-verification-form");
-
+    const docGridContainerontainer = document.querySelectorAll(".doc-grid-container>div");
+    if (!docGridContainerontainer) return;
     documentForm.addEventListener("submit", (e) => {
         e.preventDefault();
         const documentFormData = new FormData(documentForm);
@@ -72,4 +74,70 @@ export const loadDriverDocumentation = () => {
 
         xhr.send(documentFormData);
     });
+
+
+    checkExistingBusData(docGridContainerontainer)
+
 }
+const createOverlay = (container, status, style) => {
+    let overlay = document.createElement("span");
+    overlay.classList.add("flex", "text-xl", "font-bold", "text-black", "flex-col", style, "rounded-xl", 'justify-center', "items-center", "top-0", "left-0", "h-full", "w-full", "absolute")
+    overlay.innerText = style
+    container.appendChild(overlay)
+}
+const checkExistingBusData = async (container) => {
+    try {
+        const res = await fetch(
+            `${BASEURL}api/main.php?action=getDriverData`,
+            {
+                method: "GET",
+                headers: {
+                    Authorization:
+                        localStorage.getItem("jwtToken") || "",
+                },
+            }
+        );
+
+        const data = await res.json();
+
+
+        if (data.status === 200 && data.bus) {
+            // Store bus ID so we know this is an update
+
+            console.log(data.bus)
+
+            const statuses = [
+                data.bus.bill_book_status,
+                data.bus.driving_license_status,
+                data.bus.insurance_document_status
+            ];
+            const approved = statuses.filter(s => s === "approved").length;
+            const pending = statuses.filter(s => s === "pending").length;
+            const rejected = statuses.filter(s => s === "rejected").length;
+            console.log(approved, pending, rejected)
+            console.log(container)
+            statuses.forEach((el, i) => {
+                if (el !== "missing") {
+
+                    createOverlay(container[i], i, el)
+                }
+            })
+            console.log("statuses", statuses)
+            AddText("#approved-document", `${approved} / 3 approved`)
+            AddText("#pending-document", `${pending} pending`)
+            AddText("#rejected-document", `${rejected} rejected`)
+
+            console.log("Bus data loaded for update");
+        } else if (data.status === 200 && !data.bus) {
+            return
+        } else if (data.status === 401) {
+            Toast("Unauthorized. Please login again.", "Error");
+        } else {
+            Toast("Failed to check bus data.", "Error");
+        }
+    } catch (err) {
+        console.error("Error checking bus data:", err);
+        Toast("Something went wrong while checking bus data.", "Error");
+    }
+};
+

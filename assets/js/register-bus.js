@@ -44,6 +44,7 @@ const checkExistingBusData = async (registerForm, operating_route) => {
         if (data.status === 200 && data.bus) {
             // Store bus ID so we know this is an update
             AddText("#register_bus_header", "Update Bus Information");
+            AddText("#register_bus_header_status", `${data.bus.status.charAt(0).toUpperCase()}${data.bus.status.slice(1)}`);
             document.getElementById("register-bus-image-container").style.display = "none";
             registerForm.dataset.busId = data.bus.bus_id;
             registerForm.querySelector('[name="bus_number"]').value = data.bus.bus_number || "";

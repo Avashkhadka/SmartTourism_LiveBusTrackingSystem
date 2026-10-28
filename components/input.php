@@ -10,6 +10,7 @@ function Input($props = [])
     $iclass = $props['iclass'] ?? '';
     $lclass = $props['lclass'] ?? '';
     $value = $props['value'] ?? '';
+    $max = $props['max'] ?? '';
   
     ?>
     <div class="flex gap-2 mb-2 <?php echo $dclass; ?>">
@@ -18,7 +19,7 @@ function Input($props = [])
             
         </label>
 
-        <input type="<?php echo $type; ?>" value="<?php echo $value?>" name="<?php echo $id?>" id="<?php echo $id; ?>" class="<?php echo $iclass; ?>"
+        <input type="<?php echo $type; ?>" <?php echo $max ? "max='$max'" : ""; ?> value="<?php echo $value?>" name="<?php echo $id?>" id="<?php echo $id; ?>" class="<?php echo $iclass; ?>"
             placeholder="<?php echo $placeholder; ?>" <?php echo $type == "file"? "accept='.jpg,.jpeg,.png'":""?> >
     </div>
     <?php

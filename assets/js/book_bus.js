@@ -17,6 +17,8 @@ class BusBooking {
         this.eta = params.get("eta");
         this.est_fare = params.get("est_fare");
         this.entry_fee = params.get("entry_fee");
+        this.how_to_reach = params.get("how_to_reach");
+
 
         AddText("#busEstEntryFeesl", this.entry_fee);
         AddText("#busETAsl", ` ${this.eta} min`);
@@ -68,7 +70,16 @@ class BusBooking {
                     distanceFromBus
                 };
             })
-            .filter(bus => bus.distance < 0.5 && bus.distanceFromBus < 30);
+            .filter((bus) => {  
+                // console.log(this.how_to_reach === "bus_walk")
+
+                // if (this.how_to_reach === "bus_walk") { return bus.distance < 0.1 && bus.distanceFromBus < 30 }
+                // else if (this.how_to_reach === "walking") { return bus.distance < 0.8 && bus.distanceFromBus < 30 }
+                // else if (this.how_to_reach === "trek") { return bus.distance < 1.5 && bus.distanceFromBus < 30 }
+                // else if (this.how_to_reach === "bus") { return bus.distance < 0.5 && bus.distanceFromBus < 30 }
+                
+                return bus.distance < 0.5 && bus.distanceFromBus < 30  
+            });
         this.populateBus(buses);
 
         return buses;
@@ -86,7 +97,7 @@ class BusBooking {
             `;
             return;
         } else {
-            buses.forEach((bus,i) => {
+            buses.forEach((bus, i) => {
 
 
                 const busCard = document.createElement("div");

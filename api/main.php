@@ -50,6 +50,11 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
         case "getUserData":
             getUserBusData($conn);
             break;
+        
+        case "getDriverData":
+            getDriverDocData($conn);
+            break;
+        
 
         case "manageRecord":
             manageRecord($conn);
@@ -61,6 +66,9 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
 
         case "getBusByDriverId":
             getBusByDriverId($conn);
+            break;
+        case "getUsers":
+            getUsers($conn);
             break;
 
         default:

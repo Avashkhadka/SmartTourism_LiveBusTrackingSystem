@@ -326,7 +326,8 @@ function updateBus($conn)
             vehicle_type = ?,
             seat_capacity = ?,
             bill_book_no = ?,
-            insurance_number = ?
+            insurance_number = ?,
+            status = 'pending'
         WHERE user_id = ?
     ");
 

@@ -153,6 +153,21 @@ button {
     border-color: #a3cfbb;
 }
 
+.approved {
+    background-color: transparent;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 60%, #47c75abd 100%);
+}
+
+.rejected {
+    background-color: transparent;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 60%, #f6501ebd 100%);
+}
+
+.pending {
+    background-color: transparent;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 60%, #FFF987 100%);
+}
+
 .circle {
     /* top: 140px;
     left: 170px; */

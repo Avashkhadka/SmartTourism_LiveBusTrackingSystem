@@ -12,6 +12,14 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <!-- <script src="https://cdn.maptiler.com/maplibre-gl-js/v1.13.0-rc.4/mapbox-gl.js"></script> -->
 
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css" />
+
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+
+
+
 <!-- <script src="https://unpkg.com/maplibre-gl@5.12.0/dist/maplibre-gl.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
 <script>

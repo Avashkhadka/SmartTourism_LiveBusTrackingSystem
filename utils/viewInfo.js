@@ -125,7 +125,7 @@ export const VerifyDialog = (data, type, BASEURL) => {
                                </div>
                                <div class="driver-dialog-actions flex flex-col" id="driver-dialog-actions-b">
                             
-                                    ${data.bill_book_status != "approved" ? `<div class='flex h-24 justify-center items-center font-bold'>Document ${data.bill_book_status}</div>` : `<button class="py-2 px-4 rounded-full border-none bg-red-500 mt-4 text-white"
+                                    ${data.bill_book_status === "approved"? `<div class='flex h-24 justify-center items-center font-bold'>Document ${data.bill_book_status}</div>` : `<button class="py-2 px-4 rounded-full border-none bg-red-500 mt-4 text-white"
                                         data-action="reject" data-field=bill_book_status data-id="${data.user_id}">
                                         Reject
                                     </button>

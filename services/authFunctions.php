@@ -186,6 +186,62 @@ function handleDrSignIn($data, $conn)
 
 }
 
+function getUsers($conn)
+{
+    $headers = getallheaders();
+    $authHeader = $headers['Authorization'] ?? '';
+
+    if (!$authHeader) {
+        respondJson(401, "Authorization required");
+        exit;
+    }
+
+    $verifyUser = checkLogin($authHeader);
+
+    // Only admin can access all users
+    if ($verifyUser->role != "admin") {
+        respondJson(401, "You don't have permission to access users");
+        exit;
+    }
+
+    $sql = "
+        SELECT
+            user_id,
+            name,
+            email,
+            nationality,
+            country,
+            city,
+            phone,
+            role,
+            profile_image,
+            created_at
+        FROM users
+        ORDER BY
+            CASE
+                WHEN role = 'user' THEN 1
+                WHEN role = 'driver' THEN 2
+                ELSE 3
+            END,
+            user_id DESC
+    ";
+
+    $res = mysqli_query($conn, $sql);
+
+    if ($res) {
+        $data = $res->fetch_all(MYSQLI_ASSOC);
+
+        respondJson(
+            200,
+            "Successfully fetched users.",
+            ["users" => $data]
+        );
+    } else {
+        respondJson(400, mysqli_error($conn));
+    }
+}
+
+
 function handleSignup($data, $conn)
 {
 

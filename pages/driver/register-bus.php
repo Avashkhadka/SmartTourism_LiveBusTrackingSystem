@@ -34,6 +34,14 @@ $requiredDoc = [
                     </div>
                 </div>
 
+
+                <div class="flex w-full justify-end ">
+
+                    <div class="font-medium mt-4 border-gray px-4 py-2 rounded-full" id="register_bus_header_status">Not Submitted</div>
+                </div>
+
+
+
             </div>
 
             <form id="bus-registartion-form">

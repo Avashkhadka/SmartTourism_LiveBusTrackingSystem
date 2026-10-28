@@ -34,7 +34,7 @@ class DriverDashboard {
 
             this.dashboardControls.addEventListener("click", (e) => {
                 if (!this.busData) {
-                    Toast("No bus assigned to this driver", "Error");
+                    Toast("No bus assigned to this driver or Document is Pending", "Error");
                     return;
                 }
                 const button = e.target.closest("button");
